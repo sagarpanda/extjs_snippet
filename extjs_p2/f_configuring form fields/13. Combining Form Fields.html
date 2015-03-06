@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>Combining Form Fields</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+
+                Ext.apply(Ext.form.field.VTypes, {
+                    SortCode: function(val){
+                        var sortCodeRegex = /^(([0-9][0-9])|(99))$/;
+
+                        return sortCodeRegex.test(val);
+                    },
+                    SortCodeText: 'Must be a numeric value between 00 and 99',
+                    SortCodeMask: /[\d]/i
+                });
+                
+                var formPanel = Ext.create('Ext.form.Panel', {
+                    title: 'Combining Form Fields',
+                    width: 350,
+                    autoHeight: true,
+                    bodyPadding: 10,
+                    defaults: {
+                        anchor: '100%',
+                        labelWidth: 100
+                    },
+                    items: [{
+                        xtype: 'fieldcontainer',
+                        fieldLabel: 'Sort Code',
+                        combineErrors: true,
+                        layout: 'hbox',
+                        defaults: {
+                            hideLabel: true,
+                            vtype: 'SortCode'
+                        },
+                        items: [{
+                            xtype: 'textfield',
+                            name: 'sortcode1',
+                            margin: '0 3 0 0',
+                            allowBlank: false,
+                            flex: 1
+                        }, {
+                            xtype: 'displayfield',
+                            value: '-',
+                            width: 10
+                        }, {
+                            xtype: 'textfield',
+                            name: 'sortcode2',
+                            margin: '0 3 0 0',
+                            allowBlank: false,
+                            flex: 1
+                        }, {
+                            xtype: 'displayfield',
+                            value: '-',
+                            width: 10
+                        }, {
+                            xtype: 'textfield',
+                            name: 'sortcode3',
+                            allowBlank: false,
+                            flex: 1
+                        }]
+                    }, {
+                        xtype: 'numberfield',
+                        name: 'accountNumber',
+                        fieldLabel: 'Account Number',
+                        msgTarget: 'side',
+                        minValue: 10000000,
+                        maxValue: 99999999,
+                        hideTrigger: true,
+                        keyNavEnabled: false,
+                        mouseWheelEnabled: false,
+                        allowBlank: false
+                    }],
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser's edge
+                });
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

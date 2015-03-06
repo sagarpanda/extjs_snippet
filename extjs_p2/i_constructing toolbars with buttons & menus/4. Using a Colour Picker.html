@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>Using a Colour Picker</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <style type="text/css">
+            .x-color-picker.custom {
+                width: 150px;
+                height: 70px;
+                cursor: pointer;
+            }
+        </style>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+                var splitButton = Ext.create('Ext.button.Button', {
+                    text: 'Change the Background Color',
+                    menu: new Ext.menu.ColorPicker({
+                        handler: function(picker, color){
+                            Ext.getBody().setStyle('background-color', '#' + color);
+                        }
+                    })
+                });
+                
+                var panel = Ext.create('Ext.Panel', {
+                    height: 300,
+                    width: 400,
+                    dockedItems: [{
+                        xtype: 'toolbar',
+                        dock: 'top',
+                        items: [splitButton]
+                    }],
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser’s edge
+                });
+                
+                var redHuePicker = new Ext.menu.ColorPicker({
+                    componentCls: 'x-color-picker custom',
+                    colors: ['E78A61', 'F9966B', 'EE9A4D', 'F660AB', 'F665AB', 'E45E9D', 'C25283', '7D2252', 'E77471', 'F75D59', 'E55451', 'C24641', 'FF0000', 'F62217', 'E41B17', 'F62817', 'E42217', 'C11B17', 'FAAFBE', 'FBBBB9', 'E8ADAA', 'E7A1B0', 'FAAFBA', 'F9A7B0', 'E799A3', 'C48793', 'C5908E', 'B38481', 'C48189', '7F5A58', '7F4E52', '7F525D'],
+                    handler: function(picker, color){
+                        Ext.getBody().setStyle('background-color', '#' + color);
+                    }
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

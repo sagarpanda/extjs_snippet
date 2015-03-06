@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <title>2. Traversing the DOM</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+				/**
+				 * How to do it...
+				 */
+			
+            	// Get a reference to the 'Data Package' list item's element
+                var dataPackageEl = Ext.select('ul#whats-new li').item(2);
+                
+                // Get the 'Drawing' list item by using the prev() method
+                var drawingEl = dataPackageEl.prev();
+				
+				// Alert the innerHTML of the drawingEl found
+                alert(drawingEl.dom.innerHTML); // alerts 'Drawing'
+                
+				// Get the 'Enhanced Grid' list item by using the next() method
+                var enhancedGridEl = dataPackageEl.next();
+				
+				// Alert the innerHTML of the enhancedGridEl found
+                alert(enhancedGridEl.dom.innerHTML); // alerts 'Enhanced Grid'
+                
+				// Retrieve the 'What's New' list element
+                var whatsNewEl = Ext.get('whats-new');
+                
+				// Get the first child of the 'What's New' list using the first() method
+                var chartingEl = whatsNewEl.first();
+				
+				// Alert the innerHTML of the chartingEl found 
+                alert(chartingEl.dom.innerHTML); // alerts 'Charting'
+                
+				// Get the last child of the 'What's New' list using the last() method
+                var powerfulThemingEl = whatsNewEl.last();
+				
+				// Alert the innerHTML of the powerfulThemingEl found 
+                alert(powerfulThemingEl.dom.innerHTML); // alerts 'Powerful Theming'
+                
+				/**
+				 * There's more...
+				 */
+				
+				// Get a reference to the 'Data Package' list item
+                var dataPackageEl = Ext.select('ul#whats-new li').item(2);
+                
+				// Alert the ID of the dataPackageEl's parent element
+                alert(dataPackageEl.parent().id); // alerts 'whats-new'
+                
+				// Retrieve the 'What's New' list element
+                var whatsNewEl = Ext.get('whats-new');
+				
+				// Get the 'What's New' list's first <li> child.
+				var firstListItemChildEl = whatsNewEl.child('li');
+				
+				// Alert the innerHTML of the first child
+                alert(firstListItemChildEl.dom.innerHTML); // alerts 'Charting'
+       
+            });
+        </script>
+    </head>
+    <body>
+        <h1 id="book-title">Ext JS 4 ck</h1>
+        <h2>Authors</h2>
+        <ul id="authors">
+            <li>
+                Stuart Ashworth
+            </li>
+            <li>
+                Andrew Duncan
+            </li>
+        </ul>
+        <h2>What's new in Ext JS 4?</h2>
+        <ul id="whats-new">
+            <li>
+                Charting
+            </li>
+            <li>
+                Drawing
+            </li>
+            <li>
+                Data Package
+            </li>
+            <li>
+                Enhanced Grid
+            </li>
+            <li>
+                Powerful Theming
+            </li>
+        </ul>
+    </body>
+</html>

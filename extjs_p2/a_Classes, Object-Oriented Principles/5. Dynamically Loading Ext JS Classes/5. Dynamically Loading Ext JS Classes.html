@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>5. Dynamically Loading Ext JS Classes</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="../../../resources/css/ext-all.css">
+        <script type="text/javascript" src="../../../ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            // Configure the Ext.Loader class
+            Ext.Loader.setConfig({
+                enabled: true,
+                paths: {
+                    'Cookbook': 'src/Cookbook'
+                }
+            });
+            
+            Ext.onReady(function(){
+
+                // Create an instance of the Cookbook.Vehicle class inside the Ext.require() callback
+                Ext.require('Cookbook.Vehicle', function(){
+                    var plane = Ext.create('Cookbook.Vehicle', 'Ford', 'Transit', 60);
+                    plane.travel(200);
+                });
+
+				// Create an instance of the Cookbook.Plane class inside the Ext.require() callback
+                Ext.require('Cookbook.Plane', function(){
+                    var plane = Ext.create('Cookbook.Plane', 'Boeing', '747', 500, 35000);
+                    plane.travel(200);
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

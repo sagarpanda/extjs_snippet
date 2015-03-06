@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <title id="page-title">8. Creating a tabbed layout with tooltips</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1
+                 */
+                Ext.tip.QuickTipManager.init();
+                
+                
+                /**
+                 * Step 2
+                 */
+                Ext.create('Ext.tab.Panel', {
+                    width: 500,
+                    height: 200,
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody(),
+                    items: [{
+                        title: 'Tab One'
+                    }, {
+                        title: 'Tab Two'
+                    }]
+                });
+                
+                
+                /**
+                 * Step 3
+                 */
+                Ext.create('Ext.tab.Panel', {
+                    width: 500,
+                    height: 200,
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody(),
+                    items: [{
+                        title: 'Tab One'
+                    }, {
+                        title: 'Tab Two',
+                        tabConfig: {
+                            tooltip: 'Tab Two Tooltip Text'
+                        }
+                    }]
+                });
+                
+				
+                /**
+                 * Step 4
+                 */
+                Ext.create('Ext.tab.Panel', {
+                    width: 500,
+                    height: 200,
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody(),
+                    items: [{
+                        title: 'Tab One'
+                    }, {
+                        title: 'Tab Two',
+                        tabConfig: {
+                            tooltip: 'Tab Two Tooltip Text'
+                        }
+                    }, {
+                        title: 'Tab Three',
+                        tabConfig: {
+                            tooltip: {
+                                title: 'Tooltip Header',
+                                text: 'Tab Three Tooltip Text'
+                            }
+                        }
+                    }]
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

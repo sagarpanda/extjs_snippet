@@ -1,0 +1,130 @@
+<html>
+    <head>
+        <title>Editing Grid data with a Row Editor</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript" src="invoices-model.js">
+        </script>
+        <script type="text/javascript" src="invoices-store.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1 - Include our Invoice Model and Store
+                 */
+                // See above...
+                
+                /**
+                 * Step 2 - Create a Row Editing pluging for the grid
+                 */
+                var rowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
+                    clicksToEdit: 1
+                });
+                /**
+                 * Step 3 - Create a grid with one Action Column
+                 */
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Row Editing Example',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    plugins: [rowEditing],
+                    selType: 'rowmodel',
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        flex: 1,
+                        editor: {
+                            allowBlank: false
+                        }
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date',
+                        format: 'd/m/Y',
+                        xtype: 'datecolumn',
+                        editor: {
+                            xtype: 'datefield',
+                            format: 'd/m/Y',
+                            allowBlank: false
+                        }
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount',
+                        xtype: 'numbercolumn',
+                        editor: {
+                            xtype: 'numberfield',
+                            allowBlank: false,
+                            hideTrigger: true,
+                            minValue: 1,
+                            maxValue: 150000
+                        }
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody()
+                });
+                
+                /**
+                 * There's More
+                 */
+                var cellEditing = Ext.create('Ext.grid.plugin.CellEditing', {
+                    clicksToEdit: 1
+                });
+                
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Cell Editing Example',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    plugins: [cellEditing],
+                    selType: 'cellmodel',
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        flex: 1,
+                        editor: {
+                            allowBlank: false
+                        }
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date',
+                        format: 'd/m/Y',
+                        xtype: 'datecolumn',
+                        editor: {
+                            xtype: 'datefield',
+                            format: 'd/m/Y',
+                            allowBlank: false
+                        }
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount',
+                        xtype: 'numbercolumn',
+                        editor: {
+                            xtype: 'numberfield',
+                            allowBlank: false,
+                            hideTrigger: true,
+                            minValue: 1,
+                            maxValue: 150000
+                        }
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody()
+                });
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

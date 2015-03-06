@@ -1,0 +1,134 @@
+<html>
+    <head>
+        <title id="page-title">10. Execeuting inline JavaScript to customise appearance</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+		
+		<style type="text/css">
+			table {
+				width: 400px;
+			}			
+		</style>
+		
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1 - Create array of Bug Data
+                 */
+				var bugData = [{
+					id: 1,
+					title: 'Bug 1',
+					description: 'Bug 1 Description',
+					status: 'In Progress',
+					severity: 1
+				}, {
+					id: 2,
+					title: 'Bug 2',
+					description: 'Bug 2 Description',
+					status: 'Complete',
+					severity: 3
+				}, {
+					id: 3,
+					title: 'Bug 3',
+					description: 'Bug 3 Description',
+					status: 'Open',
+					severity: 4
+				}, {
+					id: 4,
+					title: 'Bug 4',
+					description: 'Bug 4 Description',
+					status: 'Open',
+					severity: 5
+				}, {
+					id: 5,
+					title: 'Bug 5',
+					description: 'Bug 5 Description',
+					status: 'Complete',
+					severity: 1
+				}, {
+					id: 6,
+					title: 'Bug 6',
+					description: 'Bug 6 Description',
+					status: 'Open',
+					severity: 2
+				}];
+				
+
+				/**
+                 * Step 2 - Define an Ext.XTemplate
+                 */
+				var tpl = new Ext.XTemplate('<table>',
+												'<tr>',
+													'<td>Title</td>',
+													'<td>Description</td>',
+													'<td>Severity</td>',
+												'</tr>',
+												'<tpl for=".">',
+													'<tr>',
+														'<td>{title}</td>',
+														'<td>{description}</td>',
+														'<td>{severity}</td>',
+													'</tr>',
+												'</tpl>',
+											'</table>');
+											
+				tpl.overwrite(Ext.getBody(), bugData);
+				
+				/**
+                 * Step 3 - Add conditional Logic
+                 */
+/*
+				
+var tpl = new Ext.XTemplate('<table>',
+								'<tr>',
+									'<td>Title</td>',
+									'<td>Description</td>',
+									'<td>Severity</td>',
+								'</tr>',
+								'<tpl for=".">',
+									'<tr style="background-color: {[this.severityColours[values.severity-1]]};">',
+										'<td>{title}</td>',
+										'<td>{description}</td>',
+										'<td>{severity}</td>',
+									'</tr>',
+								'</tpl>',
+							'</table>', {
+								severityColours: ['#FFFF00', '#FBB917', '#F87431', '#7E2217', '#C24641']
+							});
+							
+tpl.overwrite(Ext.getBody(), bugData);
+*/
+
+				
+				/**
+                 * Step 4 - Add conditional Logic
+                 */
+				
+				var tpl = new Ext.XTemplate('<table>',
+												'<tr>',
+													'<td>Title</td>',
+													'<td>Description</td>',
+													'<td>Severity</td>',
+												'</tr>',
+												'<tpl for=".">',
+													'<tr>',
+														'<td style="background-color: {[ values.status === "Complete" ? "green" : "transparent"]};">{title}</td>',
+														'<td>{description}</td>',
+														'<td>{severity}</td>',
+													'</tr>',
+												'</tpl>',
+											'</table>');
+											
+				tpl.overwrite(Ext.getBody(), bugData);
+
+				
+				
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

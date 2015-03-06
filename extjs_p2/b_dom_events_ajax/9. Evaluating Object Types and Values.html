@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>9. Evaluating Object Types and Values</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                var anArray = ["Item 1", "Item 2"];
+                var aBoolean = true;
+                var aDate = new Date();
+                var aFunction = function(){
+                    return true;
+                };
+                var aNumber = 26;
+                var anObject = {};
+                var aString = 'String of Text';
+                var anotherString = '26';  
+                var undefinedVar;
+                
+                console.log(Ext.typeOf(aBoolean));
+                console.log(Ext.typeOf(aFunction));
+                
+                console.log(Ext.isArray(anArray)); //true
+                console.log(Ext.isBoolean(aBoolean)); //true
+                console.log(Ext.isDate(aDate)); //true
+                console.log(Ext.isDefined(undefinedVar)); //false
+                console.log(Ext.isEmpty(undefinedVar)); //true
+                console.log(Ext.isFunction(aFunction)); //true
+                console.log(Ext.isIterable(anArray)); //true
+                console.log(Ext.isNumber(aNumber)); //true
+                console.log(Ext.isNumeric(anotherString)); //true
+                console.log(Ext.isObject(anObject)); //true
+                console.log(Ext.isPrimitive(aNumber)); //true
+                console.log(Ext.isString(aString)); //true
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <title>Create repeatable form fields/fieldsets</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                var formPanel = Ext.create('Ext.form.Panel', {
+                    title: 'Reservation Form',
+                    width: 350,
+                    autoHeight: true,
+                    bodyPadding: 10,
+                    defaults: {
+                        labelWidth: 150
+                    },
+                    items: [{
+                        xtype: 'textfield',
+                        fieldLabel: 'Your Name',
+                        name: 'name'
+                    }, {
+                        xtype: 'radiogroup',
+                        fieldLabel: 'Ticket Type',
+                        items: [{
+                            boxLabel: 'Adult',
+                            name: 'type',
+                            inputValue: 'adult'
+                        }, {
+                            boxLabel: 'Child',
+                            name: 'type',
+                            inputValue: 'child'
+                        }]
+                    }, {
+                        xtype: 'button',
+                        text: 'Add Another Guest',
+                        margin: '0 0 5 0',
+                        handler: function(){
+                            guestCount = formPanel.items.length - 2;
+                            formPanel.add({
+                                xtype: 'GuestFieldSet',
+                                guestCount: guestCount
+                            });
+                        }
+                    }],
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser�s edge
+                });
+                
+                Ext.define('GuestFieldSet', {
+                    extend: 'Ext.form.FieldSet',
+                    alias: 'widget.GuestFieldSet',
+                    initComponent: function(){
+                    
+                        Ext.apply(this, {
+                            title: 'Guest ' + this.guestCount,
+                            collapible: true,
+                            defaultType: 'textfield',
+                            defaults: {
+                                anchor: '100%'
+                            },
+                            layout: 'anchor',
+                            items: [{
+                                fieldLabel: 'Guest ' + this.guestCount + ' Name',
+                                name: 'name-' + this.guestCount
+                            }, {
+                                xtype: 'radiogroup',
+                                fieldLabel: 'Ticket Type',
+                                items: [{
+                                    boxLabel: 'Adult',
+                                    name: 'type-' + this.guestCount,
+                                    inputValue: 'adult'
+                                }, {
+                                    boxLabel: 'Child',
+                                    name: 'type-' + this.guestCount,
+                                    inputValue: 'child'
+                                }]
+                            }]
+                        });
+                        
+                        this.callParent(arguments);
+                    }
+                    
+                });
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

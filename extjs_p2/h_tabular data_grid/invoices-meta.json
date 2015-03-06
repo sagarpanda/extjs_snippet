@@ -1,0 +1,48 @@
+{
+	"success": true,
+	"metaData": {
+		"columns": [{
+			"header": "Client",
+	        "dataIndex": "Client",
+			"flex": 1
+		}, {
+			"header": "Date",
+	        "dataIndex": "Date"
+		}]
+	},
+	"total": 2,
+	"rows": [{
+        "InvoiceID": 1,
+        "Client": "Global Interactive Technologies",
+        "Description": "Creating an Invoice management system",
+        "Date": "2011-10-08 00:00:00",
+        "Amount": 200.00,
+        "Currency": "GBP",
+        "Status": "Paid"
+    }, {
+        "InvoiceID": 2,
+        "Client": "Ace Outsourcing Resources",
+        "Description": "Design and build a Sencha Touch mobile application.",
+        "Date": "2011-10-08 00:00:00",
+        "Amount": 500.50,
+        "Currency": "GBP",
+        "Status": "Sent"
+    }, {
+        "InvoiceID": 3,
+        "Client": "Acme Corporation",
+        "Description": "Develop an Ext JS 4 CMS",
+        "Date": "2011-10-08 00:00:00",
+        "Amount": 1000.00,
+        "Currency": "USD",
+        "Status": "Viewed"
+    }, {
+        "InvoiceID": 4,
+        "Client": "Acme Corporation",
+        "Description": "Train our staff how to use Ext JS 4",
+        "Date": "2011-10-08 00:00:00",
+        "Amount": 380.00,
+        "Currency": "USD",
+        "Status": "Paid"
+    }]
+
+}

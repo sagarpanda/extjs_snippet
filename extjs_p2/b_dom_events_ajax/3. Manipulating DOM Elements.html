@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <title>3. Manipulating DOM Elements</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+            	/**
+            	 * How to do it...
+            	 */
+				
+				// Retrieve a reference to the 'book-title' heading
+				var bookTitleEl = Ext.get('book-title');
+                
+                // Update the heading's Font Size using the setStyle() method
+				bookTitleEl.setStyle('font-size', '1.5em');
+				
+				// Update the heading's Color and Bottom Border using the setStyle() method's
+				// alternative syntax
+				bookTitleEl.setStyle({
+					color: 'red',
+				    borderBottom: '3px solid red'
+				});
+
+				// Add the 'book-title' CSS class (defined below) to the heading
+                bookTitleEl.addCls('book-title');
+				
+				
+                /**
+                * There's More...
+                */
+				
+				// Hide the book-title element
+                bookTitleEl.hide();
+                
+				// After a 3 second delay, show the book-title element with an animation
+                setTimeout(function(){
+                    bookTitleEl.show(true)
+                }, 3000);
+                
+				// Update the book-title to be 'How to Make AWESOME Web Apps'
+                bookTitleEl.update('How to Make AWESOME Web Apps');
+                
+            });
+        </script>
+
+        <style type="text/css">
+            .book-title
+			{
+            	text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="book-title">Ext JS 4 ck</h1>
+        <h2>Authors</h2>
+        <ul id="authors">
+            <li>
+                Stuart Ashworth
+            </li>
+            <li>
+                Andrew Duncan
+            </li>
+        </ul>
+        <h2>What's new in Ext JS 4?</h2>
+        <ul id="whats-new">
+            <li>
+                Charting
+            </li>
+            <li>
+                Drawing
+            </li>
+            <li>
+                Data Package
+            </li>
+            <li>
+                Enhanced Grid
+            </li>
+            <li>
+                Powerful Theming
+            </li>
+        </ul>
+    </body>
+</html>

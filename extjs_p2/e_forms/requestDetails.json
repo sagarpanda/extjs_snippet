@@ -1,0 +1,19 @@
+{
+	"success": true,
+	"data": {
+            "FirstName": "Joe",
+            "LastName": "Bloggs",
+            "EmailAddress": "info@swarmonline.com",
+            "TelNumberCode": "0777",
+            "TelNumber": "7777777",
+            "RequestDetails": "This is some Request Detail body text",
+            "RequestType": {
+                "type1": true,
+                "type2": false,
+                "type3": false,
+                "type4": true,
+                "type5": true,
+                "type6": false
+            }
+	}
+}

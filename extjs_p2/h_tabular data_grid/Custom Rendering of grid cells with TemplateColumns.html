@@ -1,0 +1,128 @@
+<html>
+    <head>
+        <title>Custom Rendering of grid cells with TemplateColumns</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript" src="invoices-model.js">
+        </script>
+        <script type="text/javascript" src="invoices-store.js">
+        </script>
+        <style type="text/css">
+            .currency {
+                color: #666;
+                font-size: 0.8em;
+                text-transform: uppercase;
+                margin-left: 4px;
+            }
+            
+            .description {
+                color: #666;
+                font-size: 0.9em;
+                margin-top: 4px;
+            }
+        </style>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+                // initialise the QuickTipManager so inline quicktips are displayed
+                Ext.tip.QuickTipManager.init();
+                
+                /**
+                 * Step 1 - Include our Invoice Model and Store
+                 */
+                // See above...
+                
+                
+                /*
+                 * Step 2 - Create our Basic Grid
+                 */
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Chapter 8 - Grids',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client'
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date',
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    renderTo: Ext.getBody()
+                });
+                
+                /**
+                 * Step 3 - Change the Client column to include the Invoice's Description with a tooltip
+                 */
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Chapter 8 - Grids',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    columns: [{
+                        xtype: 'templatecolumn',
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        tpl: '{Client}<br/><span class="description" data-qtip="{Description}">{Description}</span>'
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    renderTo: Ext.getBody()
+                });
+                
+                
+                /**
+                 * There's More... - Change the Amount column to use an Ext.grid.column.Template column to display
+                 * 					 the currency.
+                 */
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Chapter 8 - Grids',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    columns: [{
+                        xtype: 'templatecolumn',
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        tpl: '{Client}<br/><span class="description" data-qtip="{Description}">{Description}</span>'
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date'
+                    }, {
+                        xtype: 'templatecolumn',
+                        header: 'Amount',
+                        dataIndex: 'Amount',
+                        tpl: new Ext.XTemplate('{Amount:this.formatAmount}', '<span class="currency">{Currency}</span>', {
+                            formatAmount: function(val){
+                                return val.toFixed(2);
+                            }
+                        })
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    renderTo: Ext.getBody()
+                });
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

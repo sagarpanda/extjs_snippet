@@ -1,0 +1,169 @@
+<html>
+    <head>
+        <title>Creating summary rows aggregating a grid's data</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript" src="invoices-model.js">
+        </script>
+        <script type="text/javascript" src="invoices-store.js">
+        </script>
+        <style type="text/css" media="screen">
+            
+            .x-grid-row-summary .x-grid-cell-inner {
+                font-weight: bold;
+            }
+        </style>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Summary Example',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        flex: 1
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date',
+                        xtype: 'datecolumn',
+                        format: 'd/m/Y'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount',
+                        xtype: 'numbercolumn'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody()
+                });
+                
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Summary Example',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    features: [{
+                        ftype: 'summary'
+                    }],
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        flex: 1
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date',
+                        xtype: 'datecolumn',
+                        format: 'd/m/Y'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount',
+                        xtype: 'numbercolumn',
+                        summaryType: 'sum',
+                        summaryRenderer: function(value, summaryData, field){
+                            return '&pound;' + Ext.Number.toFixed(value, 2);
+                        }
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody()
+                });
+                
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Summary Example',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    features: [{
+                        ftype: 'summary'
+                    }],
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        flex: 1,
+                        summaryType: 'count',
+                        summaryRenderer: function(value, summaryData, field){
+                            return Ext.String.format('{0} Invoice{1}', value, value !== 1 ? 's' : '');
+                        }
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date',
+                        xtype: 'datecolumn',
+                        format: 'd/m/Y'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount',
+                        xtype: 'numbercolumn',
+                        summaryType: 'sum',
+                        summaryRenderer: function(value, summaryData, field){
+                            return '&pound;' + Ext.Number.toFixed(value, 2);
+                        }
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody()
+                });
+                
+                
+                /**
+                 * There's More: Grouping Summary
+                 */
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Grouping Summary Example',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    features: [{
+                        groupHeaderTpl: 'Client: {name}',
+                        ftype: 'groupingsummary'
+                    }],
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        flex: 1,
+                        summaryType: 'count',
+                        summaryRenderer: function(value, summaryData, field){
+                            return Ext.String.format('{0} Invoice{1}', value, value !== 1 ? 's' : '');
+                        }
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date',
+                        xtype: 'datecolumn',
+                        format: 'd/m/Y'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount',
+                        xtype: 'numbercolumn',
+                        summaryType: 'sum',
+                        summaryRenderer: function(value, summaryData, field){
+                            return '&pound;' + Ext.Number.toFixed(value, 2);
+                        }
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody()
+                });
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

@@ -1,0 +1,29 @@
+{
+	"data" : [
+		{
+			"name" : "Unit_1",
+			"value" : 20,
+			"value2" : 25
+		},
+		{
+			"name" : "Unit_2",
+			"value" : 10,
+			"value2" : "15"
+		},
+		{
+			"name" : "Unit_3",
+			"value" : 30,
+			"value2" : 19
+		},
+		{
+			"name" : "Unit_4",
+			"value" : 10,
+			"value2" : 9
+		},
+		{
+			"name" : "Unit_5",
+			"value" : 9,
+			"value2" : 22
+		}
+	]		
+}

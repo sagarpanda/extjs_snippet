@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <title>Sliding values using a Slider Field</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+				/**
+				 * Step 1 - Define our basic Slider with a width and a label
+				 */
+				Ext.create('Ext.slider.Single', {
+					fieldLabel: 'Maximum Price',
+				
+					width: 400,
+					renderTo: Ext.getBody()
+				});
+				
+				/**
+				 * Step 2 - Assign a default value and its minimum and maximum limits
+				 */
+				Ext.create('Ext.slider.Single', {
+					fieldLabel: 'Maximum Price',
+					value: 100,
+				    minValue: 0,
+				    maxValue: 500,
+					width: 400,
+					renderTo: Ext.getBody()
+				});  
+				
+				/**
+				 * Step 3 - Set the amount the slider will increment when dragged
+				 */
+				Ext.create('Ext.slider.Single', {
+					fieldLabel: 'Maximum Price',
+					value: 100,
+				    minValue: 0,
+				    maxValue: 500,
+					increment: 10,
+					width: 400,
+					renderTo: Ext.getBody()
+				});
+				
+				
+				/**
+				 * There's More... - Define a range by using the Ext.slider.Multi class to display multiple thumbs
+				 */
+                Ext.create('Ext.slider.Multi', {
+					fieldLabel: 'Price Range',
+					values: [100, 200],
+                    minValue: 0,
+                    maxValue: 500,
+					increment: 10,
+					width: 400,
+					renderTo: Ext.getBody()
+                });
+				
+				/**
+				 * There's More... - Listen for drag events and update another container with the current values
+				 */
+				var priceRangeSlider = Ext.create('Ext.slider.Multi', {
+					fieldLabel: 'Price Range',
+					values: [100, 200],
+					minValue: 0,
+					maxValue: 500,
+					increment: 10,
+					tipText: function(thumb){
+						return Ext.String.format('&pound;{0}', thumb.value);
+					},
+					listeners: {
+						drag: function(slider, e, opts){
+							// get the slider's thumbs' values
+							var vals = slider.getValues();
+							
+							// update the display container
+							valuesDisplayComponent.update({
+								min: vals[0],
+								max: vals[1]
+							});
+						}
+					},
+					
+					width: 400,
+					renderTo: Ext.getBody()
+				});
+				
+				// create a simple container with a Ext.XTemplate to display the current values
+				var valuesDisplayComponent = Ext.create('Ext.Component', {
+					tpl: 'Current Price Range: &pound;{min} - &pound;{max}',
+					data: {min: priceRangeSlider.getValues()[0], max: priceRangeSlider.getValues()[1]},
+					renderTo: Ext.getBody()
+				});
+				
+				    
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

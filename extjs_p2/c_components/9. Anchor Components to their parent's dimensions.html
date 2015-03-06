@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <title id="page-title">9. Anchor Components to their parent's dimensions</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1 - Percentages
+                 */
+                var win = Ext.create('Ext.window.Window', {
+                    x: 0,
+                    y: 0,
+                    width: 400,
+                    height: 400,
+                    title: "Anchor Layout Panel - Percentages",
+                    layout: 'anchor',
+                    items: [{
+                        xtype: 'panel',
+                        title: 'Percentages',
+                        html: 'Width = 100% of Parent\'s Width (400px)<br/><br/>Height = 35% of Parent\'s Height (400px)',
+                        anchor: '100% 35%'
+                    }]
+                });
+                
+                win.show();
+                
+                /**
+                 * Step 2 - Offsets
+                 */
+                var win = Ext.create('Ext.window.Window', {
+                    x: 500,
+                    y: 0,
+                    width: 400,
+                    height: 400,
+                    title: "Anchor Layout Panel - Offsets",
+                    layout: 'anchor',
+                    items: [{
+                        xtype: 'panel',
+                        title: 'Offsets',
+                        html: 'Width = Parent\'s Width (400px) - 150px<br/><br/>Height = Parent\'s Height (400px) - 100px',
+                        anchor: '-150 -100'
+                    }]
+                });
+                
+                win.show();
+                
+                /**
+                 * Step 3 - Sides
+                 */
+                var win = Ext.create('Ext.window.Window', {
+                    x: 0,
+                    y: 500,
+                    width: 400,
+                    height: 400,
+                    title: "Anchor Layout Panel - Sides",
+                    layout: 'anchor',
+                    items: [{
+                        xtype: 'panel',
+                        title: 'Sides',
+                        height: 200,
+                        width: 200,
+                        html: 'Width = Parent\'s Width (400px) - Component\'s Width (200px)<br/><br/>Height = Parent\'s Height (400px) - Component\'s Height (200px)',
+                        anchor: 'r b'
+                    }]
+                });
+                
+                win.show();
+                
+                /**
+                 * Step 4 - Combination
+                 */
+                var win = Ext.create('Ext.window.Window', {
+                    x: 500,
+                    y: 500,
+                    width: 400,
+                    height: 400,
+                    title: "Anchor Layout Panel - Combination",
+                    layout: 'anchor',
+                    items: [{
+                        xtype: 'panel',
+                        title: 'Combination',
+                        html: 'Width = 75% of the Parent\'s Width (400px)<br/><br/>Height = Parent\'s Height (400px) - 150px',
+                        anchor: '75% -150'
+                    }]
+                });
+                
+                win.show();
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

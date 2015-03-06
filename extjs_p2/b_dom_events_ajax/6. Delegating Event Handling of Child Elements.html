@@ -1,0 +1,133 @@
+<html>
+    <head>
+        <title>6. Delegating Event Handling of Child Elements</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+				/**
+				 * How to do it...
+				 */
+				
+                // Retrieve a reference to the 'What's New' list element
+                var whatsNewEl = Ext.get('whats-new');
+                
+                
+				// Attach an event handler to the parent element, delegating it to the child 
+				// list items
+                whatsNewEl.on('click', function(e, target, options){
+                    alert(target.innerHTML);
+                }, this, {
+                    delegate: 'li'
+                });
+                
+				// The dynamic code generated for the event handler
+				// Note the getTarget() call to check if the click was raised on an element
+				// that the delegate specified
+				/*
+				 
+                if (!Ext) {
+                    return;
+                }
+                e = Ext.EventObject.setEvent(e);
+                var t = e.getTarget("li", this);
+                if (!t) {
+                    return;
+                }
+                fn.call(scope || dom, e, t, options);
+                
+				*/
+				
+				// Equivalent code to manually perform event delegation without using the 
+				// delegate configuration option
+				/*
+				 
+				
+				whatsNewEl.on('click', function(e, target, options){
+					var t = e.getTarget("li", this);
+					
+					if (!t) {
+						return;
+					}
+					
+					alert(target.innerHTML);
+                }, this);
+				
+				*/
+
+				
+				/**
+				 * There's More...
+				 */
+				
+				// Get a reference to the toolbar DIV
+				var toolbarEl = Ext.get('toolbar');
+				
+				// Attach an event handler to the toolbar, delegating the event to the <a> tags.
+				// We then use the e.getTarget() method to decide which link raised the event.
+				toolbarEl.on('click', function(e, target, options){
+					if(e.getTarget('a.add')){
+						addItem();
+					} else if(e.getTarget('a.edit')){
+						editItem();
+					} else if(e.getTarget('a.delete')){
+						deleteItem();
+					}
+				}, this, {
+					delegate: 'a'
+				});
+				
+				// Functions to perform actions
+				var addItem = function(){
+					alert('Add Item!');
+				};
+				var editItem = function(){
+					alert('Edit Item!');
+				};
+				var deleteItem = function(){
+					alert('Delete Item!');
+				};
+				
+            });
+        </script>
+    </head>
+    <body>
+        <h1 id="book-title">Ext JS 4 ck</h1>
+        <h2>Authors</h2>
+        <ul id="authors">
+            <li>
+                Stuart Ashworth
+            </li>
+            <li>
+                Andrew Duncan
+            </li>
+        </ul>
+        <h2>What's new in Ext JS 4?</h2>
+        <ul id="whats-new">
+            <li>
+                Charting
+            </li>
+            <li class="clicktoo">
+                Drawing
+            </li>
+            <li class="click">
+                Data Package
+            </li>
+            <li>
+                Enhanced Grid
+            </li>
+            <li>
+                Powerful Theming
+            </li>
+        </ul>
+		
+		<div id="toolbar">
+			<a href="javascript:void(0);" class="add">Add</a> | 
+			<a href="javascript:void(0);" class="edit">Edit</a> |
+			<a href="javascript:void(0);" class="delete">Delete</a>
+		</div>
+    </body>
+</html>

@@ -1,0 +1,153 @@
+<html>
+    <head>
+        <title id="page-title">12. Adding logic to Ext.XTemplates</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+		
+		<style type="text/css">
+			table {
+				width: 400px;
+			}			
+		</style>
+		
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1 - Create array of Bug Data and define our XTemplate
+                 */
+                var bugData = [{
+                    title: 'Bug 1',
+                    description: 'Bug 1 Description',
+                    status: 'In Progress',
+                    severity: 1,
+					owner: 'Stuart'
+                }, {
+                    title: 'Bug 2',
+                    description: 'Bug 2 Description',
+                    status: 'Complete',
+                    severity: 3,
+					owner: 'Andrew'
+                }, {
+                    title: 'Bug 3',
+                    description: 'Bug 3 Description',
+                    status: 'Open',
+                    severity: 4,
+					owner: 'Stuart'
+                }, {
+                    title: 'Bug 4',
+                    description: 'Bug 4 Description',
+                    status: 'Open',
+                    severity: 5,
+					owner: 'Andrew'
+                }, {
+                    title: 'Bug 5',
+                    description: 'Bug 5 Description',
+                    status: 'Complete',
+                    severity: 1,
+					owner: 'Andrew'
+                }, {
+                    title: 'Bug 6',
+                    description: 'Bug 6 Description',
+                    status: 'Open',
+                    severity: 2,
+					owner: 'Stuart'
+                }];
+
+				var tpl = new Ext.XTemplate('<table>',
+												'<tr>',
+													'<td>Owner</td>',
+													'<td>Title</td>',
+													'<td>Description</td>',
+													'<td>Severity</td>',
+												'</tr>',
+												'<tpl for=".">',
+													'<tr <tpl if="this.isHighPriority(values.severity)">style="background-color: pink; border: 2px solid #FF0000;"</tpl>>',
+														'<td>{owner}</td>',
+														'<td style="background-color: {[ values.status === "Complete" ? "green" : "transparent"]};">{title}</td>',
+														'<td>{description}</td>',
+														'<td>{severity}</td>',
+													'</tr>',
+												'</tpl>',
+											'</table>',
+											{
+												currentUser: 'Stuart',
+												
+												isHighPriority: function(severity){
+													return severity > 3
+												}
+											});
+											
+				tpl.overwrite(Ext.getBody(), bugData);
+
+				/**
+				 * Step 2 - Add first condition
+				 */
+				var tpl = new Ext.XTemplate('<table>',
+								'<tr>',
+									'<td>Owner</td>',
+									'<td>Title</td>',
+									'<td>Description</td>',
+									'<td>Severity</td>',
+								'</tr>',
+								'<tpl for=".">',
+									'<tr <tpl if="this.isHighPriority(severity)">style="background-color: pink; border: 2px solid #FF0000;"</tpl>>',
+										'<td>',
+											'<tpl if="owner == this.currentUser">Me</tpl>',
+										'</td>',
+										'<td style="background-color: {[ values.status === "Complete" ? "green" : "transparent"]};">{title}</td>',
+										'<td>{description}</td>',
+										'<td>{severity}</td>',
+									'</tr>',
+								'</tpl>',
+							'</table>',
+							{
+								currentUser: 'Stuart',
+								
+								isHighPriority: function(severity){
+									return severity > 3
+								}
+							});
+							
+				tpl.overwrite(Ext.getBody(), bugData);
+				
+				/**
+				 * Step 3 - Add alternate condition
+				 */
+				var tpl = new Ext.XTemplate('<table>',
+								'<tr>',
+									'<td>Owner</td>',
+									'<td>Title</td>',
+									'<td>Description</td>',
+									'<td>Severity</td>',
+								'</tr>',
+								'<tpl for=".">',
+									'<tr <tpl if="this.isHighPriority(severity)">style="background-color: pink; border: 2px solid #FF0000;"</tpl>>',
+										'<td>',
+											'<tpl if="owner === this.currentUser">Me</tpl>',
+											'<tpl if="owner !== this.currentUser">{owner}</tpl>',
+										'</td>',
+										'<td style="background-color: {[ values.status === "Complete" ? "green" : "transparent"]};">{title}</td>',
+										'<td>{description}</td>',
+										'<td>{severity}</td>',
+									'</tr>',
+								'</tpl>',
+							'</table>',
+							{
+								currentUser: 'Stuart',
+								
+								isHighPriority: function(severity){
+									return severity > 3
+								}
+							});
+											
+				tpl.overwrite(Ext.getBody(), bugData);
+				
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

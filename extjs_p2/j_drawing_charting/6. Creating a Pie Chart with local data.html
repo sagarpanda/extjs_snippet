@@ -1,0 +1,222 @@
+<html>
+    <head>
+        <title>6. Creating a Pie Chart with local data</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1: Create a Chart Model
+                 */
+				Ext.define('LanguageShare', {
+				    extend: 'Ext.data.Model',
+				    fields: [{
+				        name: 'Language',
+				        type: 'string'
+				    }, {
+				        name: 'Percentage',
+				        type: 'int'
+				    }]
+				});
+				                
+                /**
+                 * Step 2 - Define our data array
+                 */
+				var languageShareData = [{
+					Language: 'C',
+					Percentage: 7
+				}, {
+					Language: 'C++',
+					Percentage: 4
+				}, {
+					Language: 'Java',
+					Percentage: 7
+				}, {
+					Language: 'JavaScript',
+					Percentage: 20
+				}, {
+					Language: 'Objective-C',
+					Percentage: 2
+				}, {
+					Language: 'Perl',
+					Percentage: 5
+				}, {
+					Language: 'PHP',
+					Percentage: 7
+				}, {
+					Language: 'Python',
+					Percentage: 9
+				}, {
+					Language: 'Ruby',
+					Percentage: 16
+				}, {
+					Language: 'Shell',
+					Percentage: 8
+				}, {
+					Language: 'Others',
+					Percentage: 22
+				}];
+				                
+                /**
+                 * Step 2 - Create a store bound to our data array
+                 */
+				var languageShareStore = Ext.create('Ext.data.Store', {
+				    model: 'LanguageShare',
+				    data: languageShareData
+				});
+                
+                /**
+                 * Step 3 - Create a Panel with a chart
+                 */
+                /*
+				var panel = Ext.create('Ext.Panel', {
+				    width: 600,
+				    height: 400,
+				    title: 'Pie Chart - Language\'s Share of GitHub Repositories',
+				    layout: 'fit',
+				    items: [{
+				        xtype: 'chart'
+				    }],
+				    style: 'margin: 50px', // move panel off browser’s edge
+				    renderTo: Ext.getBody()
+				});
+                */
+                
+                /**
+                 * Step 4- Bind the chart to our languageShare Ext.data.Store
+                 */
+				var panel = Ext.create('Ext.Panel', {
+				    width: 600,
+				    height: 400,
+				    title: 'Pie Chart - Language\'s Share of GitHub Repositories',
+				    layout: 'fit',
+					items: [{
+					    xtype: 'chart',
+					    store: languageShareStore
+					}],
+				    style: 'margin: 50px', // move panel off browser’s edge
+				    renderTo: Ext.getBody()
+				});
+                
+                /**
+                 * Step 5 - Configure our Pie Chart series
+                 */
+				var panel = Ext.create('Ext.Panel', {
+				    width: 600,
+				    height: 400,
+				    title: 'Pie Chart - Language\'s Share of GitHub Repositories',
+				    layout: 'fit',
+				items: [{
+				    xtype: 'chart',
+				    store: languageShareStore,
+				    series: [{
+				    	type: 'pie',
+				    	angleField: 'Percentage'
+				    }]
+				}],
+				    style: 'margin: 50px', // move panel off browser’s edge
+				    renderTo: Ext.getBody()
+				});
+                
+                /**
+                 * Step 6 - Add labels so we know which slice refers to which record
+                 */
+                var panel = Ext.create('Ext.Panel', {
+                    width: 600,
+                    height: 400,
+                    title: 'Pie Chart - Language\'s Share of GitHub Repositories',
+                    layout: 'fit',
+                    items: [{
+                        xtype: 'chart',
+                        store: languageShareStore,
+						series: [{
+							type: 'pie',
+							angleField: 'Percentage',
+							label: {
+						   		display: 'rotate',
+						   		contrast: true,
+						   		field: 'Language'
+						   	}
+						}]
+                    }],
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody()
+                });
+                
+                                
+                /**
+                 * There's More... - Add a Highlight effect to offset each Segment when it is moused over
+                 */
+                var panel = Ext.create('Ext.Panel', {
+                    width: 600,
+                    height: 800,
+                    title: 'Pie Chart - Language\'s Share of GitHub Repositories',
+                    layout: 'fit',
+                    items: [{
+                        xtype: 'chart',
+                        animate: true,
+                        store: languageShareStore,
+                        series: [{
+                        	type: 'pie',
+                        	angleField: 'Percentage',
+                        	label: {
+	                       		display: 'rotate',
+	                       		contrast: true,
+	                       		field: 'Language'
+	                       	},
+							highlight: {
+								segment: {
+									margin: 40
+								}
+							}
+                        }]
+                    }],
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody()
+                });
+                
+                /**
+                 * There's More... - Make each slice scale based on its value to exaggerate the difference in values
+                 */
+                var panel = Ext.create('Ext.Panel', {
+                    width: 600,
+                    height: 400,
+                    title: 'Pie Chart - Language\'s Share of GitHub Repositories',
+                    layout: 'fit',
+                    items: [{
+                        xtype: 'chart',
+                        animate: true,
+                        store: languageShareStore,
+                        series: [{
+                        	type: 'pie',
+                        	angleField: 'Percentage',
+							lengthField: 'Percentage',
+                        	label: {
+	                       		display: 'rotate',
+	                       		contrast: true,
+	                       		field: 'Language'
+	                       	},
+	                       	highlight: {
+								segment: {
+									margin: 40
+								}
+			                }
+                        }]
+                    }],
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody()
+                });
+                
+                
+                
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

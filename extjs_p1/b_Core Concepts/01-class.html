@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>First class</title>
+
+     <!-- Importing the stylesheet for the widgets -->
+    <link rel="stylesheet" type="text/css" href="../../extjs/resources/css/ext-all.css">
+    <!-- Importing the Ext JS library -->
+    <script type="text/javascript" src="../../extjs/ext-all-dev.js"></script>
+
+    <!--  Importing the client class -->
+    <script type="text/javascript" src="js/Client.js"></script>
+
+	<script type="text/javascript">
+		//creating an instance of Client
+		var client = Ext.create("MyApp.Client");
+
+		console.log(client.name);
+		
+		client.name = "Carl";
+		
+		console.log(client.name);
+
+
+        //with params
+        var client2 = Ext.create("MyApp.Client",{
+            name    : 'Susan',
+            lastName: 'Smith'
+        });
+
+        console.log(client2.name);
+	</script>
+
+</head>
+<body>
+</body>
+</html>

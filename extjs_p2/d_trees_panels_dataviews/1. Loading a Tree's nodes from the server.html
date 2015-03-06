@@ -1,0 +1,34 @@
+<html>
+<head>
+<title id="page-title">1. Loading a Tree's nodes from the server</title>
+<!-- Library Files -->
+<link rel="stylesheet" type="text/css"
+	href="extjs/resources/css/ext-all.css">
+<script type="text/javascript" src="extjs/ext-all-debug.js">
+	
+</script>
+<script type="text/javascript">
+	Ext.onReady(function() {
+
+		var store = Ext.create('Ext.data.TreeStore', {
+			proxy : {
+				type : 'ajax',
+				url : 'treeData.json'
+			}
+		});
+
+		Ext.create('Ext.tree.Panel', {
+			title : 'Countries',
+			width : 500,
+			height : 200,
+			store : store,
+			rootVisible : false,
+			renderTo : Ext.getBody(),
+			style : 'margin: 50px' // move panel off browser’s edge
+		});
+	});
+</script>
+</head>
+<body>
+</body>
+</html>

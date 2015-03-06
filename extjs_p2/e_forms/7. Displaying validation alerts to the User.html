@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <title>7. Displaying validation alerts to the User</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                Ext.create('Ext.form.Panel', {
+                    title: 'Form',
+                    width: 500,
+                    height: 225,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px', // move panel off browser�s edge
+                    layout: {
+                        type: 'hbox',
+                        align: 'stretch'
+                    },
+                    items: [{
+                        flex: 1,
+                        padding: 10,
+                        border: false,
+                        defaults: {
+                            allowBlank: false
+                        },
+                        defaultType: 'textfield',
+                        items: [{
+                            fieldLabel: 'Quick Tip'
+                        }, {
+                            fieldLabel: 'Under',
+                            msgTarget: 'under'
+                        }, {
+                            fieldLabel: 'Side',
+                            msgTarget: 'side'
+                        }, {
+                            fieldLabel: 'Title',
+                            msgTarget: 'title'
+                        }, {
+                            fieldLabel: 'None',
+                            msgTarget: 'none'
+                        }, {
+                            fieldLabel: 'Error Panel',
+                            msgTarget: 'error-container',
+                            minLength: 5
+                        }]
+                    }, {
+                        xtype: 'panel',
+                        width: 200,
+                        margin: '5 5 5 0',
+                        padding: '10',
+                        title: 'Field Error Message',
+                        frame: true,
+                        layout: 'fit',
+                        items: [{
+                            xtype: 'component',
+                            id: 'error-container'
+                        }]
+                    }]
+                });
+                
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

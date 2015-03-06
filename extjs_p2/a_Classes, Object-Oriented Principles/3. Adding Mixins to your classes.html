@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>3. Adding Mixins to your classes</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css">
+        <script type="text/javascript" src="../../ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            
+            Ext.onReady(function(){
+                // Define the HasCamera class
+                Ext.define('HasCamera', {
+                    takePhoto: function(){
+                        alert('Say Cheese! .... Click!');
+                    }
+                });
+                
+				// Define the ck.Smartphone class
+                Ext.define('ck.Smartphone', {
+                
+                    mixins: {
+                        camera: 'HasCamera'
+                    },
+                    
+                    useCamera: function(){
+                        this.takePhoto();
+                    },
+                    
+                    takePhoto: function(){
+                        this.focus();
+                        
+                        this.mixins.camera.takePhoto.call(this);
+                    },
+                    
+                    focus: function(){
+                        alert('Focusing Subject...');
+                    }
+                });
+                
+				// create an instance of ck.Smartphone class
+                var smartphone = Ext.create('ck.Smartphone');
+                smartphone.useCamera(); // alerts 'Focusing Subject...'
+				// alerts 'Say Cheese! .... Click!'
+
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

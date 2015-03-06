@@ -1,0 +1,152 @@
+<html>
+    <head>
+        <title>2. Applying gradients to shapes</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+            
+                /**
+            	 * Step 1 - Create our Map Pin drawing
+            	 */
+            	/*
+				var mapPin = Ext.create('Ext.draw.Component', {
+					renderTo: Ext.getBody(),
+					width: 500,
+					height: 500,
+					viewBox: false,
+					
+					items: [{
+						type: 'rect',
+						x: 52,
+						y: 58,
+						width: 3,
+						height: 30,
+						fill: '#999',
+						rotate: {
+							degrees: -7
+						}
+					}, {
+						type: 'circle',
+						x: 50,
+						y: 50,
+						radius: 10,
+						fill: '#2D00B3'
+					}]
+				});
+				*/
+                
+                /**
+            	 * Step 2 - Define a linear gradient for the Map Pin's pin and apply it as the 'fill' of the Pin Rectangle sprite
+            	 */
+            	/*
+				var mapPin = Ext.create('Ext.draw.Component', {
+					renderTo: Ext.getBody(),
+					width: 250,
+					height: 250,
+					viewBox: false,
+					
+					gradients: [{
+					    id: 'pin-gradient',
+					    type: 'linear',
+					    angle: -7,
+					    stops: {
+					        0: {
+					            color: '#eee'
+					        },
+					        100: {
+					            color: '#999'
+					        }
+					    }
+					}],
+						
+					items: [{
+						type: 'rect',
+						x: 52,
+						y: 58,
+						width: 3,
+						height: 30,
+						fill: 'url(#pin-gradient)',
+						rotate: {
+							degrees: -7
+						}
+					}, {
+						type: 'circle',
+						x: 50,
+						y: 50,
+						radius: 10,
+						fill: '#2D00B3'
+					}]
+				});
+                */
+                
+                /**
+            	 * Step 3 - Define a radial gradient for the Map Pin's head and apply it as the 'fill' of the Head Circle sprite
+            	 */
+            	var mapPin = Ext.create('Ext.draw.Component', {
+                	renderTo: Ext.getBody(),
+                	width: 250,
+                	height: 250,
+                	viewBox: false,
+                	
+                	gradients: [{
+					    id: 'pin-gradient',
+					    type: 'linear',
+					    angle: -7,
+					    stops: {
+					        0: {
+					            color: '#eee'
+					        },
+					        100: {
+					            color: '#999'
+					        }
+					    }
+					}, {
+					    id: 'head-gradient',
+					    type: 'radial',
+					    centerX: '25%',
+					    centerY: '25%',
+					    focalX: '60%',
+					    focalY: '60%',
+					    radius: 4,
+					    stops: {
+					        0: {
+					            color: '#9F80FF'
+					        },
+					        25: {
+					            color: '#2D00B3'
+					        },
+					        100: {
+					            color: '#2D00B3'
+					        }
+					    }
+					}],
+                	
+                	items: [{
+                		type: 'rect',
+                		x: 52,
+                		y: 58,
+                		width: 3,
+                		height: 30,
+                		fill: 'url(#pin-gradient)',
+                		rotate: {
+                			degrees: -7
+                		}
+                	}, {
+                		type: 'circle',
+                		x: 50,
+                		y: 50,
+                		radius: 10,
+                		fill: 'url(#head-gradient)',
+                	}]
+                });
+            
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

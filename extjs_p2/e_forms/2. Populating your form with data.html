@@ -1,0 +1,180 @@
+<html>
+    <head>
+        <title>2. Populating your form with data</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <style type="text/css">
+            .field-margin {
+                margin: 10px;
+            }
+        </style>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1 - Create a Form Panel
+                 */
+                var formPanel = Ext.create('Ext.form.Panel', {
+                    title: 'Support Ticket Request',
+                    width: 650,
+                    height: 500,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px', // move panel off browser�s edge
+                    items: [{
+                        xtype: 'container',
+                        layout: 'hbox',
+                        items: [{
+                            xtype: 'textfield',
+                            fieldLabel: 'First Name',
+                            name: 'FirstName',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            flex: 1
+                        }, {
+                            xtype: 'textfield',
+                            fieldLabel: 'Last Name',
+                            name: 'LastName',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            flex: 1
+                        }]
+                    }, {
+                        xtype: 'container',
+                        layout: 'column',
+                        items: [{
+                            xtype: 'textfield',
+                            fieldLabel: 'Email Address',
+                            name: 'EmailAddress',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            columnWidth: 0.6
+                        }, {
+                            xtype: 'fieldcontainer',
+                            layout: 'hbox',
+                            fieldLabel: 'Tel. Number',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            columnWidth: 0.4,
+                            items: [{
+                                xtype: 'textfield',
+                                name: 'TelNumberCode',
+                                style: 'margin-right: 5px;',
+                                flex: 2
+                            }, {
+                                xtype: 'textfield',
+                                name: 'TelNumber',
+                                flex: 4
+                            }]
+                        }]
+                    }, {
+                        xtype: 'container',
+                        layout: 'hbox',
+                        items: [{
+                            xtype: 'textarea',
+                            fieldLabel: 'Request Details',
+                            name: 'RequestDetails',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            height: 250,
+                            flex: 2
+                        }, {
+                            xtype: 'checkboxgroup',
+                            fieldLabel: 'Request Type',
+                            name: 'RequestType',
+                            labelAlign: 'top',
+                            columns: 1,
+                            cls: 'field-margin',
+                            vertical: true,
+                            items: [{
+                                boxLabel: 'Type 1',
+                                name: 'type1'
+                            }, {
+                                boxLabel: 'Type 2',
+                                name: 'type2'
+                            }, {
+                                boxLabel: 'Type 3',
+                                name: 'type3'
+                            }, {
+                                boxLabel: 'Type 4',
+                                name: 'type4'
+                            }, {
+                                boxLabel: 'Type 5',
+                                name: 'type5'
+                            }, {
+                                boxLabel: 'Type 6',
+                                name: 'type6'
+                            }],
+                            
+                            flex: 1
+                        }]
+                    }, {
+                        xtype: 'filefield',
+                        cls: 'field-margin',
+                        fieldLabel: 'Attachment',
+                        width: 300
+                    }]
+                });
+                
+                /**
+                 * Step 2 - Populate the First Name field using the field's setValue method
+                 */
+                // get a reference to the First Name form field
+                var firstNameField = formPanel.items.get(0).items.get(0);
+                
+                // set its value
+                firstNameField.setValue('Joe');
+                
+                
+                /**
+                 * Step 3 - Populate all form fields with the Basic Form's setValues method
+                 */
+                // define the data we want to load
+                var requestData = {
+                    FirstName: 'Joe',
+                    LastName: 'Bloggs',
+                    EmailAddress: 'info@swarmonline.com',
+                    TelNumberCode: '0777',
+                    TelNumber: '7777777',
+                    RequestDetails: 'This is some Request Detail body text',
+                    RequestType: {
+                        type1: true,
+                        type2: false,
+                        type3: false,
+                        type4: true,
+                        type5: true,
+                        type6: false
+                    }
+                };
+                
+                // set all the field's value
+                formPanel.getForm().setValues(requestData);
+
+                /**
+                 * There's More...
+                 */
+                // Populate the form from a Model instance
+                Ext.define('Request', {
+
+                    extend: 'Ext.data.Model',
+
+                    fields: ['FirstName', 'LastName', 'EmailAddress', 'TelNumberCode', 'TelNumber', 'RequestDetails', 'RequestType']
+                });
+
+                var requestModel = Ext.create('Request', requestData);
+                
+                formPanel.getForm().loadRecord(requestModel);
+                
+                // Populate the form from the Server
+                
+                formPanel.getForm().load({
+                    url: 'requestDetails.json'
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

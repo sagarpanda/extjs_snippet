@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <title>2. Working with Context Menus</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript" src="invoices-model.js">
+        </script>
+        <script type="text/javascript" src="invoices-store.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1 - Create a Grid Panel containing some records
+                 */
+                var invoicesGrid = Ext.create('Ext.grid.Panel', {
+                    title: 'Chapter 9',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        flex: 1
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date',
+                        xtype: 'datecolumn',
+                        dateFormat: 'd/m/Y'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    renderTo: Ext.getBody()
+                });
+                
+                
+                var contextMenu = Ext.create('Ext.menu.Menu', {
+                    height: 100,
+                    width: 125,
+                    items: [{
+                        text: 'View Invoice'
+                    }, {
+                        text: 'Edit Invoice'
+                    }, {
+                        text: 'Re-Send Invoice'
+                    }, {
+                        text: 'Archive Invoice'
+                    }, {
+                        text: 'Delete Invoice'
+                    }]
+                });
+                
+                invoicesGrid.on({
+                    itemcontextmenu: function(grid, record, item, index, e, eOpts){
+                        e.stopEvent();
+                        
+                        var viewBtn = contextMenu.items.get(0);
+                        var editBtn = contextMenu.items.get(1);
+                        var resendBtn = contextMenu.items.get(2);
+                        var archiveBtn = contextMenu.items.get(3);
+                        var deleteBtn = contextMenu.items.get(4);
+                        
+                        var status = record.get('Status');
+                        
+                        switch (status) {
+                            case 'Paid':
+                                viewBtn.enable();
+                                editBtn.disable();
+                                resendBtn.disable();
+                                archiveBtn.enable();
+                                deleteBtn.disable();
+                                break;
+                            case 'Sent':
+                                viewBtn.enable();
+                                editBtn.enable();
+                                resendBtn.enable();
+                                archiveBtn.disable();
+                                deleteBtn.enable();
+                                break;
+                            case 'Viewed':
+                                viewBtn.enable();
+                                editBtn.enable();
+                                resendBtn.enable();
+                                archiveBtn.disable();
+                                deleteBtn.enable();
+                                break;
+                            default:
+                        }
+                        
+                        contextMenu.showAt(e.getXY());
+                    }
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

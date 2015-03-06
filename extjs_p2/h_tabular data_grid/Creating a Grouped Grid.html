@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <title>Creating a Grouped Grid</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript" src="invoices-model.js">
+        </script>
+        <script type="text/javascript" src="invoices-store.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                var grouping = Ext.create('Ext.grid.feature.Grouping', {
+                    groupHeaderTpl: 'Client: {name} ({rows.length} Invoice{[values.rows.length > 1 ? "s" : ""]})'
+                });
+                
+                
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Grouping Example',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    features: [grouping],
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        flex: 1
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date',
+                        xtype: 'datecolumn',
+                        format: 'd/m/Y'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount',
+                        xtype: 'numbercolumn'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody()
+                });
+                
+                
+                /**
+                 * There's More: Methods and Events
+                 */
+                var moreGrouping = Ext.create('Ext.grid.feature.Grouping', {
+                    groupHeaderTpl: 'Client: {name}',
+                    startCollapsed: true
+                });
+                
+                
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Grouping Example',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    features: [moreGrouping],
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        flex: 1
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date',
+                        xtype: 'datecolumn',
+                        format: 'd/m/Y'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount',
+                        xtype: 'numbercolumn'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    tbar: [{
+                        text: 'Enable Groups',
+                        handler: function(){
+                            moreGrouping.enable();
+                        }
+                    }, {
+                        text: 'Disable Groups',
+                        handler: function(){
+                            moreGrouping.disable();
+                        }
+                    }],
+                    listeners: {
+                        groupclick: function(grid, node, group){
+                            alert(group);
+                        }
+                    },
+                    
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody()
+                });
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title id="page-title">7. Displaying a simple form in a Window</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1
+                 */
+                var form = Ext.create('Ext.form.Panel', {
+                    bodyPadding: 10,
+                    border: false,
+                    defaultType: 'textfield',
+                    items: [{
+                        fieldLabel: 'Username',
+                        name: 'username',
+                        allowBlank: false
+                    }, {
+                        fieldLabel: 'Password',
+                        name: 'password',
+                        inputType: 'password',
+                        allowBlank: false
+                    }],
+                    buttons: [{
+                        text: 'Login',
+                        formBind: true,
+                        disabled: true,
+                        handler: function(){
+                            alert('Login Button Pressed');
+                        }
+                    }]
+                });
+                
+                /**
+                 * Step 2
+                 */
+                Ext.create('Ext.window.Window', {
+                    title: 'Login Window',
+                    height: 140,
+                    width: 300,
+                    layout: 'fit',
+                    items: [form]
+                }).show();
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

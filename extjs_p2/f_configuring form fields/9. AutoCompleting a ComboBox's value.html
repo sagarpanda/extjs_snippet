@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <title>AutoCompleting a ComboBox's value</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+
+                var carManufacturersStore = Ext.create('Ext.data.Store', {
+                    fields: ['name'],
+                    data: [{
+                        name: 'Aston Martin'
+                    }, {
+                        name: 'Bentley'
+                    }, {
+                        name: 'Daimler'
+                    }, {
+                        name: 'Jaguar'
+                    }, {
+                        name: 'Lagonda'
+                    }, {
+                        name: 'Land Rover'
+                    }, {
+                        name: 'Lotus'
+                    }, {
+                        name: 'McLaren'
+                    }, {
+                        name: 'Morgan'
+                    }, {
+                        name: 'Rolls-Royce'
+                    }]
+                });
+                
+                Ext.create('Ext.form.field.ComboBox', {
+                    fieldLabel: 'Car Manufacturer',
+                    store: carManufacturersStore,
+                    queryMode: 'local',
+                    displayField: 'name',
+                    valueField: 'name',
+                    
+                    renderTo: Ext.getBody()
+                });
+                
+                Ext.create('Ext.form.field.ComboBox', {
+                    fieldLabel: 'Car Manufacturer',
+                    store: carManufacturersStore,
+                    queryMode: 'local',
+                    displayField: 'name',
+                    valueField: 'name',
+                    
+                    typeAhead: true,
+                    
+                    renderTo: Ext.getBody()
+                });
+                
+                Ext.create('Ext.form.field.ComboBox', {
+                    fieldLabel: 'Car Manufacturer',
+                    store: carManufacturersStore,
+                    queryMode: 'local',
+                    displayField: 'name',
+                    valueField: 'name',
+                    
+                    typeAhead: true,
+                    typeAheadDelay: 100,
+                    
+                    renderTo: Ext.getBody()
+                });
+                
+                
+                Ext.create('Ext.form.field.ComboBox', {
+                    fieldLabel: 'Car Manufacturer',
+                    store: carManufacturersStore,
+                    queryMode: 'local',
+                    displayField: 'name',
+                    valueField: 'name',
+                    
+                    typeAhead: true,
+                    typeAheadDelay: 100,
+                    hideTrigger: true,
+                    
+                    renderTo: Ext.getBody()
+                });
+
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

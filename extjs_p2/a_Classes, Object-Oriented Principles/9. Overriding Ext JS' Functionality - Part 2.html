@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title>9. Overriding Ext JS' Functionality - Part 2</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css">
+        <script type="text/javascript" src="../../ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            
+            Ext.onReady(function(){
+
+
+                Ext.define('ck.overrides.TextField', {
+                    override: 'Ext.form.field.Text',
+
+                    onRender: function(){
+
+                        this.callParent(arguments); // executes the Ext.form.field.Text.onRender function
+                        // Ext.form.field.Text.superclass.onRender.apply(this, arguments); // executes the Ext.form.field.Base.onRender function
+
+                        Ext.core.DomHelper.append(this.el, '<div>' + this.infoText + '</div>');
+
+                    }
+                });
+
+                Ext.application({
+                    launch: function(){
+                        Ext.create('Ext.container.Viewport', {
+                            layout: 'fit',
+                            items: [{
+                                xtype: 'form',
+                                title: 'Security Question Form',
+                                defaultType: 'textfield',
+                                items: [{
+                                    fieldLabel: 'Security Question',
+                                    name: 'securityQuestion',
+                                    allowBlank: false,
+                                    infoText: 'You are required to write a security question for your account.'
+                                }, {
+                                    fieldLabel: 'Security Answer',
+                                    name: 'securityAnswer',
+                                    allowBlank: false,
+                                    infoText: 'Please provide the answer to your security question.'
+                                }]
+                            }]
+                        });
+                    }
+                });
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

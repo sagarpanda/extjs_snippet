@@ -1,0 +1,152 @@
+<html>
+    <head>
+        <title id="page-title">11. Creating Ext.XTemplate member functions</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+		
+		<style type="text/css">
+			table {
+				width: 400px;
+			}			
+		</style>
+		
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1 - Create array of Bug Data and define our XTemplate
+                 */
+				var bugData = [{
+					id: 1,
+					title: 'Bug 1',
+					description: 'Bug 1 Description',
+					status: 'In Progress',
+					severity: 1
+				}, {
+					id: 2,
+					title: 'Bug 2',
+					description: 'Bug 2 Description',
+					status: 'Complete',
+					severity: 3
+				}, {
+					id: 3,
+					title: 'Bug 3',
+					description: 'Bug 3 Description',
+					status: 'Open',
+					severity: 4
+				}, {
+					id: 4,
+					title: 'Bug 4',
+					description: 'Bug 4 Description',
+					status: 'Open',
+					severity: 5
+				}, {
+					id: 5,
+					title: 'Bug 5',
+					description: 'Bug 5 Description',
+					status: 'Complete',
+					severity: 1
+				}, {
+					id: 6,
+					title: 'Bug 6',
+					description: 'Bug 6 Description',
+					status: 'Open',
+					severity: 2
+				}];
+
+				var tpl = new Ext.XTemplate('<table>',
+												'<tr>',
+													'<td>Title</td>',
+													'<td>Description</td>',
+													'<td>Severity</td>',
+												'</tr>',
+												'<tpl for=".">',
+													'<tr>',
+														'<td style="background-color: {[ values.status === "Complete" ? "green" : "transparent"]};">{title}</td>',
+														'<td>{description}</td>',
+														'<td>{severity}</td>',
+													'</tr>',
+												'</tpl>',
+											'</table>');
+											
+				tpl.overwrite(Ext.getBody(), bugData);
+
+				/**
+                 * Step 2 - Define our configuration object and basic isHighPriority() function
+                 */
+				var tpl = new Ext.XTemplate('<table>',
+												'<tr>',
+													'<td>Title</td>',
+													'<td>Description</td>',
+													'<td>Severity</td>',
+												'</tr>',
+												'<tpl for=".">',
+													'<tr>',
+														'<td style="background-color: {[ values.status === "Complete" ? "green" : "transparent"]};">{title}</td>',
+														'<td>{description}</td>',
+														'<td>{severity}</td>',
+													'</tr>',
+												'</tpl>',
+											'</table>',
+											{
+												isHighPriority: function(severity){
+													return severity > 3
+												}
+											}
+											);
+											
+				tpl.overwrite(Ext.getBody(), bugData);
+
+				/**
+                 * Step 3 - Call our member function from the template
+                 */
+				var tpl = new Ext.XTemplate('<table>',
+												'<tr>',
+													'<td>Title</td>',
+													'<td>Description</td>',
+													'<td>Severity</td>',
+												'</tr>',
+												'<tpl for=".">',
+													'<tr <tpl if="this.isHighPriority(values.severity)">style="background-color: pink; border: 2px solid #FF0000;"</tpl>>',
+														'<td style="background-color: {[ values.status === "Complete" ? "green" : "transparent"]};">{title}</td>',
+														'<td>{description}</td>',
+														'<td>{severity}</td>',
+													'</tr>',
+												'</tpl>',
+											'</table>',
+											{
+												isHighPriority: function(severity){
+													return severity > 3
+												},
+												formatDescription: function(description, length){
+													return description.substring(0, length);
+												}
+											}
+											);
+											
+				tpl.overwrite(Ext.getBody(), bugData);
+				
+
+				/**
+				 * There's More... - 
+				 */
+				
+				/*
+				formatDescription: function(description, length){
+					return description.substring(0, length);
+				}
+				
+				{[this.formatDescription(values.description)]}
+				
+				{description:this.formatDescription}
+				*/
+				
+				
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

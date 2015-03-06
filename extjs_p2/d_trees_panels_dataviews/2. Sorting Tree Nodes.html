@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title id="page-title">2. Sorting and Filtering Tree Nodes</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+
+                var store = Ext.create('Ext.data.TreeStore', {
+                    proxy: {
+                        type: 'ajax',
+                        url: 'treeData.json'
+                    },
+                    root: {
+                        text: 'Countries',
+                        expanded: true
+                    },
+                    sorters: [{
+                        property: 'text',
+                        direction: 'ASC' //for descending change to 'DESC'
+                    }]
+                });
+				
+                Ext.create('Ext.tree.Panel', {
+                    title: 'Countries (Ascending)',
+                    width: 500,
+                    height: 200,
+                    store: store,
+                    rootVisible: false,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser’s edge
+                });
+
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

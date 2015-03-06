@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <title>Loading Cross Domain Data with a Store</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Loading Cross Domain Data with a store
+                 */
+                /**
+                 * Define a Model
+                 */
+                Ext.define('Flickr', {
+                    extend: 'Ext.data.Model',
+                    
+                    fields: [{
+                        name: 'title',
+                        type: 'string'
+                    }, {
+                        name: 'link',
+                        type: 'string'
+                    }]
+                });
+                
+                /**
+                 * Define a store with a JSONP Proxy
+                 */
+                var JSONPStore = Ext.create('Ext.data.Store', {
+                    model: 'Flickr',
+                    proxy: {
+                        type: 'jsonp',
+                        url: 'http://api.flickr.com/services/feeds/photos_public.gne',
+                        callbackKey: 'jsoncallback',
+                        extraParams: {
+                            tags: 'swan',
+                            tagmode: 'any',
+                            format: 'json'
+                        },
+                        reader: {
+                            type: 'json',
+                            root: 'items'
+                        }
+                    }
+                });
+                
+                /**
+                 * Load data into the Store
+                 */
+                JSONPStore.load();
+                
+                /**
+                 * Check that the data is in the Model
+                 */
+                JSONPStore.on('load', function(){
+                    var record = JSONPStore.getAt(0);
+                    console.log(record.data.title + ' ' + record.data.link);
+                }, this);
+                
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

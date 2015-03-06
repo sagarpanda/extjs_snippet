@@ -1,0 +1,159 @@
+<html>
+    <head>
+        <title id="page-title">8. Displaying stacked components with Card layouts</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1
+                 */
+/*				
+                var panel = Ext.create('Ext.panel.Panel', {
+                    title: 'Account Creation Wizard - Card Layout',
+                    width: 350,
+                    height: 300,
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody()
+                });
+*/
+
+                
+                /**
+                 * Step 2
+                 */
+/*				
+                var card1 = new Ext.panel.Panel({
+                    bodyStyle: 'padding: 20px',
+                    title: 'Personal Info',
+                    items: [{
+                        xtype: 'textfield',
+                        fieldLabel: 'First Name'
+                    }, {
+                        xtype: 'textfield',
+                        fieldLabel: 'Last Name'
+                    }, {
+                        xtype: 'textfield',
+                        fieldLabel: 'Email Address',
+                        vtype: 'email'
+                    }]
+                });
+                
+                var card2 = new Ext.panel.Panel({
+                    bodyStyle: 'padding: 20px',
+                    title: 'Account Info',
+                    items: [{
+                        xtype: 'textfield',
+                        fieldLabel: 'Username'
+                    }, {
+                        xtype: 'textfield',
+                        fieldLabel: 'Password',
+                        inputType: 'password'
+                    }]
+                });
+                
+                var card3 = new Ext.panel.Panel({
+                    bodyStyle: 'padding: 20px',
+                    title: 'Account Creation Successful!',
+                    html: 'Success!'
+                });
+*/
+                
+                
+                /**
+                 * Step 3
+                 */
+/*				
+                var panel = Ext.create('Ext.panel.Panel', {
+                    title: 'Account Creation Wizard - Card Layout',
+                    width: 350,
+                    height: 300,
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody(),
+                    items: [card1, card2, card3]
+                });
+*/
+                
+                
+                /**
+                 * Step 4
+                 */
+                var card1 = new Ext.panel.Panel({
+                    bodyStyle: 'padding: 20px',
+                    title: 'Personal Info',
+                    items: [{
+                        xtype: 'textfield',
+                        fieldLabel: 'First Name'
+                    }, {
+                        xtype: 'textfield',
+                        fieldLabel: 'Last Name'
+                    }, {
+                        xtype: 'textfield',
+                        fieldLabel: 'Email Address',
+                        vtype: 'email'
+                    }]
+                });
+                
+                var card2 = new Ext.panel.Panel({
+                    bodyStyle: 'padding: 20px',
+                    title: 'Account Info',
+                    items: [{
+                        xtype: 'textfield',
+                        fieldLabel: 'Username'
+                    }, {
+                        xtype: 'textfield',
+                        fieldLabel: 'Password',
+                        inputType: 'password'
+                    }]
+                });
+                
+                var card3 = new Ext.panel.Panel({
+                    bodyStyle: 'padding: 20px',
+                    title: 'Account Creation Successful!',
+                    html: 'Success!'
+                });
+                
+                var panel = Ext.create('Ext.panel.Panel', {
+                    title: 'Account Creation Wizard - Card Layout',
+                    width: 350,
+                    height: 300,
+                    layout: 'card',
+                    
+                    deferredRender: true,
+                    
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody(),
+                    items: [card1, card2, card3],
+                    bbar: ['->', {
+                        xtype: 'button',
+                        text: 'Previous',
+                        handler: function(btn){
+                            var layout = panel.getLayout();
+                            
+                            if (layout.getPrev()) {
+                                layout.prev();
+                            }
+                        }
+                    }, {
+                        xtype: 'button',
+                        text: 'Next',
+                        handler: function(btn){
+                            var layout = panel.getLayout();
+                            
+                            if (layout.getNext()) {
+                                layout.next();
+                            }
+                        }
+                    }]
+                });
+                
+
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

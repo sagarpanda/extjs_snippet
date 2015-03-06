@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>Loading and Parsing Dates into a Date Picker</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+            
+                /**
+                 * Step 1 - Create a simple Date field
+                 */
+                var dateField = Ext.create('Ext.form.field.Date', {
+                    fieldLabel: 'Pick a Date',
+                    renderTo: Ext.getBody()
+                });
+                
+                dateField.setValue('31/01/2011'); // sets value to 07/01/2013
+                /**
+                 * Step 2
+                 */
+                var dateField2 = Ext.create('Ext.form.field.Date', {
+                    fieldLabel: 'Pick a Date',
+                    renderTo: Ext.getBody(),
+                    
+                    format: 'd/m/Y'
+                });
+                
+                dateField2.setValue('31/01/2011'); // sets value to 31/01/2011
+                /**
+                 * Step 3
+                 */
+                var dateField3 = Ext.create('Ext.form.field.Date', {
+                    fieldLabel: 'Pick a Date',
+                    renderTo: Ext.getBody(),
+                    
+                    format: 'd/m/Y'
+                });
+                
+                dateField3.setValue('31-01-2011'); // sets value to 07/01/2013
+                /**
+                 * Step 4
+                 */
+                var dateField4 = Ext.create('Ext.form.field.Date', {
+                    fieldLabel: 'Pick a Date',
+                    renderTo: Ext.getBody(),
+                    
+                    format: 'd/m/Y',
+                    altFormats: 'd-m-Y|dmY'
+                });
+
+                dateField4.setValue('31-01-2011'); // sets value to 31/01/2011
+                dateField4.setValue('31012011'); // sets value to 31/01/2011
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

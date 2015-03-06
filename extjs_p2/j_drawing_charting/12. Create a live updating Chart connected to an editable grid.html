@@ -1,0 +1,132 @@
+<html>
+    <head>
+        <title>Create a live updating Chart connected to an editable grid</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1: Create a Language Share Model
+                 */
+                Ext.define('LanguageShare', {
+                    extend: 'Ext.data.Model',
+                    fields: [{
+                        name: 'Language',
+                        type: 'string'
+                    }, {
+                        name: 'Percentage',
+                        type: 'int'
+                    }]
+                });
+                
+                /**
+                 * Step 2 - Define our data array
+                 */
+                var languageShareData = [{
+                    Language: 'C',
+                    Percentage: 7
+                }, {
+                    Language: 'C++',
+                    Percentage: 4
+                }, {
+                    Language: 'Java',
+                    Percentage: 7
+                }, {
+                    Language: 'JavaScript',
+                    Percentage: 20
+                }, {
+                    Language: 'Objective-C',
+                    Percentage: 2
+                }, {
+                    Language: 'Perl',
+                    Percentage: 5
+                }, {
+                    Language: 'PHP',
+                    Percentage: 7
+                }, {
+                    Language: 'Python',
+                    Percentage: 9
+                }, {
+                    Language: 'Ruby',
+                    Percentage: 16
+                }, {
+                    Language: 'Shell',
+                    Percentage: 8
+                }, {
+                    Language: 'Others',
+                    Percentage: 22
+                }];
+                
+                /**
+                 * Step 3 - Create a store bound to our data array
+                 */
+                var languageShareStore = Ext.create('Ext.data.Store', {
+                    model: 'LanguageShare',
+                    data: languageShareData
+                });
+                
+                
+                var Chart = Ext.create('Ext.chart.Chart', {
+                    height: 400,
+                    width: 400,
+                    store: languageShareStore,
+                    animate: true,
+                    series: [{
+                        type: 'pie',
+                        angleField: 'Percentage',
+                        label: {
+                            display: 'rotate',
+                            contrast: true,
+                            field: 'Language'
+                        }
+                    }]
+                });
+                
+                var Grid = Ext.create('Ext.grid.Panel', {
+                    store: languageShareStore,
+                    height: 400,
+                    width: 400,
+                    border: 0,
+                    columns: [{
+                        header: 'Language',
+                        dataIndex: 'Language',
+                        flex: 1
+                    }, {
+                        header: 'Percentage',
+                        dataIndex: 'Percentage',
+                        flex: 1,
+                        field: {
+                            xtype: 'numberfield',
+                            allowBlank: false
+                        }
+                    }],
+                    selType: 'cellmodel',
+                    plugins: [Ext.create('Ext.grid.plugin.CellEditing', {
+                        clicksToEdit: 1
+                    })]
+                
+                });
+                
+                var Panel = Ext.create('Ext.Panel', {
+                    id: 'woof',
+                    width: 800,
+                    height: 427,
+                    title: "GitHub Language Share",
+                    layout: {
+                        type: 'hbox',
+                        align: 'stretch'
+                    },
+                    items: [Grid, Chart],
+                    style: 'margin: 50px',
+                    renderTo: Ext.getBody()
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

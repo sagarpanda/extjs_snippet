@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Entering numbers with a spinner field</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                var formPanel = Ext.create('Ext.form.Panel', {
+                    title: 'Spinner Field Example',
+                    width: 350,
+                    height: 100,
+                    bodyPadding: 10,
+                    defaults: {
+                        labelWidth: 150
+                    },
+                    items: [{
+                        xtype: 'numberfield',
+                        fieldLabel: 'Card Expiry Date',
+                        minValue: 2011,
+                        maxValue: 2020
+                    }, {
+                        xtype: 'numberfield',
+                        fieldLabel: 'Weight (KG)',
+                        minValue: -100,
+                        maxValue: 100,
+                        allowDecimals: true,
+                        decimalPrecision: 1,
+                        step: 0.5
+                    }],
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser�s edge
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

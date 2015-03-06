@@ -1,0 +1,20 @@
+{
+    "Title": "ExtJS4ck",
+    "Publisher": "ptPublishing",
+    "ISBN": "978-1-849516-86-0",
+    "PublishDate": "01-01-2012",
+    "NumberOfPages": 300,
+    "Read": false,
+    "authors": [
+        {
+            "Title": "Mr",
+            "FirstName": "Andrew",
+            "LastName": "Duncan"
+        },
+        {
+            "Title": "Mr",
+            "FirstName": "Stuart",
+            "LastName": "Ashworth"
+        }
+    ]
+}

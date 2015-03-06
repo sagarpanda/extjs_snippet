@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>Displaying simple tabular data in a grid</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript" src="invoices-model.js">
+        </script>
+        <script type="text/javascript" src="invoices-store.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1 - Include our Invoice Model and Store
+                 */
+                // See above...
+                
+                /**
+                 * Step 2 - Create a basic Grid bound to our 'invoiceStore'
+                 */
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Chapter 8 - Grids',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    columns: [],
+                    
+                    renderTo: Ext.getBody()
+                });
+                
+                /**
+                 * Step 3 - Define the columns to match our Model's data
+                 */
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Chapter 8 - Grids',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client'
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    renderTo: Ext.getBody()
+                });
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

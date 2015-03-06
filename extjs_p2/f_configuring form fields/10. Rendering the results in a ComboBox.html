@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <title>Rendering ComboBox's Results and Values</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <style type="text/css">
+            .reportedBy {
+                font-style: italic;
+                color: #333;
+                margin: 5 5;
+            }
+        </style>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                Ext.define('Issue', {
+                    extend: 'Ext.data.Model',
+                    fields: ['id', 'raisedBy', 'title', 'body', 'status']
+                });
+
+                
+                var store = Ext.create('Ext.data.Store', {
+                    model: 'Issue',
+                    data: [{
+                        id: 1,
+                        raisedBy: 'Joe',
+                        title: 'Registration Form Not Emailing User',
+                        body: 'The registration email is not being sent to users upon regisration.',
+                        status: 'Open'
+                    }, {
+                        id: 2,
+                        raisedBy: 'John',
+                        title: 'Account Details Loading Issue',
+                        body: 'The account details page is not loading data from the server.',
+                        status: 'Closed'
+                    }, {
+                        id: 3,
+                        raisedBy: 'Fred',
+                        title: 'Account Details Missing Email Field',
+                        body: 'The account details page is missing a field to allow the user to update their email address.',
+                        status: 'Open'
+                    }]
+                });
+                
+                var formPanel = Ext.create('Ext.form.Panel', {
+                    title: 'Custom ComboBox Results',
+                    width: 500,
+                    autoHeight: true,
+                    bodyPadding: 10,
+                    items: [{
+                        xtype: 'combobox',
+                        fieldLabel: 'Select Issue',
+                        valueField: 'id',
+                        store: store,
+                        queryMode: 'local',
+                        anchor: '100%',
+                        listConfig: {
+                            getInnerTpl: function(){
+                                return '<h3>{title} ({status})</h3>' +
+                                '<div class="reportedBy">Reported by {raisedBy}</div>' +
+                                '{body}';
+                            }
+                        }
+                    }],
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser�s edge
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

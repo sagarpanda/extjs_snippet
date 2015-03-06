@@ -1,0 +1,214 @@
+<html>
+    <head>
+        <title>5. Creating a Line Chart with updating data</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1: Create a Chart Model
+                 */
+Ext.define('HeartRate', {
+    extend: 'Ext.data.Model',
+    fields: [{
+        name: 'SecondsElapsed',
+        type: 'int'
+    }, {
+        name: 'BeatsPerMinute',
+        type: 'int'
+    }]
+});
+
+				                
+                /**
+                 * Step 2 - Create a store bound to our data array
+                 */
+                /*
+var currentCount = 0;
+var heartRateStore = Ext.create('Ext.data.Store', {
+    model: 'HeartRate',
+    proxy: {
+    	type: 'ajax',
+    	url: 'HeartRate.php',
+    	reader: {
+    		type: 'json',
+    		root: 'data'
+    	}
+    },
+    autoLoad: true,
+    listeners: {
+    	beforeload: function(store, operation, opts){
+    		currentCount++;
+    		operation.params = {
+    			currentCount: currentCount
+    		};
+    	}
+    }
+});
+				*/
+				
+				/**
+				 * Step 3 - Add a 'load' event handler to update the x-axis' minimum and maximum
+				 */
+				var currentCount = 0;
+				var maxDisplayCount = 20;
+				var heartRateStore = Ext.create('Ext.data.Store', {
+				    model: 'HeartRate',
+				    proxy: {
+				    	type: 'ajax',
+				    	url: 'HeartRate.php',
+				    	reader: {
+				    		type: 'json',
+				    		root: 'data'
+				    	}
+				    },
+				    autoLoad: true,
+				    listeners: {
+				    	beforeload: function(store, operation, opts){
+				    		currentCount++;
+				    		operation.params = {
+				    			currentCount: currentCount
+				    		};
+				    	},
+load: function(store, records){
+	var chart = panel.items.get(0),
+		secondsElapsedAxis = chart.axes.get(1),
+		secondsElapsed = records[0].get('SecondsElapsed');
+		
+	secondsElapsedAxis.maximum = store.getCount() < maxDisplayCount ? maxDisplayCount : secondsElapsed;
+	secondsElapsedAxis.minimum = store.getCount() < maxDisplayCount ? 0 : secondsElapsed - maxDisplayCount;
+	
+	chart.redraw();
+}
+				    }
+				});
+                
+                /**
+                 * Step 4 - Create a Panel with a chart
+                 */
+                /*
+				var panel = Ext.create('Ext.Panel', {
+				    width: 600,
+				    height: 400,
+				    title: 'Line Chart - Heart Rate Monitor',
+				    layout: 'fit',
+				    items: [{
+				        xtype: 'chart',
+				        animate: true,
+				        store: heartRateStore
+				    }],
+				    style: 'margin: 50px', // move panel off browser’s edge
+				    renderTo: Ext.getBody()
+				});
+				*/
+				
+                /**
+                 * Step 5 - Define the Line series
+                 */
+                /*
+				var panel = Ext.create('Ext.Panel', {
+				    width: 600,
+				    height: 400,
+				    title: 'Line Chart - Heart Rate Monitor',
+				    layout: 'fit',
+				    items: [{
+				        xtype: 'chart',
+				        animate: true,
+				        store: heartRateStore,
+				        axes: [{
+				        	type: 'Numeric',
+				        	grid: true,
+				        	position: 'left',
+				        	field: ['BeatsPerMinute'],
+                            title: 'Beats per Minute',
+                            minimum: 0,
+                            maximum: 200,
+                            majorTickSteps: 5
+				        }, {
+			                type: 'Numeric',
+			                position: 'bottom',
+			                fields: 'SecondsElapsed',
+			                title: 'Seconds Elapsed',
+							minimum: 0,
+							maximum: 20,
+							decimals: 0,
+							constrain: true,
+							majorTickSteps: 20
+			            }],
+				        series: [{
+				        	type: 'line',
+				        	smooth: false,
+				        	axis: 'left',
+				        	xField: 'SecondsElapsed',
+				        	yField: 'BeatsPerMinute'				        	
+				        }]
+				    }],
+				    style: 'margin: 50px', // move panel off browser’s edge
+				    renderTo: Ext.getBody()
+				});
+				*/
+				
+                /**
+                 * Step 6 - Add the x and y axes
+                 */
+				var panel = Ext.create('Ext.Panel', {
+				    width: 600,
+				    height: 400,
+				    title: 'Line Chart - Heart Rate Monitor',
+				    layout: 'fit',
+				    items: [{
+				        xtype: 'chart',
+				        animate: true,
+				        store: heartRateStore,
+				        axes: [{
+				        	type: 'Numeric',
+				        	grid: true,
+				        	position: 'left',
+				        	field: ['BeatsPerMinute'],
+                            title: 'Beats per Minute',
+                            minimum: 0,
+                            maximum: 200,
+                            majorTickSteps: 5
+				        }, {
+			                type: 'Numeric',
+			                position: 'bottom',
+			                fields: 'SecondsElapsed',
+			                title: 'Seconds Elapsed',
+							minimum: 0,
+							maximum: 20,
+							decimals: 0,
+							constrain: true,
+							majorTickSteps: 20
+			            }],
+				        series: [{
+				        	type: 'line',
+				        	smooth: false,
+				        	axis: 'left',
+				        	xField: 'SecondsElapsed',
+				        	yField: 'BeatsPerMinute'				        	
+				        }]
+				    }],
+				    style: 'margin: 50px', // move panel off browser’s edge
+				    renderTo: Ext.getBody()
+				});
+                
+                /**
+                 * Step 7 - Setup an interval timer to load new data every second
+                 */
+                setInterval(function(){
+                	heartRateStore.load({
+                		addRecords: true // append the newly loaded records
+                	});
+                }, 1000);
+                
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

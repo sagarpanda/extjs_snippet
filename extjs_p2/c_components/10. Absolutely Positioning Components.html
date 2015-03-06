@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title id="page-title">10. Absolutely Positioning Components</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1
+                 */
+/*				
+                Ext.create('Ext.panel.Panel', {
+                    width: 400,
+                    height: 400,
+                    renderTo: Ext.getBody(),
+                    title: "Absolute Layout Panel",
+                    items: []
+                });
+*/
+                
+                
+                /**
+                 * Step 2
+                 */
+/*				
+                Ext.create('Ext.panel.Panel', {
+                    width: 400,
+                    height: 400,
+                    renderTo: Ext.getBody(),
+                    title: "Absolute Layout Panel",
+                    layout: 'absolute',
+                    items: [{
+                        xtype: 'panel',
+                        title: 'Panel 1',
+                        html: 'Panel 1'
+                    }]
+                });
+*/            
+    
+                
+                /**
+                 * Step 3
+                 */
+				Ext.create('Ext.panel.Panel', {
+				    width: 400,
+				    height: 400,
+				    renderTo: Ext.getBody(),
+				    title: "Absolute Layout Panel",
+				    layout: 'absolute',
+				    items: [{
+				        xtype: 'panel',
+				        title: 'Panel 1',
+				        html: 'Positioned 50px from left, 50px from top',
+				        anchor: '50% 35%',
+				        x: 50,
+				        y: 50
+				    }]
+				});
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

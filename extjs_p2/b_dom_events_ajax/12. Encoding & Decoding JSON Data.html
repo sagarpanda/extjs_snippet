@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>12. Encoding &amp; Decoding JSON Data</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                //1.
+                var objToEncode = {
+					foo: "bar", //string
+					id: 1, //int/number
+					today: new Date(), //date
+					isJson: true, //boolean
+					size: new Array("Small", "Medium", "Large"), //array
+					obj: {
+						item: "My Item"
+					} //object
+				};
+				
+				//2.
+				//var encodedJson = Ext.JSON.encode(objToEncode);
+				var encodedJson = Ext.encode(objToEncode);
+				
+				console.log(encodedJson);
+				/*
+				{
+				    "foo": "bar",
+				    "id": 1,
+				    "today": "2011-07-09T15:01:21",
+				    "isJson": true,
+				    "size": [
+				        "Small",
+				        "Medium",
+				        "Large"
+				    ],
+				    "obj": {
+				        "item": "My Item"
+				    }
+				}
+				*/
+				
+				//3.
+				//var decodedJson = Ext.JSON.decode(encodedJson)
+				var decodedJson = Ext.decode(encodedJson);
+				
+				console.log(decodedJson.foo);
+				//bar
+				console.log(decodedJson.id);
+				//1
+				console.log(decodedJson.size[0]);
+				//Small
+				console.log(decodedJson.obj.item);
+				//My Item
+            
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

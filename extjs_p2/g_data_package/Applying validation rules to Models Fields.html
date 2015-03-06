@@ -1,0 +1,197 @@
+<html>
+    <head>
+        <title>Applying validation rules to Models' Fields</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /*
+                 * Step 1 - Register the Model
+                 */
+                Ext.define('Book', {
+                    extend: 'Ext.data.Model',
+                    
+                    fields: [{
+                        name: 'Title',
+                        type: 'string'
+                    }, {
+                        name: 'Publisher',
+                        type: 'string'
+                    }, {
+                        name: 'ISBN',
+                        type: 'string'
+                    }, {
+                        name: 'PublishDate',
+                        type: 'date',
+                        dateFormat: 'd-m-Y'
+                    }, {
+                        name: 'NumberOfPages',
+                        type: 'int'
+                    }, {
+                        name: 'Read',
+                        type: 'boolean'
+                    }]
+                });
+                
+                /**
+                 * Step 2 - Add simple validation rules to the Title and Publisher fields
+                 */
+                Ext.define('Book', {
+                    extend: 'Ext.data.Model',
+                    
+                    fields: [{
+                        name: 'Title',
+                        type: 'string'
+                    }, {
+                        name: 'Publisher',
+                        type: 'string'
+                    }, {
+                        name: 'ISBN',
+                        type: 'string'
+                    }, {
+                        name: 'PublishDate',
+                        type: 'date',
+                        dateFormat: 'd-m-Y'
+                    }, {
+                        name: 'NumberOfPages',
+                        type: 'int'
+                    }, {
+                        name: 'Read',
+                        type: 'boolean'
+                    }],
+                    
+                    validations: [{
+                        type: 'length',
+                        field: 'Title',
+                        min: 1
+                    }, {
+                        type: 'presence',
+                        field: 'Publisher'
+                    }]
+                });
+                
+                
+                /**
+                 * Step 3 - Create a new Model instance and test our validations
+                 */
+                var book = Ext.create('Book', {
+                    Title: '', // invalid Title
+                    Publisher: 'pt Publishing',
+                    ISBN: '978-1-849516-86-0',
+                    PublishDate: '01-01-2012',
+                    NumberOfPages: 300,
+                    Read: false
+                });
+                
+                console.log(book.validate());
+                
+                book = Ext.create('Book', {
+                    Title: '', // invalid Title
+                    // missing Publisher
+                    ISBN: '978-1-849516-86-0',
+                    PublishDate: '01-01-2012',
+                    NumberOfPages: 300,
+                    Read: false
+                });
+                
+                console.log(book.validate());
+                
+                
+                
+                /**
+                 * There's More... - Creating custom validations
+                 */
+                Ext.data.validations.isbnMessage = 'is not a valid ISBN Number';
+                Ext.data.validations.isbn = function(config, value){
+                    var valid = false;
+                    
+                    valid = value.length === 17; // 13 digits + 4 hyphens
+                    valid = valid && (value.split('-').length === 5); // contains 4 hyphens
+                    return valid;
+                };
+                
+                Ext.define('Book', {
+                    extend: 'Ext.data.Model',
+                    
+                    fields: [{
+                        name: 'Title',
+                        type: 'string'
+                    }, {
+                        name: 'Publisher',
+                        type: 'string'
+                    }, {
+                        name: 'ISBN',
+                        type: 'string'
+                    }, {
+                        name: 'PublishDate',
+                        type: 'date',
+                        dateFormat: 'd-m-Y'
+                    }, {
+                        name: 'NumberOfPages',
+                        type: 'int'
+                    }, {
+                        name: 'Read',
+                        type: 'boolean'
+                    }],
+                    
+                    validations: [{
+                        type: 'length',
+                        field: 'Title',
+                        min: 1
+                    }, {
+                        type: 'presence',
+                        field: 'Publisher'
+                    }, {
+                        type: 'isbn',
+                        field: 'ISBN'
+                    }]
+                });
+                
+                book = Ext.create('Book', {
+                    Title: '',
+                    Publisher: 'pt Publishing',
+                    ISBN: '978-1-849516-86-09',
+                    PublishDate: '01-01-2012',
+                    NumberOfPages: 300,
+                    Read: false
+                });
+                
+                var errors = book.validate();
+                console.log(errors.isValid());
+                console.log(errors.length); // 2 errors - Invalid Title, Invalid ISBN number
+                book = Ext.create('Book', {
+                    Title: '',
+                    ISBN: '978-1-849516-86-0-7',
+                    PublishDate: '01-01-2012',
+                    NumberOfPages: 300,
+                    Read: false
+                });
+                
+                errors = book.validate();
+                console.log(errors.isValid());
+                console.log(errors.length); // 3 errors - Invalid Title, Missing Publisher, Invalid ISBN number
+                book = Ext.create('Book', {
+                    Title: '',
+                    ISBN: '978-1-849516-86-0',
+                    PublishDate: '01-01-2012',
+                    NumberOfPages: 300,
+                    Read: false
+                });
+                
+                errors = book.validate();
+                console.log(errors.isValid());
+                console.log(errors.length); // 2 errors - Invalid Title, Missing Published, Invalid ISBN number
+                /**
+                 * There's More... - Accessing Error Details
+                 */
+                console.log(errors.getByField('Title'));
+                console.log(errors.getByField('Publisher'));
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

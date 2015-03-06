@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <title></title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                var radioGroupAutoLayout = Ext.create('Ext.form.Panel', {
+                    title: 'Radio Group Columns',
+                    width: 500,
+                    autoHeight: true,
+                    bodyPadding: 10,
+                    items: [{
+                        xtype: 'radiogroup',
+                        fieldLabel: 'Gender',
+                        items: [{
+                            boxLabel: 'Male',
+                            name: 'gender',
+                            inputValue: 'male'
+                        }, {
+                            boxLabel: 'Female',
+                            name: 'gender',
+                            inputValue: 'female'
+                        }]
+                    }],
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser�s edge
+                });
+                
+                var radioGroupMultiColumn = Ext.create('Ext.form.Panel', {
+                    title: 'Radio Group Columns (horizontal)',
+                    width: 500,
+                    autoHeight: true,
+                    bodyPadding: 10,
+                    items: [{
+                        xtype: 'radiogroup',
+                        columns: 3,
+                        items: [{
+                            boxLabel: 'Option 1',
+                            name: 'option',
+                            inputValue: 1
+                        }, {
+                            boxLabel: 'Option 2',
+                            name: 'option',
+                            inputValue: 2
+                        }, {
+                            boxLabel: 'Option 3',
+                            name: 'option',
+                            inputValue: 3
+                        }, {
+                            boxLabel: 'Option 4',
+                            name: 'option',
+                            inputValue: 4
+                        }, {
+                            boxLabel: 'Option 5',
+                            name: 'option',
+                            inputValue: 5
+                        }, {
+                            boxLabel: 'Option 6',
+                            name: 'option',
+                            inputValue: 6
+                        }]
+                    }],
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser�s edge
+                });
+                
+                var radioGroupVerticalColumn = Ext.create('Ext.form.Panel', {
+                    title: 'Radio Group Columns (vertical)',
+                    width: 500,
+                    autoHeight: true,
+                    bodyPadding: 10,
+                    items: [{
+                        xtype: 'radiogroup',
+                        columns: 3,
+                        vertical: true,
+                        items: [{
+                            boxLabel: 'Extra Small',
+                            name: 'size',
+                            inputValue: 'xs'
+                        }, {
+                            boxLabel: 'Small',
+                            name: 'size',
+                            inputValue: 's'
+                        }, {
+                            boxLabel: 'Medium',
+                            name: 'size',
+                            inputValue: 'm'
+                        }, {
+                            boxLabel: 'Large',
+                            name: 'size',
+                            inputValue: 'l'
+                        }, {
+                            boxLabel: 'Extra Large',
+                            name: 'size',
+                            inputValue: 'xl'
+                        }, {
+                            boxLabel: 'Extra Extra Large',
+                            name: 'size',
+                            inputValue: 'xxl'
+                        }]
+                    }],
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser�s edge
+                });
+                
+                var radioGroupCustomColumn = Ext.create('Ext.form.Panel', {
+                    title: 'Radio Group Columns',
+                    width: 500,
+                    autoHeight: true,
+                    bodyPadding: 10,
+                    items: [{
+                        xtype: 'radiogroup',
+                        layout: 'column',
+                        defaultType: 'container',
+                        items: [{
+                            columnWidth: 0.5,
+                            items: [{
+                                xtype: 'component',
+                                html: 'Drink',
+                                cls: 'x-form-check-group-label'
+                            }, {
+                                xtype: 'radiofield',
+                                boxLabel: 'Beer',
+                                name: 'drink',
+                                inputValue: 'beer'
+                            }, {
+                                xtype: 'radiofield',
+                                boxLabel: 'Wine',
+                                name: 'drink',
+                                inputValue: 'wine'
+                            }]
+                        }, {
+                            columnWidth: 0.5,
+                            items: [{
+                                xtype: 'component',
+                                html: 'Food',
+                                cls: 'x-form-check-group-label'
+                            }, {
+                                xtype: 'radiofield',
+                                boxLabel: 'Pizza',
+                                name: 'food',
+                                inputValue: 'pizza'
+                            }, {
+                                xtype: 'radiofield',
+                                boxLabel: 'Burger',
+                                name: 'food',
+                                inputValue: 'burger'
+                            }]
+                        }]
+                    }],
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser�s edge
+                });
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <title>4. Creating new DOM Elements</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+                          
+                /**
+                 * How to do it...
+                 */
+				
+				// Define our new Element's configuration
+                var newClassSystemConfig = {
+                    tag: 'li',
+                    html: 'New Class System'
+                };
+                
+                // Get our 'What's New' list element
+                var whatsNewListEl = Ext.get('whats-new');
+                
+				// Use the Ext.core.DomHelper's append() method to create the new element
+				// based on our config and append it to the 'What's New' list
+                var newClassSystemEl = Ext.core.DomHelper.append(whatsNewListEl, newClassSystemConfig);
+                
+				// Alternative way of appending the element by using a plain HTML string
+				// instead of a configuration object
+                var newClassSystemEl2 = Ext.core.DomHelper.append(whatsNewListEl, '<li>New Class System</li>');
+                
+
+                /**
+                 * There's More...
+                 */
+				
+				// Insert a new list item at the top of the 'What's New' list using the insertBefore() method
+                Ext.core.DomHelper.insertBefore(whatsNewListEl.first(), {
+                    tag: 'li',
+                    html: 'Infinite Scrolling'
+                });
+				
+				// Insert a new list item at the bottom of the 'What's New' list using the insertAfter() method
+                Ext.core.DomHelper.insertAfter(whatsNewListEl.last(), {
+                    tag: 'li',
+                    html: 'Component Query'
+                });
+                
+                
+				// Create a new Ext.Template instance using the Ext.core.DomHelper's createTemplate() method
+				// The template has a single placeholder named 'newFeature'
+                var itemTpl = Ext.core.DomHelper.createTemplate({
+                    tag: 'li',
+                    html: '{newFeature}'
+                });
+                
+				// We then use the Ext.Template's append() method to append the element generated from merging the 
+				// configuration object in the second parameter with the Ext.Template, to the element
+				// specified as the first parameter
+                itemTpl.append('whats-new', {
+                    newFeature: 'Row Editor'
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+        <h1 id="book-title">Ext JS 4 ck</h1>
+        <h2>Authors</h2>
+        <ul id="authors">
+            <li>
+                Stuart Ashworth
+            </li>
+            <li>
+                Andrew Duncan
+            </li>
+        </ul>
+        <h2>What's new in Ext JS 4?</h2>
+        <ul id="whats-new">
+            <li>
+                Charting
+            </li>
+            <li>
+                Drawing
+            </li>
+            <li>
+                Data Package
+            </li>
+            <li>
+                Enhanced Grid
+            </li>
+            <li>
+                Powerful Theming
+            </li>
+        </ul>
+    </body>
+</html>

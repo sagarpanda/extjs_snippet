@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>Adding a Paging Toolbar for large Datasets</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript" src="invoices-model.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                var invoiceStore = Ext.create('Ext.data.Store', {
+                    autoLoad: true,
+                    model: 'Invoice',
+                    pageSize: 50,
+                    proxy: {
+                        type: 'ajax',
+                        url: 'invoices.php',
+                        reader: {
+                            type: 'json',
+                            root: 'rows'
+                        }
+                    }
+                
+                });
+                
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Paging Toolbar',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        flex: 1
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    bbar: Ext.create('Ext.PagingToolbar', {
+                        store: invoiceStore,
+                        displayInfo: true,
+                        displayMsg: 'Displaying Invoices {0} - {1} of {2}',
+                        emptyMsg: "No invoices to display"
+                    }),
+                    
+                    renderTo: Ext.getBody()
+                });
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

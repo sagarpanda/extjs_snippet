@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>9. Overriding Ext JS' Functionality</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css">
+        <script type="text/javascript" src="../../ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            
+            Ext.onReady(function(){
+            
+                Ext.define('Simple.Class', {
+                    welcome: function(){
+                        alert('Welcome to the app');
+                    }
+                });
+				
+				/*
+	                Simple.Class.override({        
+						goodBye: function(){
+	                        alert('Goodbye');
+	                    },
+	                    
+	                    runAll: function(){
+	                        this.welcome();
+	                        this.goodBye();
+	                    }
+	                });
+				*/
+				
+                Ext.override(Simple.Class, {
+                    goodBye: function(){
+                        alert('Goodbye');
+                    },
+                    
+                    runAll: function(){
+                        this.welcome();
+                        this.goodBye();
+                    }
+                });
+                
+                var app = new Simple.Class();
+                app.runAll(); 	// Welcome to the app
+                				// Goodbye
+                
+
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

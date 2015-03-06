@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <title>10. Parsing, Formatting and Manipulating Dates</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                //1.
+                var date = new Date(2011, 6, 6, 22, 30);
+                
+                //2.
+                Ext.Date.patterns = {
+                    ISO8601Long: "Y-m-d H:i:sP",
+                    ISO8601Short: "Y-m-d",
+                    ShortDate: "n/j/y",
+                    FullDateTime: "l, F d, Y g:i:s A",
+                    LongTime: "g:i:s A",
+                    SortableDateTime: "Y-m-d\\TH:i:s",
+                    UniversalSortableDateTime: "Y-m-d H:i:sO"
+                };
+                
+                //3.
+                console.log(Ext.Date.format(date, Ext.Date.patterns.ISO8601Long));
+                //2011-07-06 22:30:00+01:00
+                console.log(Ext.Date.format(date, Ext.Date.patterns.ISO8601Short));
+                //2011-07-06
+                console.log(Ext.Date.format(date, Ext.Date.patterns.ShortDate));
+                //7/6/11
+                console.log(Ext.Date.format(date, Ext.Date.patterns.FullDateTime));
+                //Wednesday, July 06, 2011 10:30:00 PM
+                console.log(Ext.Date.format(date, Ext.Date.patterns.LongTime));
+                //10:30:00 PM
+                console.log(Ext.Date.format(date, Ext.Date.patterns.SortableDateTime));
+                //2011-07-06T22:30:00
+                console.log(Ext.Date.format(date, Ext.Date.patterns.UniversalSortableDateTime));
+                //2011-07-06 22:30:00+0100
+                console.log(Ext.Date.format(date, 'l, \\t\\he jS \\of F Y h:i:s A'));
+                //Wednesday, the 6th of July 2011 10:30:00 PM
+                
+                
+                //4.
+                console.log(Ext.Date.parse("3", 'n'));
+                //Mon Mar 07 2011 00:00:00 GMT+0000 (GMT Standard Time)
+                console.log(Ext.Date.parse("2010-05-17", "Y-m-d"));
+                //Mon May 17 2010 00:00:00 GMT+0100 (GMT Daylight Time)
+                console.log(Ext.Date.parse("2011-11-31", "Y-m-d", true));
+                //output: null as the date is invalid
+                
+                
+                //5.
+                console.log(Ext.Date.between(new Date('07/01/2011'), new Date('05/01/2011'), new Date('09/01/2011')));
+                //true
+                console.log(Ext.Date.add(new Date('09/30/2011'), Ext.Date.YEAR, -1));
+                //Thu Sep 30 2010 00:00:00 GMT+0100 (GMT Daylight Time)
+                console.log(Ext.Date.getLastDateOfMonth(new Date('07/01/2011')));
+                //Sun Jul 31 2011 00:00:00 GMT+0100 (GMT Daylight Time)
+                console.log(Ext.Date.isDST(new Date('07/01/2011')));
+                //true
+                console.log(Ext.Date.isValid(2011, 29, 2));
+                //false
+            
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

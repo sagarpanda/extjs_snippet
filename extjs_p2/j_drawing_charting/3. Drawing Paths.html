@@ -1,0 +1,191 @@
+<html>
+    <head>
+        <title>3. Drawing Paths</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+            	 * Step 1 - Create our drawing Component
+            	 */
+            	/*
+				var house = Ext.create('Ext.draw.Component', {
+					renderTo: Ext.getBody(),
+					width: 800,
+					height: 550,
+					viewBox: false,
+					
+					items: []
+				});
+				
+				
+				var house = Ext.create('Ext.draw.Component', {
+					renderTo: Ext.getBody(),
+					width: 800,
+					height: 550,
+					viewBox: false,
+					
+					items: [{
+						type: 'rect',
+						x: 200,
+						y: 0,
+						width: 500,
+						height: 250,
+						fill: '#3BB9FF'
+					}, {
+						type: 'rect',
+						x: 200,
+						y: 250,
+						width: 500,
+						height: 100,
+						fill: '#7CFC00'
+					}]
+				});
+				
+
+				
+				var house = Ext.create('Ext.draw.Component', {
+					renderTo: Ext.getBody(),
+					width: 800,
+					height: 550,
+					viewBox: false,
+					
+					items: [{
+						type: 'rect',
+						x: 200,
+						y: 0,
+						width: 500,
+						height: 250,
+						fill: '#3BB9FF'
+					}, {
+							type: 'rect',
+							x: 200,
+							y: 250,
+							width: 500,
+							height: 100,
+							fill: '#7CFC00'
+					}, {
+						type: 'path',
+						fill: '#98AFC7',
+						stroke: '#000',
+						"stroke-width": 2
+					}]
+				});
+				*/	
+							
+				var house = Ext.create('Ext.draw.Component', {
+					renderTo: Ext.getBody(),
+					width: 800,
+					height: 550,
+					viewBox: false,
+					
+					items: [{
+						type: 'rect',
+						x: 200,
+						y: 0,
+						width: 500,
+						height: 250,
+						fill: '#3BB9FF'
+					}, {
+						type: 'rect',
+						x: 200,
+						y: 250,
+						width: 500,
+						height: 100,
+						fill: '#7CFC00'
+					}, {
+						type: 'path',
+						fill: '#9B4645',
+						stroke: '#000',
+						"stroke-width": 2,
+						path: [
+							'M 300 290',
+							'l 0 -60', // 300 230
+							'l -10 0', // 290 230
+							'l 60 -40', // 350 190
+							'l 60 40', // 410 230
+							'l -10 0', // 400 230
+							'l 0 60', // 400 290
+							'l -100 0', // 300 290
+							'm 43 0', // move to 343 290
+							'l 0 -25', // 343 265
+							'l 15 0', // 358 265
+							'l 0 25' // 358 290
+						
+						].join(' ')
+					}]
+				});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+                
+                /**
+                 * There's More - Drawing Curved paths
+                 */
+				var moon = Ext.create('Ext.draw.Component', {
+					renderTo: Ext.getBody(),
+					width: 500,
+					height: 500,
+					viewBox: false,
+					
+					items: [{
+						type: 'rect',
+						x: 0,
+						y: 0,
+						width: 500,
+						height: 500,
+						fill: '#060429'
+					}]
+				});
+				
+				                
+				var moon = Ext.create('Ext.draw.Component', {
+					renderTo: Ext.getBody(),
+					width: 500,
+					height: 500,
+					viewBox: false,
+					
+					items: [{
+						type: 'rect',
+						x: 0,
+						y: 0,
+						width: 500,
+						height: 500,
+						fill: '#060429'
+					}, {
+						type: 'path',
+						fill: '#FEF6B1',
+						path: [
+						
+							'M 300 100',
+							'C 350 110, 350 170, 300 180',
+							'C 380 200, 380 80, 300 100'
+						
+						].join(' ')
+					}]
+				});
+				            
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

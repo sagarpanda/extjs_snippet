@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <title id="page-title">6. Docking items to Panels' edges</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1
+                 */
+                Ext.create('Ext.panel.Panel', {
+                    title: 'Panel Header',
+                    width: 500,
+                    height: 200,
+                    bodyPadding: 10,
+                    html: 'Panel Content',
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser’s edge
+                });
+                
+                /**
+                 * Step 2
+                 */
+                Ext.create('Ext.panel.Panel', {
+                    title: 'Panel Header',
+                    width: 500,
+                    height: 200,
+                    bodyPadding: 10,
+                    html: 'Panel Content',
+                    dockedItems: [{
+                        xtype: 'toolbar',
+                        dock: 'top',
+                        items: [{
+                            text: 'Click me'
+                        }, '->', 'Docked toolbar at the top']
+                    }],
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser’s edge
+                });
+                
+                /**
+                 * Step 3
+                 */
+                Ext.create('Ext.panel.Panel', {
+                    title: 'Panel Header',
+                    width: 500,
+                    height: 200,
+                    bodyPadding: 10,
+                    html: 'Panel Content',
+                    dockedItems: [{
+                        xtype: 'toolbar',
+                        dock: 'top',
+                        items: [{
+                            text: 'Click me'
+                        }, '->', 'Docked toolbar at the top']
+                    }, {
+                        xtype: 'toolbar',
+                        dock: 'bottom',
+                        items: [{
+                            text: 'Click me'
+                        }, '->', 'Docked toolbar at the bottom']
+                    }],
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser’s edge
+                });
+                
+                /**
+                 * Step 4
+                 */
+                Ext.create('Ext.panel.Panel', {
+                    title: 'Panel Header',
+                    width: 500,
+                    height: 200,
+                    bodyPadding: 10,
+                    html: 'Panel Content',
+                    fbar: ['Docked toolbar at the bottom (on footer)', {
+                        text: 'Click Me'
+                    }],
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser’s edge
+                });
+                
+                /**
+                 * Step 5
+                 */
+                Ext.create('Ext.panel.Panel', {
+                    title: 'Panel Header',
+                    width: 500,
+                    height: 200,
+                    bodyPadding: 10,
+                    html: 'Panel Content',
+                    lbar: ['lbar'],
+                    rbar: ['rbar'],
+                    tbar: ['tbar'],
+                    bbar: ['bbar'],
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser’s edge
+                });
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

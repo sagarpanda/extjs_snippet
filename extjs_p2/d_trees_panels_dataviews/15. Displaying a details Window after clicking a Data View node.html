@@ -1,0 +1,281 @@
+<html>
+    <head>
+        <title id="page-title">15. Displaying a details Window after clicking a Data View node</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+		
+		<style type="text/css">
+			
+			div.bug-wrapper
+			{
+				float: left;
+				width: 150px;
+				height: 150px;
+				background-color: #eee;
+				margin: 20px;
+				border: 2px solid #eee;	
+			}
+			
+			div.bug-wrapper.x-item-selected
+			{
+				border: 2px solid #000;				
+			}
+			
+			div.bug-wrapper span.title
+			{
+				font-size: 1.2em;
+				font-weight: bold;
+				text-align: center;
+				display: block;
+			}
+			
+			div.bug-wrapper span.severity
+			{
+				display: block;
+				width: 80%;
+				height: 50px;
+				color: white;
+				font-weight: bold;
+				font-size: 3em;
+				text-align: center;
+				margin: 10px 10%;
+			}
+			div.bug-wrapper span.severity.severity-1 {background-color: #379740;}
+			div.bug-wrapper span.severity.severity-2 {background-color: #93b640;}
+			div.bug-wrapper span.severity.severity-3 {background-color: #febc04;}
+			div.bug-wrapper span.severity.severity-4 {background-color: #f76325;}
+			div.bug-wrapper span.severity.severity-5 {background-color: #d8282a;}
+			
+			div.bug-wrapper span.description
+			{
+				padding: 5px;
+				display: block;
+				text-align: center;
+			}
+			
+			div.bug-wrapper span.status
+			{
+				display: block;
+				width: 60%;
+				margin: 10px 20%;
+				padding: 3px;
+				text-align: center;
+				color: white;
+				font-weight: bold;
+			}
+			div.bug-wrapper span.status.open {background-color: green;}
+			div.bug-wrapper span.status.in-progress {background-color: #f5ac75;}
+			div.bug-wrapper span.status.complete {background-color: #666;}
+			
+		</style>
+		
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+				/**
+				 * Step 1 - Create our DataView from Recipe #10
+				 */
+				Ext.regModel('Bug', {
+					fields: ['title', 'description', 'status', 'severity']
+				});
+								
+				var bugData = [{
+					title: 'Bug 1',
+					description: 'Bug 1 Description',
+					status: 'In Progress',
+					severity: 1
+				}, {
+					title: 'Bug 2',
+					description: 'Bug 2 Description',
+					status: 'Complete',
+					severity: 3
+				}, {
+					title: 'Bug 3',
+					description: 'Bug 3 Description',
+					status: 'Open',
+					severity: 4
+				}, {
+					title: 'Bug 4',
+					description: 'Bug 4 Description',
+					status: 'Open',
+					severity: 5
+				}, {
+					title: 'Bug 5',
+					description: 'Bug 5 Description',
+					status: 'Complete',
+					severity: 1
+				}, {
+					title: 'Bug 6',
+					description: 'Bug 6 Description',
+					status: 'Open',
+					severity: 2
+				}];
+			
+				var bugStore = new Ext.data.Store({
+					model: 'Bug',
+					data: bugData
+				});
+			
+				var dataview = Ext.create('Ext.view.View', {
+					store: bugStore,
+					tpl: '<tpl for=".">' +
+							'<div class="bug-wrapper">' + 
+								'<span class="title">{title}</span>' +
+								'<span class="severity severity-{severity}">{severity}</span>' +
+								'<span class="description">{description}</span>' + 
+								'<span class="status {[values.status.toLowerCase().replace(" ", "-")]}">{status}</span>' +
+							'</div>' + 
+						'</tpl>',
+					itemSelector: 'div.bug-wrapper',
+					emptyText: 'Woo hoo! No Bugs Found!',
+					deferEmptyText: false
+				});
+				
+				var panel = Ext.create('Ext.panel.Panel', {
+					renderTo: document.body,
+					title: 'Displaying a details Window after clicking a Data View node',
+					height: 500,
+					width: 580,
+					layout: 'fit',
+					style: 'margin: 50;',
+					tbar: [{
+						xtype: 'combo',
+						name: 'status',
+						width: 200,
+						labelWidth: 100,
+					    fieldLabel: 'Severity Filter',
+					    store: ['1', '2', '3', '4', '5'],
+					    queryMode: 'local',
+						listeners: {
+							select: function(combo, value, options){
+								dataview.getStore().clearFilter(); // remove current filters
+								
+								dataview.getStore().filter('severity', combo.getValue());
+							}
+						}
+					}, '-', {
+						text: 'Sort by Severity',
+						handler: function(){
+							dataview.getStore().sort('severity', 'DESC');
+						}
+					}, {
+						text: 'Open all Bugs',
+						handler: function(){
+							dataview.getStore().each(function(model){
+								model.set('status', 'Open');
+								model.commit();
+							}, this);
+						}
+					}, '->', {
+						text: 'Clear Filter',
+						handler: function(){
+							dataview.getStore().clearFilter();
+						}
+					}],
+					items: [dataview]
+				});								
+				
+				
+				/**
+				 * Step 2 - Create a form containing fields to edit the Bug
+				 */
+				
+				var editForm = Ext.create('Ext.form.Panel', {
+					border: false,
+					items: [{
+						xtype: 'textfield',
+						name: 'title',
+						width: 300,
+						fieldLabel: 'Title'
+					}, {
+						xtype: 'textarea',
+						name: 'description',
+						width: 300,
+						height: 100,
+						fieldLabel: 'Description'
+					}, {
+						xtype: 'numberfield',
+						name: 'severity',
+						width: 300,
+				        fieldLabel: 'Severity',
+				        value: 1,
+				        maxValue: 5,
+				        minValue: 1
+					}, {
+						xtype: 'combo',
+						name: 'status',
+						width: 300,
+					    fieldLabel: 'Status',
+					    store: ['Open', 'In Progress', 'Complete'],
+					    queryMode: 'local'
+					}]					
+				});
+				
+				/**
+				 * Step 3 - Create a Window containing the form.
+				 */
+				
+				var win = new Ext.window.Window({
+					height: 250,
+					width: 500,
+					title: 'Edit Bug',
+					modal: true,
+					items: [editForm],
+					closeAction: 'hide',
+					buttons: [{
+						text: 'Save',
+						handler: function(){
+							// save logic here
+						}
+					}]
+				});
+								
+				/**
+				 * Step 4 - Attach a click handler to the View's items and populate the edit 
+				 * 			form with the clicked record's data and show the window
+				 */
+				dataview.on({
+					itemclick: function(view, record, item, index, e, opts){
+					
+						// populate the form with the clicked record
+						editForm.loadRecord(record);
+						
+						win.show();
+						
+					}
+				});
+				
+				/**
+				 * Step 5 - Add Save logic to the Window's save button
+				 */
+				var win = new Ext.window.Window({
+					height: 250,
+					width: 500,
+					title: 'Edit Bug',
+					modal: true,
+					items: [editForm],
+					closeAction: 'hide',
+					buttons: [{
+						text: 'Save',
+						handler: function(){
+							// save data
+							var selectedRecord = dataview.selModel.getSelection()[0];
+							
+							selectedRecord.set(editForm.getValues());
+							
+							// refilter
+							dataview.getStore().filter();
+							
+							win.close();
+						}
+					}]
+				});
+								
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

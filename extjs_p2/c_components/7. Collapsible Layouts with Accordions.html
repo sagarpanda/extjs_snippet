@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <title id="page-title">7. Collapsible Layouts with Accordions</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1
+                 */
+                /*
+                 Ext.create('Ext.panel.Panel', {
+                 title: 'Accordion Layout',
+                 width: 350,
+                 height: 450,
+                 style: 'margin: 50px', // move panel off browser’s edge
+                 renderTo: Ext.getBody()
+                 });
+                 */
+                /**
+                 * Step 2
+                 */
+                /*
+                 Ext.create('Ext.panel.Panel', {
+                 title: 'Accordion Layout',
+                 width: 350,
+                 height: 450,
+                 style: 'margin: 50px', // move panel off browser’s edge
+                 renderTo: Ext.getBody(),
+                 items: [{
+                 title: 'Ext JS 4',
+                 html: 'Ext JS 4 is a major step forward for web frameworks. Building on Ext JS 3.3, our latest release adds over 350 new APIs, 50 new classes, and 65% more documentation. Ext JS 4 also brings an entirely new data package that enables developers to use a model-view-controller architecture when building their app. The new MVC enables apps to leverage features like Infinite Scrolling a Grid to build an entirely new level of interactivity in to web apps.'
+                 }, {
+                 title: 'Sencha Touch',
+                 html: 'Sencha Touch is the world\'s first app framework built specifically to leverage HTML5, CSS3, and Javascript for the highest level of power, flexibility, and optimization. We make specific use of HTML5 to deliver components like audio and video, as well as a localStorage proxy for saving data offline. We have made extensive use of CSS3 in our stylesheets to provide the most robust styling layer possible.'
+                 }, {
+                 title: 'Ext Designer',
+                 html: 'Ext Designer can be used by business managers and non-programmers to create your application\'s interface, which can then be enhanced by developers.'
+                 }, {
+                 title: 'Sencha Animator',
+                 html: 'With Sencha Animator, you can create CSS3 ads that rival rich-media ads made with traditional desktop applications. You can animate text and images with smooth transitions, design buttons with gradients, and embed analytics tracking code. All with the power of web standards'
+                 }]
+                 });
+                 */
+                /**
+                 * Step 3
+                 */
+                Ext.create('Ext.panel.Panel', {
+                    title: 'Accordion Layout',
+                    width: 350,
+                    height: 450,
+                    layout: 'accordion',
+                    layoutConfig: {
+						//activeOnTop: true,
+						animate: false,
+						multi: true
+                    },
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody(),
+                    items: [{
+                        title: 'Ext JS 4',
+						height: 70,
+                        html: 'Ext JS 4 is a major step forward for web frameworks. Building on Ext JS 3.3, our latest release adds over 350 new APIs, 50 new classes, and 65% more documentation. Ext JS 4 also brings an entirely new data package that enables developers to use a model-view-controller architecture when building their app. The new MVC enables apps to leverage features like Infinite Scrolling a Grid to build an entirely new level of interactivity in to web apps.'
+                    }, {
+                        title: 'Sencha Touch',
+						height: 70,
+                        html: 'Sencha Touch is the world\'s first app framework built specifically to leverage HTML5, CSS3, and Javascript for the highest level of power, flexibility, and optimization. We make specific use of HTML5 to deliver components like audio and video, as well as a localStorage proxy for saving data offline. We have made extensive use of CSS3 in our stylesheets to provide the most robust styling layer possible.'
+                    }, {
+                        title: 'Ext Designer',
+						height: 70,
+                        html: 'Ext Designer can be used by business managers and non-programmers to create your application\'s interface, which can then be enhanced by developers.'
+                    }, {
+                        title: 'Sencha Animator',
+						height: 70,
+                        html: 'With Sencha Animator, you can create CSS3 ads that rival rich-media ads made with traditional desktop applications. You can animate text and images with smooth transitions, design buttons with gradients, and embed analytics tracking code. All with the power of web standards'
+                    }]
+                });
+                
+                
+                /**
+                 * There's More...
+                 */
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

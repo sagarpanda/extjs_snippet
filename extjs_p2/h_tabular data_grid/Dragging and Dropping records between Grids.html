@@ -1,0 +1,307 @@
+<html>
+    <head>
+        <title>Dragging and Dropping records between Grids</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript" src="invoices-model.js">
+        </script>
+        <script type="text/javascript" src="invoices-store.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+                /**
+                 * Step 1 - Include our Invoice Model and Store
+                 */
+                // See above...
+                // stop the invoiceStore from syncing with the server automatically
+                invoiceStore.autoSync = false;
+                
+                /*
+                 * Step 2 - Create our Basic 'Unpaid' and 'Paid' Invoice Grids
+                 */
+                var unpaidInvoicesGrid = Ext.create('Ext.grid.Panel', {
+                    title: 'Unpaid Invoices',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client'
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    renderTo: Ext.getBody()
+                });
+                
+                var paidInvoicesGrid = Ext.create('Ext.grid.Panel', {
+                    title: 'Unpaid Invoices',
+                    height: 300,
+                    width: 600,
+                    store: new Ext.data.Store({
+                        model: 'Invoice'
+                    }),
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client'
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    renderTo: Ext.getBody()
+                });
+                
+                /**
+                 * Step 3 - Add the Ext.grid.plugin.DragDrop plugin to both grids
+                 */
+                var unpaidInvoicesGrid = Ext.create('Ext.grid.Panel', {
+                    title: 'Unpaid Invoices',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client'
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    renderTo: Ext.getBody(),
+                    
+                    viewConfig: {
+                        plugins: [{
+                            ptype: 'gridviewdragdrop',
+                            dragGroup: 'unpaid-group',
+                            dropGroup: 'paid-group'
+                        }]
+                    }
+                });
+                var paidInvoicesGrid = Ext.create('Ext.grid.Panel', {
+                    title: 'Paid Invoices',
+                    height: 300,
+                    width: 600,
+                    store: new Ext.data.Store({
+                        model: 'Invoice'
+                    }),
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client'
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    renderTo: Ext.getBody(),
+                    
+                    viewConfig: {
+                        plugins: [{
+                            ptype: 'gridviewdragdrop',
+                            dragGroup: 'paid-group',
+                            dropGroup: 'unpaid-group'
+                        }]
+                    }
+                });
+                
+                /**
+                 * There's More... - Update record to 'Paid'/'Unpaid' when it is moved to the relevant grid
+                 */
+                var unpaidInvoicesGrid = Ext.create('Ext.grid.Panel', {
+                    title: 'Unpaid Invoices',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client'
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    renderTo: Ext.getBody(),
+                    
+                    viewConfig: {
+                        plugins: [{
+                            ptype: 'gridviewdragdrop',
+                            dragGroup: 'unpaid-group',
+                            dropGroup: 'paid-group'
+                        }],
+                        listeners: {
+                            drop: function(node, data, overModel, dropPosition){
+                                var records = data.records;
+                                
+                                Ext.each(records, function(record){
+                                    record.set('Status', 'Unpaid');
+                                });
+                            }
+                        }
+                    }
+                });
+                var paidInvoicesGrid = Ext.create('Ext.grid.Panel', {
+                    title: 'Paid Invoices',
+                    height: 300,
+                    width: 600,
+                    store: new Ext.data.Store({
+                        model: 'Invoice'
+                    }),
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client'
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    renderTo: Ext.getBody(),
+                    
+                    viewConfig: {
+                        plugins: [{
+                            ptype: 'gridviewdragdrop',
+                            dragGroup: 'paid-group',
+                            dropGroup: 'unpaid-group'
+                        }],
+                        listeners: {
+                            drop: function(node, data, overModel, dropPosition){
+                                var records = data.records;
+                                
+                                Ext.each(records, function(record){
+                                    record.set('Status', 'Paid');
+                                });
+                            }
+                        }
+                    }
+                });
+                
+                
+                /**
+                 * There's More... - Allow rows to be reordered within a single grid
+                 */
+                var unpaidInvoicesGrid = Ext.create('Ext.grid.Panel', {
+                    title: 'Unpaid Invoices',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client'
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    renderTo: Ext.getBody(),
+                    
+                    viewConfig: {
+                        plugins: [{
+                            ptype: 'gridviewdragdrop',
+                            dragGroup: 'unpaid-group',
+                            dropGroup: 'paid-group',
+                        }, {
+                            ptype: 'gridviewdragdrop',
+                            dragGroup: 'unpaid-group',
+                            dropGroup: 'unpaid-group',
+                        }],
+                        listeners: {
+                            drop: function(node, data, overModel, dropPosition){
+                                var records = data.records;
+                                
+                                Ext.each(records, function(record){
+                                    record.set('Status', 'Unpaid');
+                                });
+                            }
+                        }
+                    }
+                });
+                var paidInvoicesGrid = Ext.create('Ext.grid.Panel', {
+                    title: 'Paid Invoices',
+                    height: 300,
+                    width: 600,
+                    store: new Ext.data.Store({
+                        model: 'Invoice'
+                    }),
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client'
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    renderTo: Ext.getBody(),
+                    
+                    viewConfig: {
+                        plugins: [{
+                            ptype: 'gridviewdragdrop',
+                            dragGroup: 'paid-group',
+                            dropGroup: 'unpaid-group'
+                        }, {
+                            ptype: 'gridviewdragdrop',
+                            dragGroup: 'paid-group',
+                            dropGroup: 'paid-group'
+                        }],
+                        listeners: {
+                            drop: function(node, data, overModel, dropPosition){
+                                var records = data.records;
+                                
+                                Ext.each(records, function(record){
+                                    record.set('Status', 'Paid');
+                                });
+                            }
+                        }
+                    }
+                });
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

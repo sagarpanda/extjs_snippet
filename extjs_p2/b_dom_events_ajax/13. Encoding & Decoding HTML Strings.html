@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>13. Encoding &amp; Decoding HTML Strings</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                //1.
+				console.log(Ext.String.htmlEncode("<strong>This is text & it is bold</strong>"));
+				//"&lt;strong&gt;This is text &amp; it is bold&lt;/strong&gt;"
+				
+				
+				//2.
+				console.log(Ext.String.htmlDecode("&lt;strong&gt;This is text &amp; it is bold&lt;/strong&gt;"));
+				//"<strong>This is text & it is bold</strong>"
+
+            
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

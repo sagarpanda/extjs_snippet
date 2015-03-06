@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title></title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                Ext.tip.QuickTipManager.init();
+                var formPanelNarrow = Ext.create('Ext.form.Panel', {
+                    title: 'HTML Editor (narrow)',
+                    width: 350,
+                    height: 200,
+                    layout: 'fit',
+                    items: [{
+                        xtype: 'htmleditor'
+                    }],
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser�s edge
+                });
+                
+                var formPanelWide = Ext.create('Ext.form.Panel', {
+                    title: 'HTML Editor (wide)',
+                    width: 600,
+                    height: 200,
+                    layout: 'fit',
+                    items: [{
+                        xtype: 'htmleditor'
+                    }],
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser�s edge
+                });
+                
+                var formPanelCustomOptions = Ext.create('Ext.form.Panel', {
+                    title: 'HTML Editor (customising the toolbar)',
+                    width: 600,
+                    height: 200,
+                    layout: 'fit',
+                    items: [{
+                        xtype: 'htmleditor',
+                        enableSourceEdit: false,
+                        enableColors: false,
+                        enableLinks: false,
+                        fontFamilies: ["Arial", "Tahoma", "Verdana"]
+                    }],
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser�s edge
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

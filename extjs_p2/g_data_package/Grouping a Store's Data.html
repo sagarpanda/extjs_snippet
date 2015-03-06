@@ -1,0 +1,158 @@
+<html>
+    <head>
+        <title>Grouping a Store's Data</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /*
+                 * Step 1 - Register the Model
+                 */
+                Ext.define('Tweet', {
+                    extend: 'Ext.data.Model',
+                    
+                    fields: [{
+                        name: 'user',
+                        mapping: 'author/name',
+                        type: 'string'
+                    }, {
+                        name: 'tweet',
+                        mapping: 'title',
+                        type: 'string'
+                    }, {
+                        name: 'published',
+                        type: 'date'
+                    }]
+                });
+                
+                /**
+                 * Step 2 - Create a store with an AJAX proxy and load the Twitter data
+                 */
+                var twitterStore = Ext.create('Ext.data.Store', {
+                    model: 'Tweet',
+                    proxy: {
+                        type: 'ajax',
+                        url: 'twitterData.xml',
+                        reader: {
+                            type: 'xml',
+                            record: 'entry'
+                        }
+                    }
+                });
+                
+                twitterStore.load();
+                
+                /**
+                 * Step 3 - Add Groupers to the store and intterogate the groupings using the getGroups method
+                 */
+                twitterStore = Ext.create('Ext.data.Store', {
+                    model: 'Tweet',
+                    proxy: {
+                        type: 'ajax',
+                        url: 'twitterData.xml',
+                        reader: {
+                            type: 'xml',
+                            record: 'entry'
+                        }
+                    },
+                    groupers: [{
+                        property: 'user'
+                    }]
+                });
+                
+                twitterStore.load({
+                    callback: function(){
+                        console.log('Step 3 - Add Groupers to the store and intterogate the groupings using the getGroups method');
+                        
+                        console.log(twitterStore.getGroups());
+                    }
+                });
+                
+                
+                /**
+                 * Step 4 - Group the store at runtime using the group method
+                 */
+                var twitterStore2 = Ext.create('Ext.data.Store', {
+                    model: 'Tweet',
+                    proxy: {
+                        type: 'ajax',
+                        url: 'twitterData.xml',
+                        reader: {
+                            type: 'xml',
+                            record: 'entry'
+                        }
+                    }
+                });
+                
+                twitterStore2.load({
+                    callback: function(){
+                        console.log('Step 4 - Group the store at runtime using the group method');
+                        
+                        twitterStore2.group('published');
+                        
+                        console.log([twitterStore2.getGroups()]);
+                    }
+                });
+                
+                
+                /**
+                 * There's More... - Aggregate functions
+                 */
+                var twitterStore3 = Ext.create('Ext.data.Store', {
+                    model: 'Tweet',
+                    proxy: {
+                        type: 'ajax',
+                        url: 'twitterData.xml',
+                        reader: {
+                            type: 'xml',
+                            record: 'entry'
+                        }
+                    }
+                });
+                
+                twitterStore3.load({
+                    callback: function(){
+                        console.log('There\'s More... - Aggregate functionss');
+                        
+                        
+                        twitterStore3.group('published');
+                        
+                        console.log(twitterStore3.min('published'));
+                        
+                        console.log(twitterStore3.min('published', true));
+                        
+                        console.log(twitterStore3.max('published'));
+                        
+                        console.log(twitterStore3.max('published', true));
+                    }
+                });
+                
+                
+                /**
+                 * There's More - Other useful methods and events
+                 */
+                twitterStore3.load({
+                    callback: function(){
+                        console.log('There\'s More... - Other useful methods and events');
+                        
+                        console.log(twitterStore3.isGrouped());
+                        
+                        twitterStore3.on('groupchange', function(store, groupers, opts){
+                            console.log('groupschange');
+                            console.log(groupers);
+                        });
+                        
+                        twitterStore3.clearGrouping();
+                        
+                        console.log(twitterStore3.isGrouped());
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

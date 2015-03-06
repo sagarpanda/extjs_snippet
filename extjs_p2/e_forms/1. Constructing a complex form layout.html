@@ -1,0 +1,327 @@
+<html>
+    <head>
+        <title>1. Constructing a complex form layout</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+<style type="text/css">
+    .field-margin {
+        margin: 10px;
+    }
+</style>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1 - Create a simple Form Panel
+                 */
+                var formPanel = Ext.create('Ext.form.Panel', {
+                    title: 'Support Ticket Request',
+                    width: 650,
+                    height: 500,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px', // move panel off browser�s edge
+                    items: []
+                });
+                
+                /**
+                 * Step 2 - Add our first row of fields (First and Last Name) using an HBox layout
+                 */
+                var formPanel = Ext.create('Ext.form.Panel', {
+                    title: 'Support Ticket Request',
+                    width: 650,
+                    height: 500,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px', // move panel off browser�s edge
+                    items: [{
+                        xtype: 'container',
+                        layout: 'hbox',
+                        items: [{
+                            xtype: 'textfield',
+                            fieldLabel: 'First Name',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            flex: 1
+                        }, {
+                            xtype: 'textfield',
+                            fieldLabel: 'Last Name',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            flex: 1
+                        }]
+                    }]
+                });
+                
+                /**
+                 * Step 3 - Add our second row of fields (Email Address and Telephone Number) using a Column layout and the new FieldContainer class
+                 */
+                var formPanel = Ext.create('Ext.form.Panel', {
+                    title: 'Support Ticket Request',
+                    width: 650,
+                    height: 500,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px', // move panel off browser�s edge
+                    items: [{
+                        xtype: 'container',
+                        layout: 'hbox',
+                        items: [{
+                            xtype: 'textfield',
+                            fieldLabel: 'First Name',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            flex: 1
+                        }, {
+                            xtype: 'textfield',
+                            fieldLabel: 'Last Name',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            flex: 1
+                        }]
+                    }, {
+                        xtype: 'container',
+                        layout: 'column',
+                        items: [{
+                            xtype: 'textfield',
+                            fieldLabel: 'Email Address',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            columnWidth: 0.6
+                        }, {
+                            xtype: 'fieldcontainer',
+                            layout: 'hbox',
+                            fieldLabel: 'Tel. Number',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            columnWidth: 0.4,
+                            items: [{
+                                xtype: 'textfield',
+                                style: 'margin-right: 5px;',
+                                flex: 2
+                            }, {
+                                xtype: 'textfield',
+                                flex: 4
+                            }]
+                        }]
+                    }]
+                });
+                
+                
+                /**
+                 * Step 4 - Add the third set of fields, for entering the request details and type, using an HBox
+                 */
+                var formPanel = Ext.create('Ext.form.Panel', {
+                    title: 'Support Ticket Request',
+                    width: 650,
+                    height: 500,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px', // move panel off browser�s edge
+                    items: [{
+                        xtype: 'container',
+                        layout: 'hbox',
+                        items: [{
+                            xtype: 'textfield',
+                            fieldLabel: 'First Name',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            flex: 1
+                        }, {
+                            xtype: 'textfield',
+                            fieldLabel: 'Last Name',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            flex: 1
+                        }]
+                    }, {
+                        xtype: 'container',
+                        layout: 'column',
+                        items: [{
+                            xtype: 'textfield',
+                            fieldLabel: 'Email Address',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            columnWidth: 0.6
+                        }, {
+                            xtype: 'fieldcontainer',
+                            layout: 'hbox',
+                            fieldLabel: 'Tel. Number',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            columnWidth: 0.4,
+                            items: [{
+                                xtype: 'textfield',
+                                style: 'margin-right: 5px;',
+                                flex: 2
+                            }, {
+                                xtype: 'textfield',
+                                flex: 4
+                            }]
+                        }]
+                    }, {
+                        xtype: 'container',
+                        layout: 'hbox',
+                        items: [{
+                            xtype: 'textarea',
+                            fieldLabel: 'Problem Details',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            height: 250,
+                            flex: 2
+                        }, {
+                            xtype: 'checkboxgroup',
+                            name: 'RequestType',
+                            fieldLabel: 'Problem Type',
+                            labelAlign: 'top',
+                            columns: 1,
+                            cls: 'field-margin',
+                            vertical: true,
+                            items: [{
+                                boxLabel: 'Type 1',
+                                name: 'type1',
+                                inputValue: '1'
+                            }, {
+                                boxLabel: 'Type 2',
+                                name: 'type2',
+                                inputValue: '2'
+                            }, {
+                                boxLabel: 'Type 3',
+                                name: 'type3',
+                                inputValue: '3'
+                            }, {
+                                boxLabel: 'Type 4',
+                                name: 'type4',
+                                inputValue: '4'
+                            }, {
+                                boxLabel: 'Type 5',
+                                name: 'type5',
+                                inputValue: '5'
+                            }, {
+                                boxLabel: 'Type 6',
+                                name: 'type6',
+                                inputValue: '6'
+                            }],
+                            
+                            flex: 1
+                        }]
+                    }]
+                });
+                
+                
+                
+                /**
+                 * Step 5 - Add the final field - a File Upload field for Attachments to the request
+                 */
+                var formPanel = Ext.create('Ext.form.Panel', {
+                    title: 'Support Ticket Request',
+                    width: 650,
+                    height: 500,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px', // move panel off browser�s edge
+                    items: [{
+                        xtype: 'container',
+                        layout: 'hbox',
+                        items: [{
+                            xtype: 'textfield',
+                            fieldLabel: 'First Name',
+							name: 'FirstName',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            flex: 1
+                        }, {
+                            xtype: 'textfield',
+                            fieldLabel: 'Last Name',
+							name: 'LastName',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            flex: 1
+                        }]
+                    }, {
+                        xtype: 'container',
+                        layout: 'column',
+                        items: [{
+                            xtype: 'textfield',
+                            fieldLabel: 'Email Address',
+							name: 'EmailAddress',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            columnWidth: 0.6
+                        }, {
+                            xtype: 'fieldcontainer',
+                            layout: 'hbox',
+                            fieldLabel: 'Tel. Number',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            columnWidth: 0.4,
+                            items: [{
+                                xtype: 'textfield',
+								name: 'TelNumberCode',
+                                style: 'margin-right: 5px;',
+                                flex: 2
+                            }, {
+                                xtype: 'textfield',
+								name: 'TelNumber',
+                                flex: 4
+                            }]
+                        }]
+                    }, {
+                        xtype: 'container',
+                        layout: 'hbox',
+                        items: [{
+                            xtype: 'textarea',
+                            fieldLabel: 'Request Details',
+							name: 'RequestDetails',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            height: 250,
+                            flex: 2
+                        }, {
+                            xtype: 'checkboxgroup',
+                            name: 'RequestType',
+                            fieldLabel: 'Request Type',
+                            labelAlign: 'top',
+                            columns: 1,
+                            cls: 'field-margin',
+                            vertical: true,
+                            items: [{
+                                boxLabel: 'Type 1',
+                                name: 'type1',
+                                inputValue: '1'
+                            }, {
+                                boxLabel: 'Type 2',
+                                name: 'type2',
+                                inputValue: '2'
+                            }, {
+                                boxLabel: 'Type 3',
+                                name: 'type3',
+                                inputValue: '3'
+                            }, {
+                                boxLabel: 'Type 4',
+                                name: 'type4',
+                                inputValue: '4'
+                            }, {
+                                boxLabel: 'Type 5',
+                                name: 'type5',
+                                inputValue: '5'
+                            }, {
+                                boxLabel: 'Type 6',
+                                name: 'type6',
+                                inputValue: '6'
+                            }],
+                            
+                            flex: 1
+                        }]
+                    }, {
+                        xtype: 'filefield',
+                        cls: 'field-margin',
+                        fieldLabel: 'Attachment',
+                        width: 300
+                    }]
+                });
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

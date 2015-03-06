@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <title>Populating a Form from a selected Grid row</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript" src="invoices-model.js">
+        </script>
+        <script type="text/javascript" src="invoices-store.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                var grid = Ext.create('Ext.grid.Panel', {
+                    title: 'Chapter 8 - Grids',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    selType: 'rowmodel',
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        flex: 1
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    listeners: {
+                        select: function(RowModel, record, index, eOpts){
+                            formPanel.loadRecord(record);
+                        },
+                        scope: this
+                    },
+                    
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody()
+                });
+                
+                
+                var formPanel = Ext.create('Ext.form.Panel', {
+                    title: 'Invoice Form',
+                    bodyPadding: 5,
+                    width: 350,
+                    layout: 'anchor',
+                    defaults: {
+                        anchor: '100%'
+                    },
+                    defaultType: 'textfield',
+                    items: [{
+                        fieldLabel: 'Client',
+                        name: 'Client'
+                    }, {
+                        fieldLabel: 'Date',
+                        name: 'Date',
+                        xtype: 'datefield',
+                        submitFormat: 'c'
+                    }, {
+                        fieldLabel: 'Amount',
+                        name: 'Amount',
+                        xtype: 'numberfield',
+                        hideTrigger: true,
+                        keyNavEnabled: false,
+                        mouseWheelEnabled: false
+                    }, {
+                        fieldLabel: 'Status',
+                        name: 'Status',
+                        xtype: 'displayfield'
+                    }],
+                    buttons: [{
+                        text: 'Update Data',
+                        handler: function(){
+                            var form = this.up('form').getForm();
+                            var recordIndex = form.getRecord().index;
+                            
+                            var formValues = form.getValues();
+                            
+                            var record = grid.getStore().getAt(recordIndex);
+                            
+                            record.beginEdit();
+                            record.set(formValues);
+                            record.endEdit();
+                        }
+                    }],
+                    
+                    style: 'margin: 50px', // move panel off browser’s edges
+                    renderTo: Ext.getBody()
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <title>8. Uploading files to the server</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1
+                 */
+                Ext.create('Ext.form.Panel', {
+                    title: 'Document Upload',
+                    width: 400,
+                    bodyPadding: 10,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px', // move panel off browser's edge
+                    items: [],
+                    buttons: []
+                });
+                
+                /**
+                 * Step 2
+                 */
+                Ext.create('Ext.form.Panel', {
+                    title: 'Document Upload',
+                    width: 400,
+                    bodyPadding: 10,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px', // move panel off browser's edge
+                    items: [{
+                        xtype: 'filefield',
+                        name: 'document',
+                        fieldLabel: 'Document',
+                        msgTarget: 'side',
+                        allowBlank: false,
+                        anchor: '100%'
+                    }],
+                    buttons: []
+                });
+                
+                /**
+                 * Step 3
+                 */
+                Ext.create('Ext.form.Panel', {
+                    title: 'Document Upload',
+                    width: 400,
+                    bodyPadding: 10,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px', // move panel off browser's edge
+                    items: [{
+                        xtype: 'filefield',
+                        name: 'document',
+                        fieldLabel: 'Document',
+                        msgTarget: 'side',
+                        allowBlank: false,
+                        anchor: '100%'
+                    }],
+                    buttons: [{
+                        text: 'Upload Document',
+                        handler: function(){
+                            var form = this.up('form').getForm();
+                            if (form.isValid()) {
+                                form.submit({
+                                    url: 'upload.php',
+                                    waitMsg: 'Uploading...'
+                                });
+                            }
+                        }
+                    }]
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

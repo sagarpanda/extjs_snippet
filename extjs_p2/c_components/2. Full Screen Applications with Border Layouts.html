@@ -1,0 +1,136 @@
+<html>
+    <head>
+        <title id="page-title">2. Full Screen Applications with Border Layouts</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1
+                 */
+                /*
+				Ext.create('Ext.container.Viewport', {});
+				*/
+                
+                /**
+                 * Step 2
+                 */
+				/*
+                Ext.create('Ext.container.Viewport', {
+                    layout: 'border',
+                    items: [{
+                        title: 'Center',
+                        region: 'center'
+                    }]
+                });
+				*/
+                
+                /**
+                 * Step 3
+                 */
+				/*
+                Ext.create('Ext.container.Viewport', {
+                    layout: 'border',
+                    items: [{
+                        region: 'north',
+                        height: 100,
+                        xtype: 'container'
+                    }, {
+                        title: 'West',
+                        region: 'west',
+                        flex: .3
+                    }, {
+                        title: 'Center',
+                        region: 'center'
+                    }, {
+                        title: 'East',
+                        region: 'east',
+                        width: 200
+                    }, {
+                        title: 'South',
+                        region: 'south',
+                        flex: .3
+                    }]
+                });
+				*/
+                
+                /**
+                 * Step 4
+                 */
+				/*
+                Ext.create('Ext.container.Viewport', {
+                    layout: 'border',
+                    items: [{
+                        region: 'north',
+                        margins: 5,
+                        height: 100,
+                        xtype: 'container'
+                    }, {
+                        title: 'West',
+                        region: 'west',
+                        margins: '0 5 0 5',
+                        flex: .3
+                    }, {
+                        title: 'Center',
+                        region: 'center'
+                    }, {
+                        title: 'East',
+                        region: 'east',
+                        margins: '0 5 0 5',
+                        width: 200
+                    }, {
+                        title: 'South',
+                        region: 'south',
+                        margins: '0 5 5 5',
+                        flex: .3
+                    }]
+                });
+				*/
+                
+                /**
+                 * Step 5
+                 */
+                Ext.create('Ext.container.Viewport', {
+                    layout: 'border',
+                    items: [{
+                        region: 'north',
+                        margins: 5,
+                        height: 100,
+                        xtype: 'container'
+                    }, {
+                        title: 'West',
+                        region: 'west',
+                        margins: '0 5 0 5',
+                        flex: .3,
+                        collapsible: true,
+                        split: true,
+                        titleCollapse: true
+                    }, {
+                        title: 'Center',
+                        region: 'center'
+                    }, {
+                        title: 'East',
+                        region: 'east',
+                        margins: '0 5 0 5',
+                        width: 200,
+                        collapsible: true,
+                        collapsed: true
+                    }, {
+                        title: 'South',
+                        region: 'south',
+                        margins: '0 5 5 5',
+                        flex: .3,
+                        split: true
+                    }]
+                });
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

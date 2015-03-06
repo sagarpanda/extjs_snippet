@@ -1,0 +1,169 @@
+<html>
+    <head>
+        <title>2. Populating Checkbox Groups</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1 - Define simple form with a Checkbox Group
+                 */
+                var checkboxGroup = new Ext.form.CheckboxGroup({
+                    columns: 2,
+                    fieldLabel: 'Technologies',
+                    name: 'technologies',
+                    style: {
+                        padding: '5px 10px 5px 10px'
+                    },
+                    items: [{
+                        xtype: 'checkbox',
+                        boxLabel: 'JavaScript',
+                        name: 'technologies',
+                        inputValue: 'javascript'
+                    }, {
+                        xtype: 'checkbox',
+                        boxLabel: 'C#',
+                        name: 'technologies',
+                        inputValue: 'c#'
+                    }, {
+                        xtype: 'checkbox',
+                        boxLabel: 'HTML',
+                        name: 'technologies',
+                        inputValue: 'html'
+                    }, {
+                        xtype: 'checkbox',
+                        boxLabel: 'SQL',
+                        name: 'technologies',
+                        inputValue: 'sql'
+                    }, {
+                        xtype: 'checkbox',
+                        boxLabel: 'Python',
+                        name: 'technologies',
+                        inputValue: 'python'
+                    }, {
+                        xtype: 'checkbox',
+                        boxLabel: 'CSS',
+                        name: 'technologies',
+                        inputValue: 'css'
+                    }]
+                });
+                
+                var formPanel = new Ext.form.Panel({
+                    renderTo: Ext.getBody(),
+                    
+                    title: 'Technologies',
+
+                    width: 500,
+                    
+                    tbar: [{
+                        text: 'Submit',
+                        handler: function(){
+                            console.log(formPanel.getValues());
+                        },
+                        scope: this
+                    }],
+                    
+                    items: [checkboxGroup],
+
+                    style: 'margin: 50px' // move panel off browser's edge
+                });
+                
+                
+                /**
+                 * Step 2 - Populate the Checkbox Group with array syntax
+                 */
+                checkboxGroup.setValue({
+                    technologies: ['javascript', 'css']
+                });
+                
+                formPanel.getForm().setValues({
+                    technologies: {
+                        technologies: ['html']
+                    }
+                });
+                
+                /**
+                 * There's More - Change Checkbox Group names so they are not part of a single named group
+                 */
+                var checkboxGroup = new Ext.form.CheckboxGroup({
+                    columns: 2,
+                    fieldLabel: 'Technologies',
+                    name: 'technologies',
+                    style: {
+                        padding: '5px 10px 5px 10px'
+                    },
+                    items: [{
+                        xtype: 'checkbox',
+                        boxLabel: 'JavaScript',
+                        name: 'javascript',
+                        inputValue: 'javascript'
+                    }, {
+                        xtype: 'checkbox',
+                        boxLabel: 'C#',
+                        name: 'c#',
+                        inputValue: 'c#'
+                    }, {
+                        xtype: 'checkbox',
+                        boxLabel: 'HTML',
+                        name: 'html'
+                    }, {
+                        xtype: 'checkbox',
+                        boxLabel: 'SQL',
+                        name: 'sql'
+                    }, {
+                        xtype: 'checkbox',
+                        boxLabel: 'Python',
+                        name: 'technologies',
+                        inputValue: 'python'
+                    }, {
+                        xtype: 'checkbox',
+                        boxLabel: 'CSS',
+                        name: 'technologies',
+                        inputValue: 'css'
+                    }]
+                });
+                
+                var formPanel = new Ext.form.Panel({
+                    renderTo: Ext.getBody(),
+                    width: 500,
+
+                    title: 'Technologies',
+                    
+                    tbar: [{
+                        text: 'Submit',
+                        handler: function(){
+                            console.log(formPanel.getValues());
+                        },
+                        scope: this
+                    }],
+                    
+                    items: [checkboxGroup],
+
+                    style: 'margin: 50px' // move panel off browser's edge
+                });
+                
+                checkboxGroup.setValue({
+                    javascript: 'javascript'
+                });
+                checkboxGroup.setValue({
+                    javascript: true
+                });
+                
+                checkboxGroup.setValue({
+                    javascript: 'javascript',
+                    html: true,
+                    technologies: ['css', 'python']
+                });
+                
+                checkboxGroup.items.get(0).setValue('javascript');
+                checkboxGroup.items.get(0).setValue(false);
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <title>12. Exception Handling/Callbacks</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1
+                 */
+                Ext.create('Ext.form.Panel', {
+                    title: 'Form',
+                    width: 300,
+                    bodyPadding: 10,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px', // move panel off browser�s edge
+                    items: [],
+                    buttons: []
+                });
+                
+                /**
+                 * Step 2
+                 */
+                Ext.create('Ext.form.Panel', {
+                    title: 'Form',
+                    width: 300,
+                    bodyPadding: 10,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px', // move panel off browser�s edge
+                    items: [{
+                        xtype: 'textfield',
+                        fieldLabel: 'Text field',
+                        name: 'field',
+                        allowBlank: false
+                    }],
+                    buttons: []
+                });
+                
+                /**
+                 * Step 3
+                 */
+                var formPanel = Ext.create('Ext.form.Panel', {
+                    title: 'Form',
+                    width: 300,
+                    bodyPadding: 10,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px', // move panel off browser�s edge
+                    items: [{
+                        xtype: 'textfield',
+                        fieldLabel: 'Text field',
+                        name: 'field',
+                        allowBlank: false
+                    }],
+                    buttons: [{
+                        text: 'Submit',
+                        handler: function(){
+                            formPanel.getForm().submit({
+                                url: 'submit.php',
+                                success: function(form, action){
+                                    Ext.Msg.alert('Success', action.result.message);
+                                },
+                                failure: function(form, action){
+                                    if (action.failureType === Ext.form.action.Action.CLIENT_INVALID) {
+                                        /**
+                                         * Failure type returned when client side validation of the Form
+                                         * fails thus aborting a submit action. Client side validation is
+                                         * performed unless Ext.form.action.Submit.clientValidation is
+                                         * explicitly set to false.
+                                         */
+                                        Ext.Msg.alert('CLIENT_INVALID', 'Something has been missed. Please check and try again.');
+                                    }
+                                    if (action.failureType === Ext.form.action.Action.CONNECT_FAILURE) {
+                                        /**
+                                         * Failure type returned when a communication error happens
+                                         * when attempting to send a request to the remote server.
+                                         */
+                                        Ext.Msg.alert('CONNECT_FAILURE', 'Status: ' + action.response.status + ': ' + action.response.statusText);
+                                    }
+                                    if (action.failureType === Ext.form.action.Action.SERVER_INVALID) {
+                                        /**
+                                         * Failure type returned when server side processing
+                                         * fails and the result's success property is set to false.
+                                         */
+                                        Ext.Msg.alert('SERVER_INVALID', action.result.message);
+                                    }
+                                }
+                            });
+                        }
+                    }]
+                });
+                
+                /**
+                 * There's more
+                 */
+                var formPanelTwo = Ext.create('Ext.form.Panel', {
+                    title: 'Form',
+                    width: 300,
+                    bodyPadding: 10,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px', // move panel off browser�s edge
+                    items: [{
+                        xtype: 'textfield',
+                        fieldLabel: 'Text field',
+                        name: 'field',
+                        allowBlank: false
+                    }],
+                    buttons: [{
+                        text: 'Submit',
+                        handler: function(){
+                            if (formPanelTwo.getForm().isValid()) {
+                                formPanelTwo.getForm().submit({
+                                    url: 'submit.php'
+                                });
+                            }
+                        }
+                    }]
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

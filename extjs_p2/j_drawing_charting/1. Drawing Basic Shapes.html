@@ -1,0 +1,221 @@
+<html>
+    <head>
+        <title>1. Drawing Basic Shapes</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+            	/**
+            	 * Step 1 - Create an Ext.draw.Component instance that will render to the body
+            	 */
+            	/*
+				var mapPin = Ext.create('Ext.draw.Component', {
+					renderTo: Ext.getBody(),
+					width: 250,
+					height: 250,
+					viewBox: false
+				});
+                */
+               
+                /*
+                 * Step 2 - Add a Circle sprite (to represent the pin's head) to the Component's items collection
+                 */
+                /*
+				var mapPin = Ext.create('Ext.draw.Component', {
+					renderTo: Ext.getBody(),
+					width: 250,
+					height: 250,
+					viewBox: false,
+					
+					items: [{
+						type: 'circle',
+						x: 50,
+						y: 50,
+						radius: 10,
+						fill: '#2D00B3'
+					}]
+				});
+                */
+                
+                /**
+                 * Step 3 - Add a Rectangle sprite (to represent the pin's pin) before the Circle (so it is behind the circle)
+                 */
+				/*
+				var mapPin = Ext.create('Ext.draw.Component', {
+					renderTo: Ext.getBody(),
+					width: 250,
+					height: 250,
+					viewBox: false,
+					
+					items: [{
+						type: 'rect',
+						x: 49,
+						y: 58,
+						width: 3,
+						height: 30,
+						fill: '#999'
+					}, {
+						type: 'circle',
+						x: 50,
+						y: 50,
+						radius: 10,
+						fill: '#2D00B3'
+					}]
+				});
+                */
+               
+                /**
+                 * Step 4 - Add a rotate configuration to the Rectangle sprite so it sits at an angle. Also
+                 * tweak its position to compensate
+                 */
+				var mapPin = Ext.create('Ext.draw.Component', {
+					renderTo: Ext.getBody(),
+					width: 250,
+					height: 250,
+					viewBox: false,
+					
+					items: [{
+						type: 'rect',
+						x: 52,
+						y: 58,
+						width: 3,
+						height: 30,
+						fill: '#999',
+						rotate: {
+							degrees: -7
+						}
+					}, {
+						type: 'circle',
+						x: 50,
+						y: 50,
+						radius: 10,
+						fill: '#2D00B3'
+					}]
+				});
+
+                /**
+                 * Step 5 - Remove the viewBox, renderTo, height and width configurations and add the mapPin to a resizable Ext.window.Window
+                 */
+                /*
+                var win = Ext.create('Ext.window.Window', {
+                	resizable: true,
+                	height: 250,
+                	width: 250,
+                	layout: 'fit',
+                	items: [mapPin]
+                });
+                win.show();
+                */
+                
+			/*
+	        	var sprite = drawing.surface.add({
+	        		type: 'circle',
+	        		x: 200,
+	        		y: 200,
+	        		radius: 100,
+	        		fill: '#000',
+	        		stroke: '#00B386',
+	        		"stroke-width": 5
+	        	});
+				drawing.surface.redraw(sprite);               
+                */
+               
+               
+               /**
+                * There's More - Drawing Text Components
+                */
+               /*
+				var textComponent = Ext.create('Ext.draw.Component', {
+					renderTo: Ext.getBody(),
+					width: 500,
+					height: 250,
+					viewBox: false,
+					    	
+					items: []
+				});
+				                */
+				          
+				/*
+				var textComponent = Ext.create('Ext.draw.Component', {
+					renderTo: Ext.getBody(),
+					width: 500,
+					height: 250,
+					viewBox: false,
+					
+					items: [{
+						type: 'text',
+						x: 100,
+						y: 100,
+						fill: '#000'
+					}]
+				});
+				*/
+            	
+				var textComponent = Ext.create('Ext.draw.Component', {
+					renderTo: Ext.getBody(),
+					width: 500,
+					height: 250,
+					viewBox: false,
+					
+					items: [{
+						type: 'text',
+						x: 100,
+						y: 100,
+						font: '32px "Times New Roman"',
+						text: 'Ext JS 4 ck',
+						fill: '#000'
+					}]
+				});
+				               
+               /**
+                * There's More - Drawing Paths
+                */
+               /*
+               var saltire = Ext.create('Ext.draw.Component', {
+                	renderTo: Ext.getBody(),
+                	width: Ext.getBody().getWidth(),
+                	height: Ext.getBody().getHeight(),
+                	viewBox: false,
+                	
+                	items: [{
+                		type: 'rect',
+                		x: 200,
+                		y: 200,
+                		width: 500,
+                		height: 300,
+                		fill: '#050960'
+                	}, {
+                		type: 'path',
+                		path: [
+                			'M 220 200', // to top left (right)
+                			'L 450 330', // middle (top)
+                			'L 680 200', // to top right (left)
+                			'L 700 200', // to top right corner
+                			'L 700 220', // to top right (lower)
+                			'L 470 350', // middle (right)
+                			'L 700 480', // to bottom right (upper)
+                			'L 700 500', // to bottom right corner
+                			'L 680 500', // to bottom right (left)
+                			'L 450 370', // middle (bottom)
+                			'L 220 500', // to bottom left (right)
+                			'L 200 500', // to bottom left corner
+                			'L 200 480', // to bottom left (upper)
+                			'L 430 350', // middle (right)
+                			'L 200 220', // to top left (lower)
+                			'L 200, 200', // to top left (corner)                		
+                		].join(' '),
+                		stroke: '#FFF',
+                		"stroke-width": 2,
+                		fill: '#FFF'
+                	}]
+                });
+                */
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

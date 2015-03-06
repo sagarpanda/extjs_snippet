@@ -1,0 +1,183 @@
+<html>
+    <head>
+        <title>3. Submitting your form's data</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <style type="text/css">
+            .field-margin {
+                margin: 10px;
+            }
+        </style>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1 - Define a function to submit our form
+                 */
+                var submitForm = function(){
+                    formPanel.getForm().submit({
+                        url: 'submit.php'
+                    });
+                };
+                
+                /**
+                 * Code for "There's More" section
+                 */
+                /*
+                 var submitForm = function(){
+	                 record = formPanel.getForm().getRecord();
+	                 formPanel.getForm().updateRecord(record);
+	                 record.save();
+                 };
+                 */
+                /**
+                 * Step 2 - Create a Form Panel
+                 */
+                var formPanel = Ext.create('Ext.form.Panel', {
+                    title: 'Support Ticket Request',
+                    width: 650,
+                    height: 500,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px', // move panel off browser's edge
+                    buttons: [{
+                        text: 'Submit Form',
+                        handler: submitForm
+                    }],
+                    items: [{
+                        xtype: 'container',
+                        layout: 'hbox',
+                        items: [{
+                            xtype: 'textfield',
+                            fieldLabel: 'First Name',
+                            name: 'FirstName',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            flex: 1
+                        }, {
+                            xtype: 'textfield',
+                            fieldLabel: 'Last Name',
+                            name: 'LastName',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            flex: 1
+                        }]
+                    }, {
+                        xtype: 'container',
+                        layout: 'column',
+                        items: [{
+                            xtype: 'textfield',
+                            fieldLabel: 'Email Address',
+                            name: 'EmailAddress',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            columnWidth: 0.6
+                        }, {
+                            xtype: 'fieldcontainer',
+                            layout: 'hbox',
+                            fieldLabel: 'Tel. Number',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            columnWidth: 0.4,
+                            items: [{
+                                xtype: 'textfield',
+                                name: 'TelNumberCode',
+                                style: 'margin-right: 5px;',
+                                flex: 2
+                            }, {
+                                xtype: 'textfield',
+                                name: 'TelNumber',
+                                flex: 4
+                            }]
+                        }]
+                    }, {
+                        xtype: 'container',
+                        layout: 'hbox',
+                        items: [{
+                            xtype: 'textarea',
+                            fieldLabel: 'Request Details',
+                            name: 'RequestDetails',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            height: 250,
+                            flex: 2
+                        }, {
+                            xtype: 'checkboxgroup',
+                            fieldLabel: 'Request Type',
+                            name: 'RequestType',
+                            labelAlign: 'top',
+                            columns: 1,
+                            cls: 'field-margin',
+                            vertical: true,
+                            items: [{
+                                boxLabel: 'Type 1',
+                                name: 'type1'
+                            }, {
+                                boxLabel: 'Type 2',
+                                name: 'type2'
+                            }, {
+                                boxLabel: 'Type 3',
+                                name: 'type3'
+                            }, {
+                                boxLabel: 'Type 4',
+                                name: 'type4'
+                            }, {
+                                boxLabel: 'Type 5',
+                                name: 'type5'
+                            }, {
+                                boxLabel: 'Type 6',
+                                name: 'type6'
+                            }],
+                            
+                            flex: 1
+                        }]
+                    }, {
+                        xtype: 'filefield',
+                        cls: 'field-margin',
+                        fieldLabel: 'Attachment',
+                        width: 300
+                    }]
+                });
+                
+                
+                /**
+                 * There's More...
+                 */
+                // Submit the form from a Model instance
+                Ext.define('Request', {
+                    extend: 'Ext.data.Model',
+                    fields: ['FirstName', 'LastName', 'EmailAddress', 'TelNumberCode', 'TelNumber', 'RequestDetails', 'RequestType'],
+                    proxy: {
+                        type: 'ajax',
+                        api: {
+                            create: 'addTicketRequest.php',
+                            update: 'updateTicketRequest.php'
+                        },
+                        reader: {
+                            type: 'json'
+                        }
+                    }
+
+                });
+				
+				var requestModel = Ext.create('Request', {
+				    FirstName: 'Joe',
+				    LastName: 'Bloggs',
+				    EmailAddress: 'info@swarmonline.com'
+				});
+				
+				formPanel.getForm().loadRecord(requestModel);
+
+                var submitForm = function(){
+                    var record = formPanel.getForm().getRecord();
+                    formPanel.getForm().updateRecord(record);
+                    record.save();
+                };
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

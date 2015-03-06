@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>9. Positioning Field Labels</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                Ext.create('Ext.form.Panel', {
+                    title: 'Form Panel',
+                    width: 400,
+                    renderTo: Ext.getBody(),
+                    bodyPadding: 10,
+                    style: 'margin: 50px', // move panel off browser�s edge
+                    defaults: {
+                        labelWidth: 175
+                    },
+                    items: [{
+                        xtype: 'textfield',
+                        fieldLabel: 'Left aligned label (default)'
+                    }, {
+                        xtype: 'textfield',
+                        fieldLabel: 'Right aligned label',
+                        labelAlign: 'right'
+                    }, {
+                        xtype: 'textfield',
+                        fieldLabel: 'Top Label',
+                        labelAlign: 'top'
+                    }, {
+                        xtype: 'container',
+                        layout: {
+                            type: 'hbox',
+                            align: 'middle'
+                        },
+                        items: [{
+                            xtype: 'textfield',
+                            flex: 1
+                        }, {
+                            xtype: 'label',
+                            text: 'Label Positioned to the Right',
+                            margins: '10 0 0 10'
+                        }]
+                    }]
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

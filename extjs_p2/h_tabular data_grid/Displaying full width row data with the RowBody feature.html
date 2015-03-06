@@ -1,0 +1,204 @@
+<html>
+    <head>
+        <title>Displaying full width row data with the RowBody feature</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript" src="invoices-model.js">
+        </script>
+        <script type="text/javascript" src="invoices-store.js">
+        </script>
+        <style type="text/css">
+            .x-grid-rowbody {
+                margin: 5px;
+            }
+        </style>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1 - Include our Invoice Model and Store
+                 */
+                // See above...
+                
+                /**
+                 * Step 2 - Create a basic Grid bound to our 'invoiceStore'
+                 */
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Chapter 8 - Grids',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        flex: 1
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date',
+                        width: 200
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    renderTo: Ext.getBody()
+                });
+                
+                /**
+                 * Step 3 - Create an Ext.grid.feature.RowBody instance and add it to the 'features' array
+                 */
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Chapter 8 - Grids',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    features: [Ext.create('Ext.grid.feature.RowBody', {})],
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        flex: 1
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date',
+                        width: 200
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    renderTo: Ext.getBody()
+                });
+                
+                /**
+                 * Step 4 - Override the getAdditionalData method to populate the 'rowBody' property with data we want to include in our Row
+                 */
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Chapter 8 - Grids',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    features: [Ext.create('Ext.grid.feature.RowBody', {
+                        getAdditionalData: function(data){
+                            var headerCt = this.view.headerCt, colspan = headerCt.getColumnCount();
+                            
+                            return {
+                                rowBody: data.Description,
+                                rowBodyCls: this.rowBodyCls,
+                                rowBodyColspan: colspan
+                            };
+                        }
+                    })],
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        flex: 1
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date',
+                        width: 200
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    renderTo: Ext.getBody()
+                });
+                
+                /**
+                 * Step 5 - Include the RowWrap feature to include the RowBody as part of the row.
+                 */
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Chapter 8 - Grids',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    features: [Ext.create('Ext.grid.feature.RowBody', {
+                        getAdditionalData: function(data){
+                            var headerCt = this.view.headerCt, colspan = headerCt.getColumnCount();
+                            
+                            return {
+                                rowBody: data.Description,
+                                rowBodyCls: this.rowBodyCls,
+                                rowBodyColspan: colspan
+                            };
+                        }
+                    }), {
+                        ftype: 'rowwrap'
+                    }],
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        flex: 1
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date',
+                        width: 200
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    renderTo: Ext.getBody()
+                });
+                
+                
+                /**
+                 * There's More... - Customise our Row further by using the output of an Ext.XTemplate to apply to our rowBody property
+                 */
+                Ext.create('Ext.grid.Panel', {
+                    title: 'Chapter 8 - Grids',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    features: [Ext.create('Ext.grid.feature.RowBody', {
+                        rowBodyTpl: new Ext.XTemplate('<span style="font-weight: bold;">Description: </span>{Description}'),
+                        getAdditionalData: function(data){
+                            var headerCt = this.view.headerCt, colspan = headerCt.getColumnCount();
+                            
+                            return {
+                                rowBody: this.rowBodyTpl.apply(data),
+                                rowBodyCls: this.rowBodyCls,
+                                rowBodyColspan: colspan
+                            };
+                        }
+                    }), {
+                        ftype: 'rowwrap'
+                    }],
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client',
+                        flex: 1
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date',
+                        width: 200
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    renderTo: Ext.getBody()
+                });
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

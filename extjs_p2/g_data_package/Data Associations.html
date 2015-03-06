@@ -1,0 +1,298 @@
+<html>
+    <head>
+        <title>Associating Models and loading nested data</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Basic Example
+                 */
+
+  /*
+                Ext.define('Book', {
+                    extend: 'Ext.data.Model',
+
+                    fields: [{
+                        name: 'Title',
+                        type: 'string'
+                    }, {
+                        name: 'Publisher',
+                        type: 'string'
+                    }, {
+                        name: 'ISBN',
+                        type: 'string'
+                    }, {
+                        name: 'PublishDate',
+                        type: 'date',
+                        dateFormat: 'd-m-Y'
+                    }, {
+                        name: 'NumberOfPages',
+                        type: 'int'
+                    }, {
+                        name: 'Read',
+                        type: 'boolean'
+                    }],
+
+                    associations: [{
+                        type: 'hasMany',
+                        model: 'Author',
+                        name: 'authors'
+                    }]
+                });
+
+                Ext.define('Author', {
+                    extend: 'Ext.data.Model',
+
+                    fields: [{
+                        name: 'Title',
+                        type: 'string'
+                    }, {
+                        name: 'FirstName',
+                        type: 'string'
+                    }, {
+                        name: 'LastName',
+                        type: 'string'
+                    }, {
+                        name: 'book_id',
+                        type: 'int'
+                    }]
+                });
+*/
+
+/*
+                Ext.define('Book', {
+                    extend: 'Ext.data.Model',
+
+                    fields: [{
+                        name: 'Title',
+                        type: 'string'
+                    }, {
+                        name: 'Publisher',
+                        type: 'string'
+                    }, {
+                        name: 'ISBN',
+                        type: 'string'
+                    }, {
+                        name: 'PublishDate',
+                        type: 'date',
+                        dateFormat: 'd-m-Y'
+                    }, {
+                        name: 'NumberOfPages',
+                        type: 'int'
+                    }, {
+                        name: 'Read',
+                        type: 'boolean'
+                    }],
+
+                    associations: [{
+                       type: 'hasMany',
+                       model: 'Author',
+                       name: 'authors'
+                    }]
+
+
+                });
+
+                Ext.define('Author', {
+                    extend: 'Ext.data.Model',
+
+                    fields: [{
+                        name: 'Title',
+                        type: 'string'
+                    }, {
+                        name: 'FirstName',
+                        type: 'string'
+                    }, {
+                        name: 'LastName',
+                        type: 'string'
+                    }, {
+                        name: 'book_id',
+                        type: 'int'
+                    }],
+
+                    belongsTo: 'Book'
+                });
+                
+                var book = Ext.create('Book', {
+                    Title: 'Ext JS 4 ck',
+                    Publisher: 'pt Publishing',
+                    ISBN: '978-1-849516-86-0',
+                    PublishDate: '01-01-2012',
+                    NumberOfPages: 300,
+                    Read: false
+                });
+
+                
+                var authors = book.authors();
+                
+                authors.add({
+                    Title: 'Mr',
+                    FirstName: 'Andrew',
+                    LastName: 'Duncan'
+                }, {
+                    Title: 'Mr',
+                    FirstName: 'Stuart',
+                    LastName: 'Ashworth'
+                });
+                
+
+                 //Nest JSON Store Load example
+
+                var store = Ext.create('Ext.data.Store', {
+                    model: 'Book',
+                    autoLoad: true,
+                    proxy: {
+                        type: 'ajax',
+                        url: 'books.json'
+                    }
+                });
+                
+                store.on('load', function(){
+                    var record = store.getAt(0);
+                    console.log(record);
+                    console.log(record.get('Title'));
+                    var authors = record.getAssociatedData();
+                    console.log(authors);
+
+                    var author = record.authors().getAt(0);
+                    console.log(author.get('FirstName'));
+                });
+*/
+
+
+
+/*
+
+                Ext.define('Author', {
+                    extend: 'Ext.data.Model',
+
+                    fields: [{
+                        name: 'Title',
+                        type: 'string'
+                    }, {
+                        name: 'FirstName',
+                        type: 'string'
+                    }, {
+                        name: 'LastName',
+                        type: 'string'
+                    }, {
+                        name: 'book_id',
+                        type: 'int'
+                    }],
+
+                    belongsTo: 'Book'
+                });
+
+                Ext.define('Book', {
+                    extend: 'Ext.data.Model',
+
+                    fields: [{
+                        name: 'Title',
+                        type: 'string'
+                    }],
+
+                    proxy: {
+                        type: 'ajax',
+                        url: 'books.json'
+                    }
+
+                });
+
+                var author = Ext.create('Author', {
+                    Title: 'Mr',
+                    FirstName: 'Joe',
+                    LastName: 'Bloggs',
+                    book_id: 1
+                });
+
+                //A call will now be made to the server with request parameters id=1
+                author.getBook();
+
+*/
+
+
+                /**
+                 * HasOne Association
+                 */
+Ext.define('Book', {
+    extend: 'Ext.data.Model',
+
+    fields: [{
+        name: 'Title',
+        type: 'string'
+    }, {
+        name: 'Publisher',
+        type: 'string'
+    }, {
+        name: 'ISBN',
+        type: 'string'
+    }, {
+        name: 'PublishDate',
+        type: 'date',
+        dateFormat: 'd-m-Y'
+    }, {
+        name: 'NumberOfPages',
+        type: 'int'
+    }, {
+        name: 'Read',
+        type: 'boolean'
+    }, {
+        name: 'author_id',
+        type: 'int'
+    }],
+
+    associations: [{
+       type: 'hasOne',
+       model: 'Author',
+       name: 'author'
+    }]
+});
+
+Ext.define('Author', {
+    extend: 'Ext.data.Model',
+
+    fields: [{
+        name: 'Title',
+        type: 'string'
+    }, {
+        name: 'FirstName',
+        type: 'string'
+    }, {
+        name: 'LastName',
+        type: 'string'
+    }],
+
+    proxy: {
+        type: 'ajax',
+        url: 'author.json',
+        reader: {
+            type: 'json',
+            root: 'rows'
+        }
+    }
+});
+
+var book = Ext.create('Book', {
+    Title: 'Ext JS 4 ck',
+    Publisher: 'pt Publishing',
+    ISBN: '978-1-849516-86-0',
+    PublishDate: '01-01-2012',
+    NumberOfPages: 300,
+    Read: false,
+    author_id: 1
+});
+
+book.getAuthor(function(author, operation){
+    console.log(author);
+});
+
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

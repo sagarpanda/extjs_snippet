@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <title>1. Creating Custom Classes using the new Ext JS Class System</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css">
+        <script type="text/javascript" src="../../ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+
+            Ext.onReady(function(){
+                // Define new class 'Vehicle' under the 'ck' namespace
+Ext.define('ck.Vehicle', {
+
+    // define our config object
+    config: {
+        Manufacturer: 'Aston Martin',
+        Model: 'Vanquish'
+    },
+
+                    constructor: function(config){
+                        // initialise our config object
+                        this.initConfig(config);
+
+                        return this;
+                    },
+
+                    // show details of Vehicle
+                    getDetails: function(){
+                        alert('I am an ' + this.getManufacturer() + ' ' + this.getModel());
+                    },
+
+                    // update DOM elements with current Values
+                    applyManufacturer: function(manufacturer){
+                        Ext.get('manufacturer').update(manufacturer);
+
+						return manufacturer;
+                    },
+                    applyModel: function(model){
+                        Ext.get('model').update(model);
+
+						return model;
+                    }
+                }, function(){
+                    console.log('ck.Vehicle class defined!');
+                });
+
+                // create a new instance of Vehicle class
+                var vehicle = Ext.create('ck.Vehicle');
+
+                // display its details
+                vehicle.getDetails();
+
+                // update Vehicle details
+                vehicle.setManufacturer('Volkswagen');
+                vehicle.setModel('Golf');
+
+                // display its new details
+                vehicle.getDetails();
+
+            });
+        </script>
+    </head>
+    <body>
+<span id="manufacturer"></span>
+<span id="model"></span>
+    </body>
+</html>

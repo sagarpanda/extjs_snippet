@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>1. Selecting DOM Elements</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+				// Get the 'book-title' element
+				var bookTitleEl = Ext.get('book-title');
+
+				// Alert the book-title element's ID
+				alert('Book Title ID: ' + bookTitleEl.id);
+
+			
+				// Get an Ext.CompositeElementLite instance containing Ext.Elements for all the LI tags in the authors UL
+				var authorsListItemEls = Ext.select('ul#authors li');
+
+				// Hide all the elements in the Ext.CompositeElementLite's collection
+				authorsListItemEls.hide();
+				
+				// Retrieve the raw DOM nodes for each of the Author list's items (li tags)
+				console.log(Ext.query('ul#authors li'));
+            });
+        </script>
+    </head>
+    <body>
+        <h1 id="book-title">Ext JS 4 ck</h1>
+        <h2>Authors</h2>
+        <ul id="authors">
+            <li>Stuart Ashworth</li>
+            <li>Andrew Duncan</li>
+        </ul>
+        <h2>What's new in Ext JS 4?</h2>
+        <ul id="whats-new">
+            <li>Charting</li>
+            <li>Drawing</li>
+            <li>Data Package</li>
+            <li>Enhanced Grid</li>
+            <li>Powerful Theming</li>
+        </ul>
+    </body>
+</html>

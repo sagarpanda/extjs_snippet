@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <title>5. Handling Events on Elements and Components</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            	// Retrieve a reference to the 'my-div' DIV
+                var el = Ext.get('my-div');
+                
+				// Attach an event handler to the Ext.Element's click event
+				// - try changing the third parameter from 'this' to 'el' and see how it changes the alert on Line 17
+                el.on('click', function(e, target, options){
+                    alert('The Element was clicked!');
+                    alert(this.id);
+                }, this);
+
+                // The alternative syntax for the on() method
+				// Use a JavaScript object to define multiple event handlers at once
+                el.on({
+                    click: function(e, target, options){
+                        alert('The Element was clicked!');
+						alert(this.id);
+                    },
+                    contextmenu: function(e, target, options){
+                        alert('The Element was right-clicked!');
+						alert(this.id);
+                    },
+                    scope: this
+                });
+				
+				// The further alternative syntax for the on() method
+				// Use a JavaScript object for each event to define custom options for each event
+                el.on({
+                    click: {
+						fn: function(e, target, options){
+                        		alert('The Element was clicked!');
+								alert(this.id);
+						},
+						scope: this
+                    },
+                    contextmenu: {
+						fn: function(e, target, options){
+                        	alert('The Element was right-clicked!');
+							alert(this.id);
+                    	},
+						scope: el
+					}
+                });
+                
+                
+                // Create an Ext.panel.Panel and attach a listener to its 'afterrender' event using
+				// the 'listeners' configuration option
+                Ext.create('Ext.panel.Panel', {
+                    title: 'Ext JS 4 ck',
+                    html: 'An Example Panel!',
+                    renderTo: document.body,
+                    width: 500,
+                    listeners: {
+                        afterrender: function(){
+                            alert('The Panel is rendered!');
+                        }
+                    }
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+        <div id="my-div">
+            Ext JS 4 ck
+        </div>
+    </body>
+</html>

@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <title>10. Dynamically generate forms from loaded JSON</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js"></script>
+        <script type="text/javascript">
+            Ext.onReady(function() {
+
+                /**
+                 * Step 1 - Create a simple Form Panel
+                 */
+                var formPanel = Ext.create('Ext.form.Panel', {
+                    title: 'Login Form',
+                    width: 500,
+                    height: 200,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px' // move panel off browser�s edge
+                });
+
+                /**
+                 * Step 3 - Create an AJAX request to load the formStructure.json file
+                 */
+                Ext.Ajax.request({
+                    url: 'formStructure.json',
+                    success: function(response, options){
+                        console.log(response.responseText);
+                    }
+                });
+
+
+                /**
+                 * Step 4 - Decode the JSON response and check that the form was generated on the server successfully
+                 */
+                Ext.Ajax.request({
+                    url: 'formStructure.json',
+                    success: function(response, options){
+                        var jsonResponse = Ext.decode(response.responseText);
+
+                        if(jsonResponse.success){
+                            // we have the data so create the form!
+                        }
+                    }
+                });
+
+                /**
+                 * Step 5 - Add the contents of the 'fields' property to the Form Panel, creating the fields
+                 */
+                Ext.Ajax.request({
+                    url: 'formStructure.json',
+                    success: function(response, options){
+                        var jsonResponse = Ext.decode(response.responseText);
+
+                        if(jsonResponse.success){
+
+                            formPanel.add(jsonResponse.fields);
+
+                        }
+                    }
+                });
+
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

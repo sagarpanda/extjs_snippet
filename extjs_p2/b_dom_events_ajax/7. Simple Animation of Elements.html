@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>7. Simple Animation of Elements</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <style type="text/css">
+            #animate {
+                margin: 50px auto;
+                width: 200px;
+                background-color: #444;
+                height: 200px;
+            }
+        </style>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+            
+                var el = Ext.get('animate');
+                
+                el.puff({
+                    easing: 'easeOut',
+                    duration: 1000,
+                    useDisplay: false
+                });
+
+                el.switchOff({
+                    easing: 'easeIn',
+                    duration: 2000,
+                    remove: false,
+                    useDisplay: false
+                });
+
+                el.slideIn('t', {
+                    easing: 'easeOut',
+                    duration: 500
+                });
+
+                el.slideOut('t', {
+                    easing: 'easeOut',
+                    duration: 500,
+                    remove: false,
+                    useDisplay: false
+                });
+
+                el.frame("#444", 10, {
+                    duration: 1000
+                });
+
+                el.fadeOut({
+                    opacity: 0,
+                    easing: 'easeOut',
+                    duration: 2000,
+                    remove: false,
+                    useDisplay: false
+                });
+
+
+                
+                var messageBox = Ext.Msg.alert('Alert', 'This Message Box has an animation');
+                messageBox.getEl().frame("red", 3, {
+                    duration: 500
+                });
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+        <div id="animate">
+        </div>
+    </body>
+</html>

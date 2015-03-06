@@ -1,0 +1,28 @@
+{
+	"success": true,
+	"recipients": [{
+		"fullName": "Stuart Ashworth",
+		"userID": 1,
+		"selected": true
+	}, {
+		"fullName": "Andrew Duncan",
+		"userID": 2,
+		"selected": false
+	}, {
+		"fullName": "Andrew Duncan",
+		"userID": 3,
+		"selected": false
+	}, {
+		"fullName": "Stuart Ashworth",
+		"userID": 4,
+		"selected": false
+	}, {
+		"fullName": "Stuart Ashworth",
+		"userID": 5,
+		"selected": false
+	}, {
+		"fullName": "Andrew Duncan",
+		"userID": 6,
+		"selected": false
+	}]
+}

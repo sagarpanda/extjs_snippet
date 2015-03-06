@@ -1,0 +1,179 @@
+<html>
+    <head>
+        <title id="page-title">9. Manipulating a Tab Panel's tab bar</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+		
+		<style type="text/css">
+			/* Override so complete icon shows */
+			.x-tab-default-top button, .x-tab-default-top .x-tab-inner {
+				height: 16px;
+				line-height: 13px;
+			}
+			
+			
+			.icon-refresh {
+				background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAI/SURBVDjLjZPbS9NhHMYH+zNidtCSQrqwQtY5y2QtT2QGrTZf13TkoYFlzsWa/tzcoR3cSc2xYUlGJfzAaIRltY0N12H5I+jaOxG8De+evhtdOP1hu3hv3sPzPO/z4SsBIPnfuvG8cbBlWiEVO5OUItA0VS8oxi9EdhXo+6yV3V3UGHRvVXHNfNv6zRfNuBZVoiFcB/3LdnQ8U+Gk+bhPVKB3qUOuf6/muaQR/qwDkZ9BRFdCmMr5EPz6BN7lMYylLGgNNaKqt3K0SKDnQ7us690t3rNsxeyvaUz+8OJpzo/QNzd8WTtcaQ7WlBmPvxhx1V2Pg7oDziIBimwwf3qAGWESkVwQ7owNujk1ztvk+cg4NnAUTT4FrrjqUKHdF9jxBfXr1rgjaSk4OlMcLrnOrJ7latxbL1V2lgvlbG9MtMTrMw1r1PImtfyn1n5q47TlBLf90n5NmalMtUdKZoyQMkLKlIGLjMyYhFpmlz3nGEVmFJlRZNaf7pIaEndM24XIjCOzjX9mm2S2JsqdkMYIqbB1j5C6yWzVk7YRFTsGFu7l+4nveExIA9aMCcOJh6DIoMigyOh+o4UryRWQOtIjaJtoziM1FD0mpE4uZcTc72gBaUyYKEI6khgqINXO3saR7kM8IZUVCRDS0Ucf+xFbCReQhr97MZ51wpWxYnhpCD3zOrT4lTisr+AJqVx0Fiiyr4/vhP4VyyMFIUWNqRrV96vWKXKckBoIqWzXYcoPDrUslDJoopuEVEpIB0sR+AuErIiZ6OqMKAAAAABJRU5ErkJggg==);
+				background-repeat: no-repeat;
+			}
+			.icon-tick {
+				background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAKfSURBVDjLpZPrS1NhHMf9O3bOdmwDCWREIYKEUHsVJBI7mg3FvCxL09290jZj2EyLMnJexkgpLbPUanNOberU5taUMnHZUULMvelCtWF0sW/n7MVMEiN64AsPD8/n83uucQDi/id/DBT4Dolypw/qsz0pTMbj/WHpiDgsdSUyUmeiPt2+V7SrIM+bSss8ySGdR4abQQv6lrui6VxsRonrGCS9VEjSQ9E7CtiqdOZ4UuTqnBHO1X7YXl6Daa4yGq7vWO1D40wVDtj4kWQbn94myPGkCDPdSesczE2sCZShwl8CzcwZ6NiUs6n2nYX99T1cnKqA2EKui6+TwphA5k4yqMayopU5mANV3lNQTBdCMVUA9VQh3GuDMHiVcLCS3J4jSLhCGmKCjBEx0xlshjXYhApfMZRP5CyYD+UkG08+xt+4wLVQZA1tzxthm2tEfD3JxARH7QkbD1ZuozaggdZbxK5kAIsf5qGaKMTY2lAU/rH5HW3PLsEwUYy+YCcERmIjJpDcpzb6l7th9KtQ69fi09ePUej9l7cx2DJbD7UrG3r3afQHOyCo+V3QQzE35pvQvnAZukk5zL5qRL59jsKbPzdheXoBZc4saFhBS6AO7V4zqCpiawuptwQG+UAa7Ct3UT0hh9p9EnXT5Vh6t4C22QaUDh6HwnECOmcO7K+6kW49DKqS2DrEZCtfuI+9GrNHg4fMHVSO5kE7nAPVkAxKBxcOzsajpS4Yh4ohUPPWKTUh3PaQEptIOr6BiJjcZXCwktaAGfrRIpwblqOV3YKdhfXOIvBLeREWpnd8ynsaSJoyESFphwTtfjN6X1jRO2+FxWtCWksqBApeiFIR9K6fiTpPiigDoadqCEag5YUFKl6Yrciw0VOlhOivv/Ff8wtn0KzlebrUYwAAAABJRU5ErkJggg==);
+				background-repeat: no-repeat;
+			}
+			
+		</style>
+		
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1 - Create a simple Tab Panel with 3 Tabs
+                 */
+				var tabPanel = Ext.create('Ext.tab.Panel', {
+				    width: 500,
+				    height: 200,
+				    style: 'margin: 50px', // move panel off browser’s edge
+				    renderTo: Ext.getBody(),
+				    items: [{
+				        title: 'Tab One',
+						html: 'This is Tab One'
+				    }, {
+				        title: 'Tab Two - has a very, very long and silly title',
+						html: 'This is Tab Two'
+				    }, {
+				        title: 'Tab Three',
+						html: 'This is Tab Three'
+				    }]
+				});
+				
+				/**
+				 * Step 2 - Give Tab One an icon
+				 */
+				var tabPanelIcon = Ext.create('Ext.tab.Panel', {
+                    width: 500,
+                    height: 200,
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody(),
+					tbar: [{
+						text: 'Switch Icon',
+						handler: function(){
+							tabPanelIcon.items.get(0).tab.setIconCls('icon-tick');
+						}
+					}],
+                    items: [{
+                        title: 'Tab One',
+						tabConfig: {
+						    cls: 'x-btn-text-icon',
+							iconCls: 'icon-refresh'
+						},
+						html: 'This is Tab One'
+                    }, {
+                        title: 'Tab Two - has a very, very long and silly title',
+						html: 'This is Tab Two'
+                    }, {
+                        title: 'Tab Three',
+						html: 'This is Tab Three'
+                    }]
+                });
+				
+				/**
+				 * Step 3 - Specify the Minimum, Maximum for all Tabs and the Specific Width of a Tab Three
+				 */
+				var tabPanelWidths = Ext.create('Ext.tab.Panel', {
+                    width: 500,
+                    height: 200,
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody(),
+					minTabWidth: 100,
+					maxTabWidth: 200,
+                    items: [{
+                        title: 'Tab One',
+						html: 'This is Tab One'
+                    }, {
+                        title: 'Tab Two - has a very, very long and silly title',
+						html: 'This is Tab Two'
+                    }, {
+                        title: 'Tab Three',
+						tabConfig: {
+							width: 150
+						},
+						html: 'This is Tab Three'
+                    }]
+                });
+				
+				
+				/**
+				 * Step 4 - Move the Tab Bar to the bottom of the Panel
+				 */
+				var tabPanelBottom = Ext.create('Ext.tab.Panel', {
+                    width: 500,
+                    height: 200,
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody(),
+					minTabWidth: 100,
+					maxTabWidth: 200,
+					tabPosition: 'bottom',
+                    items: [{
+                        title: 'Tab One',
+						html: 'This is Tab One'
+                    }, {
+                        title: 'Tab Two - has a very, very long and silly title',
+						html: 'This is Tab Two'
+                    }, {
+                        title: 'Tab Three',
+						tabConfig: {
+							width: 150
+						},
+						html: 'This is Tab Three'
+                    }]
+                });	
+				
+				
+				/**
+				 * Step 5 - Hide Tab Two by default then show it by clicking a button
+				 */
+				var tabPanelVisibility = Ext.create('Ext.tab.Panel', {
+                    width: 500,
+                    height: 200,
+                    style: 'margin: 50px', // move panel off browser’s edge
+                    renderTo: Ext.getBody(),
+					minTabWidth: 100,
+					maxTabWidth: 200,
+					tabPosition: 'bottom',
+					tbar: [{
+						text: 'Toggle Tab Two',
+						handler: function(){
+							var tab = tabPanelVisibility.items.get(1).tab;
+							
+							tab.setVisible(!tab.isVisible());
+						}
+					}],
+                    items: [{
+                        title: 'Tab One',
+						html: 'This is Tab One'
+                    }, {
+                        title: 'Tab Two - has a very, very long and silly title',
+						hidden: true,
+						html: 'This is Tab Two'
+                    }, {
+                        title: 'Tab Three',
+						tabConfig: {
+							width: 150
+						},
+						html: 'This is Tab Three'
+                    }]
+                });		
+
+
+
+
+
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

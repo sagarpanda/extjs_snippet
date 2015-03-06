@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <title>Displaying info when hovering over charts</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1: Create a Chart Model
+                 */
+                Ext.define('Chart', {
+                    extend: 'Ext.data.Model',
+                    fields: [{
+                        name: 'name',
+                        type: 'string'
+                    }, {
+                        name: 'value',
+                        type: 'int'
+                    }]
+                });
+                
+                /**
+                 * Step 2 - Create a store with an AJAX proxy
+                 */
+                var store = Ext.create('Ext.data.Store', {
+                    model: 'Chart',
+                    proxy: {
+                        type: 'ajax',
+                        url: 'BarChart.json',
+                        reader: {
+                            type: 'json',
+                            root: 'data'
+                        }
+                    },
+                    autoLoad: true
+                });
+                
+                /**
+                 * Create a Panel with a bar chart
+                 */
+                var ChartBar = Ext.create('Ext.chart.Chart', {
+                    width: 600,
+                    height: 400,
+                    animate: true,
+                    store: store,
+                    axes: [{
+                        type: 'Numeric',
+                        position: 'bottom',
+                        fields: ['value'],
+                        title: 'Value'
+                    }, {
+                        type: 'Category',
+                        position: 'left',
+                        fields: ['name'],
+                        title: 'Name'
+                    }],
+                    series: [{
+                        type: 'bar',
+                        axis: 'bottom',
+                        xField: 'name',
+                        yField: 'value',
+                        tips: {
+                            trackMouse: true,
+                            width: 235,
+                            height: 28,
+                            renderer: function(storeItem, item){
+                                this.setTitle('Column Value: ' + storeItem.get('name') + ', Column Name: ' + storeItem.get('value'));
+                            }
+                        }
+                    }],
+                    style: 'margin: 50px',
+                    renderTo: Ext.getBody()
+                });
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

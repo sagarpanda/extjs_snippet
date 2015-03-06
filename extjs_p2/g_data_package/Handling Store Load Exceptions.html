@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <title>Handling Store Load Exceptions</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+            
+                Ext.define('Book', {
+                    extend: 'Ext.data.Model',
+                    
+                    fields: [{
+                        name: 'Title',
+                        type: 'string'
+                    }],
+                    
+                    proxy: {
+                        type: 'ajax',
+                        url: 'error-response.json',
+                        listeners: {
+                            'exception': function(proxy, response, operation, eOpts){
+                                if (response.status !== 200) {
+                                    alert(response.status + ' ' + response.statusText);
+                                }
+                                else {
+                                    var responseText = Ext.decode(response.responseText);
+                                    alert(responseText.error);
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                var store = Ext.create('Ext.data.Store', {
+                    model: 'Book',
+                    autoLoad: true
+                });
+                
+                /**
+                 * There's More...
+                 */
+                /**
+                 * Generic Response Handler Function for all exceptions returned by Ext.data.proxy.AJAX
+                 * @param {Object} proxy
+                 * @param {Object} response
+                 * @param {Object} operation
+                 * @param {Object} eOpts
+                 */
+                var GenericResponseHandler = function(proxy, response, operation, eOpts){
+                    if (response.status !== 200) {
+                        alert(response.status + ' ' + response.statusText);
+                    }
+                    else {
+                        var responseText = Ext.decode(response.responseText);
+                        Ext.Msg.alert('Generic Response', responseText.error);
+                    }
+                };
+                
+                // Attach function to all AJAX Proxy objects' EXCEPTION event
+                Ext.util.Observable.observe(Ext.data.proxy.Ajax);
+                Ext.data.proxy.Ajax.on('exception', GenericResponseHandler);
+                
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

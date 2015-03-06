@@ -1,0 +1,123 @@
+<html>
+    <head>
+        <title>3. Adding a ComboBox to a Toolbar to Filter a Grid</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript" src="invoices-model.js">
+        </script>
+        <script type="text/javascript" src="invoices-store.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1 - Create a simple Store with Statuses
+                 */
+                var statusStore = Ext.create('Ext.data.Store', {
+                    fields: ['Status'],
+                    data: [{
+                        Status: 'All'
+                    }, {
+                        Status: 'Paid'
+                    }, {
+                        Status: 'Viewed'
+                    }, {
+                        Status: 'Sent'
+                    }, {
+                        Status: 'Draft'
+                    }]
+                });
+                
+                /**
+                 * Step 2 - Create a ComboBox bound to the Status store
+                 */
+                var filterCombo = Ext.create('Ext.form.field.ComboBox', {
+                    fieldLabel: 'Status Filter',
+                    labelWidth: 70,
+                    queryMode: 'local',
+                    displayField: 'Status',
+                    valueField: 'Status',
+                    store: statusStore
+                });
+                
+                
+                /**
+                 * Step 3 - Create a Grid Panel containing Invoice records, with a top toolbar containing our ComboBox
+                 */
+                var invoicesGrid = Ext.create('Ext.grid.Panel', {
+                    title: 'Chapter 9',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    dockedItems: [{
+                        xtype: 'toolbar',
+                        dock: 'top',
+                        items: [filterCombo]
+                    }],
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client'
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    renderTo: Ext.getBody()
+                });
+                
+                /**
+                 * Step 4 - Handle the ComboBox's 'select' event to filter the Grid Panel's data based on the selected 'Status' value
+                 * @param {Object} combo
+                 * @param {Object} records
+                 * @param {Object} opts
+                 */
+                filterCombo.on('select', function(combo, records, opts){
+                    invoicesGrid.getStore().clearFilter();
+                    
+                    // if there are selected records and the first isn't 'All' then apply the filter
+                    if (records.length > 0 && records[0].get('Status') !== 'All') {
+                        invoicesGrid.getStore().filter('Status', records[0].get('Status'));
+                    }
+                });
+                
+                /**
+                 * There's More... - Add a TextField to the Panel's toolbar that filters the Store when keys are pressed
+                 */
+                var searchTextField = Ext.create('Ext.form.field.Text', {
+                    fieldLabel: 'Client Search',
+                    enableKeyEvents: true
+                });
+                
+                var searchTextField = Ext.create('Ext.form.field.Text', {
+                    fieldLabel: 'Client Search',
+                    enableKeyEvents: true,
+                    listeners: {
+                        keyup: {
+                            fn: function(field, e){
+                                var val = field.getValue();
+                                
+                                invoicesGrid.getStore().filterBy(function(record){
+                                    return record.get('Client').substring(0, val.length) === val;
+                                }, this);
+                            },
+                            buffer: 250
+                        }
+                    }
+                });
+                invoicesGrid.getDockedItems()[1].add(searchTextField);
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

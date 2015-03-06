@@ -1,0 +1,224 @@
+<html>
+    <head>
+        <title>5. Creating custom VTypes</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <style type="text/css">
+            .field-margin {
+                margin: 10px;
+            }
+        </style>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+            
+                /**
+                 * Step 1 - Define our VType structure
+                 */
+                var telNumberVType = {
+                    telNumber: function(val, field){
+                        // function executed when field is validated
+                        // return true when field's value (val) is valid, else return false
+                        return true;
+                    },
+                    
+                    telNumberText: 'Your Telephone Number must only include numbers and hyphens.',
+                    
+                    telNumberMask: /[\d\-]/
+                };
+                
+                /**
+                 * Step 2 - Define a Regular Expression to validate our Telephone Number with
+                 * Matches simple format of:
+                 * 0777-777-7777
+                 */
+                var telNumberVType = {
+                    telNumber: function(val, field){
+                        var telNumberRegex = /^\d{4}\-\d{3}\-\d{4}$/;
+                        
+                        // function executed when field is validated
+                        // return true when field's value (val) is valid, else return false
+                        return true;
+                    },
+                    
+                    telNumberText: 'Your Telephone Number must only include numbers and hyphens.',
+                    
+                    telNumberMask: /[\d\-]/
+                };
+                
+                /**
+                 * Step 3 - Implement the validation logic
+                 */
+                var telNumberVType = {
+                    telNumber: function(val, field){
+                        var telNumberRegex = /^\d{4}\-\d{3}\-\d{4}$/;
+                        
+                        return telNumberRegex.test(val);
+                    },
+                    
+                    telNumberText: 'Your Telephone Number must only include numbers and hyphens.',
+                    
+                    telNumberMask: /[\d\-]/
+                };
+                
+                /**
+                 * Step 5 - Apply the VType to the Ext.form.field.VTypes class
+                 */
+                Ext.apply(Ext.form.field.VTypes, telNumberVType);
+                
+                /**
+                 * Step 6 - Apply the new VType to our Telephone Number field
+                 */
+                var formPanel = Ext.create('Ext.form.Panel', {
+                    title: 'Support Ticket Request',
+                    width: 650,
+                    height: 500,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px', // move panel off browser�s edge
+                    items: [{
+                        xtype: 'container',
+                        layout: 'hbox',
+                        items: [{
+                            xtype: 'textfield',
+                            fieldLabel: 'First Name',
+                            name: 'FirstName',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            flex: 1
+                        }, {
+                            xtype: 'textfield',
+                            fieldLabel: 'Last Name',
+                            name: 'LastName',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            flex: 1
+                        }]
+                    }, {
+                        xtype: 'container',
+                        layout: 'column',
+                        items: [{
+                            xtype: 'textfield',
+                            fieldLabel: 'Email Address',
+                            name: 'EmailAddress',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            columnWidth: 0.6
+                        }, {
+                            xtype: 'fieldcontainer',
+                            layout: 'hbox',
+                            fieldLabel: 'Tel. Number',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            columnWidth: 0.4,
+                            items: [{
+                                xtype: 'textfield',
+                                name: 'TelNumber',
+                                flex: 4,
+                                
+                                vtype: 'telNumber'
+                            }]
+                        }]
+                    }, {
+                        xtype: 'container',
+                        layout: 'hbox',
+                        items: [{
+                            xtype: 'textarea',
+                            fieldLabel: 'Request Details',
+                            name: 'RequestDetails',
+                            labelAlign: 'top',
+                            cls: 'field-margin',
+                            height: 250,
+                            flex: 2
+                        }, {
+                            xtype: 'checkboxgroup',
+                            fieldLabel: 'Request Type',
+                            name: 'RequestType',
+                            labelAlign: 'top',
+                            columns: 1,
+                            cls: 'field-margin',
+                            vertical: true,
+                            items: [{
+                                boxLabel: 'Type 1',
+                                name: 'type1'
+                            }, {
+                                boxLabel: 'Type 2',
+                                name: 'type2'
+                            }, {
+                                boxLabel: 'Type 3',
+                                name: 'type3'
+                            }, {
+                                boxLabel: 'Type 4',
+                                name: 'type4'
+                            }, {
+                                boxLabel: 'Type 5',
+                                name: 'type5'
+                            }, {
+                                boxLabel: 'Type 6',
+                                name: 'type6'
+                            }],
+                            
+                            flex: 1
+                        }]
+                    }, {
+                        xtype: 'filefield',
+                        cls: 'field-margin',
+                        fieldLabel: 'Attachment',
+                        width: 300
+                    }]
+                });
+                
+                
+                /**
+                 * There's More...
+                 */
+                Ext.apply(Ext.form.field.VTypes, {
+                    password: function(val, field){
+                        var parentForm = field.up('form'); // get parent form
+                        // get the form's values
+                        var formValues = parentForm.getValues();
+                        
+                        // get the value from the configured 'First Password' field
+                        var firstPasswordValue = formValues[field.firstPasswordFieldName];
+                        
+                        // return true if they match
+                        return val === firstPasswordValue;
+                    },
+                    
+                    passwordText: 'Your Passwords do not match.'
+                });
+                
+                var formPanelPassword = Ext.create('Ext.form.Panel', {
+                    title: 'Password Form',
+                    width: 650,
+                    height: 200,
+                    renderTo: Ext.getBody(),
+                    style: 'margin: 50px', // move panel off browser�s edge
+                    items: [{
+                        xtype: 'textfield',
+                        fieldLabel: 'Password',
+                        name: 'Password',
+                        labelAlign: 'top',
+                        cls: 'field-margin',
+                        flex: 1
+                    }, {
+                        xtype: 'textfield',
+                        fieldLabel: 'Repeat Password',
+                        name: 'RepeatPassword',
+                        labelAlign: 'top',
+                        cls: 'field-margin',
+                        flex: 1,
+                        
+                        // Password VType configuration
+                        vtype: 'password',
+                        firstPasswordFieldName: 'Password'
+                    }]
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

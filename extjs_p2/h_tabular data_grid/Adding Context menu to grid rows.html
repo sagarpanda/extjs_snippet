@@ -1,0 +1,180 @@
+<html>
+    <head>
+        <title>Adding Context menu to cells</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript" src="invoices-model.js">
+        </script>
+        <script type="text/javascript" src="invoices-store.js">
+        </script>
+        <style type="text/css">
+            .currency {
+                color: #666;
+                font-size: 0.8em;
+                text-transform: uppercase;
+                margin-left: 4px;
+            }
+            
+            .description {
+                color: #666;
+                font-size: 0.9em;
+                margin-top: 4px;
+            }
+        </style>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+                // initialise the QuickTipManager so inline quicktips are displayed
+                Ext.tip.QuickTipManager.init();
+                
+                /**
+                 * Step 1 - Include our Invoice Model and Store
+                 */
+                // See above...
+                
+                
+                /*
+                 * Step 2 - Create our Basic Grid
+                 */
+                var invoicesGrid = Ext.create('Ext.grid.Panel', {
+                    title: 'Chapter 8 - Grids',
+                    height: 300,
+                    width: 600,
+                    store: invoiceStore,
+                    columns: [{
+                        header: 'Client',
+                        dataIndex: 'Client'
+                    }, {
+                        header: 'Date',
+                        dataIndex: 'Date'
+                    }, {
+                        header: 'Amount',
+                        dataIndex: 'Amount'
+                    }, {
+                        header: 'Status',
+                        dataIndex: 'Status'
+                    }],
+                    
+                    renderTo: Ext.getBody()
+                });
+                
+                /**
+                 * Step 3 - Define a Menu
+                 */
+                var contextMenu = Ext.create('Ext.menu.Menu', {
+                    height: 100,
+                    width: 125,
+                    items: [{
+                        text: 'View Invoice',
+                        icon: 'icons/document-text.png'
+                    }, {
+                        text: 'Edit Invoice',
+                        icon: 'icons/pencil.png',
+                    }, {
+                        text: 'Re-Send Invoice',
+                        icon: 'icons/envelope-label.png'
+                    }, {
+                        text: 'Delete Invoice',
+                        icon: 'icons/minus-circle.png',
+                    }]
+                });
+                
+                /**
+                 * Step 4 - Add right-click handler to grid
+                 */
+                invoicesGrid.on({
+                    itemcontextmenu: function(view, record, item, index, e){
+                        e.stopEvent();
+                        
+                        contextMenu.showAt(e.getXY());
+                    }
+                });
+                
+                /**
+                 * Step 5 - Attach a click handler to each item to log the button's text that was clicked
+                 */
+                var contextMenu = Ext.create('Ext.menu.Menu', {
+                    height: 100,
+                    width: 125,
+                    defaults: {
+                        listeners: {
+                            click: function(item){
+                                console.log(item.text + ' Clicked!');
+                            }
+                        }
+                    },
+                    items: [{
+                        text: 'View Invoice',
+                        icon: 'icons/document-text.png'
+                    }, {
+                        text: 'Edit Invoice',
+                        icon: 'icons/pencil.png',
+                    }, {
+                        text: 'Re-Send Invoice',
+                        icon: 'icons/envelope-label.png'
+                    }, {
+                        text: 'Delete Invoice',
+                        icon: 'icons/minus-circle.png',
+                    }]
+                });
+                
+                
+                /**
+                 * There's More... - Perform an action with each link click passing in details of the record right-clicked
+                 */
+                var contextMenu = Ext.create('Ext.menu.Menu', {
+                    height: 100,
+                    width: 125,
+                    defaults: {
+                        listeners: {
+                            click: function(item){
+                                var selectedRecords = invoicesGrid.getSelectionModel().getSelection();
+                                
+                                if (selectedRecords.length > 0) {
+                                    var record = selectedRecords[0];
+                                    
+                                    switch (item.itemId) {
+                                        case 'viewButton':
+                                            // Do View logic
+                                            break;
+                                        case 'editButton':
+                                            // Do Edit logic
+                                            break;
+                                        case 'resendButton':
+                                            // Do Re-Send logic
+                                            break;
+                                        case 'deleteButton':
+                                            // Do Delete logic
+                                            break;
+                                    }
+                                    
+                                    console.log(Ext.String.format('{0} - {1} for {2} {3}', item.text, record.get('Client'), record.get('Amount'), record.get('Currency')));
+                                }
+                            }
+                        }
+                    },
+                    items: [{
+                        text: 'View Invoice',
+                        icon: 'icons/document-text.png',
+                        itemId: 'viewButton'
+                    }, {
+                        text: 'Edit Invoice',
+                        icon: 'icons/pencil.png',
+                        itemId: 'editButton'
+                    }, {
+                        text: 'Re-Send Invoice',
+                        icon: 'icons/envelope-label.png',
+                        itemId: 'resendButton'
+                    }, {
+                        text: 'Delete Invoice',
+                        icon: 'icons/minus-circle.png',
+                        itemId: 'deleteButton'
+                    }]
+                });
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>11. Loading Data via AJAX</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                Ext.Ajax.request({
+                    url: 'ajaxRequest.json',
+                    success: function(response, options){
+                    
+                        console.log('The Success function was called.');
+                        console.log(response.responseText);
+
+                    },
+                    failure: function(response, options){
+                    
+                        console.log('The Failure function was called.');
+						
+						var statusCode = response.status;
+						var statusText = response.statusText;
+                        
+                        console.log(statusCode + ' (' + statusText + ')');
+                    },
+                    callback: function(options, success, response){
+                        console.log('The Callback function was called.');
+                        
+                        console.log('Successful Request? ' + success);
+                    },
+                    timeout: 60000 //60 seconds (default is 30)
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

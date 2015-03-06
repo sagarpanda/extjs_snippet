@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title id="page-title">13. Formatting Dates within an Ext.XTemplate</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+		
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1 - Create a simple Ext.XTemplate and a simple data object and render it to the body
+                 */
+				var data = {
+				    date: '8/5/1986 12:30:00'
+				};
+				
+				var tpl = new Ext.XTemplate('{date}');
+											
+				tpl.overwrite(Ext.getBody(), data); // outputs '5/8/1986 12:30:00'
+
+				/**
+                 * Step 2 - Format the date using the date function
+                 */
+
+				var tpl = new Ext.XTemplate('{date:date("Y-m-d")}');
+											
+				tpl.overwrite(Ext.getBody(), data); // outputs '1986-08-05'
+				
+				/**
+                 * Step 3 - Use one of the Ext.Date.patterns formats
+                 */
+				Ext.Date.patterns = {
+				    ISO8601Long:"Y-m-d H:i:s",
+				    ISO8601Short:"Y-m-d",
+				    ShortDate: "n/j/Y",
+				    LongDate: "l, F d, Y",
+				    FullDateTime: "l, F d, Y g:i:s A",
+				    MonthDay: "F d",
+				    ShortTime: "g:i A",
+				    LongTime: "g:i:s A",
+				    SortableDateTime: "Y-m-d\\TH:i:s",
+				    UniversalSortableDateTime: "Y-m-d H:i:sO",
+				    YearMonth: "F, Y"
+				};
+
+				var tpl = new Ext.XTemplate('{date:date("' + Ext.Date.patterns.LongDate + '")} ');
+											
+				tpl.overwrite(Ext.getBody(), data); // outputs 'Tuesday, August 05, 1986'
+				
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

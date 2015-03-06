@@ -1,0 +1,118 @@
+<html>
+    <head>
+        <title>Creating a Split Button</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                Ext.tip.QuickTipManager.init();
+                
+                /**
+                 * Step 1 - Create a Split Button
+                 */
+                var splitButton = Ext.create('Ext.button.Split', {
+                
+                    text: 'Save...',
+                    tooltip: 'Click the arrow to choose what format to save in...',
+                    handler: function(){
+                        console.log('Save as Default');
+                    }
+                });
+                
+                var panel = Ext.create('Ext.Panel', {
+                    renderTo: Ext.getBody(),
+                    height: 300,
+                    width: 400,
+                    html: 'Panel Contents',
+                    dockedItems: [{
+                        xtype: 'toolbar',
+                        dock: 'top',
+                        items: [splitButton]
+                    }]
+                });
+                
+                /**
+                 * Step 2 - Add a menu to the Split Button
+                 */
+                var splitButton = Ext.create('Ext.button.Split', {
+                
+                    text: 'Save...',
+                    tooltip: 'Click the arrow to choose what format to save in...',
+                    handler: function(){
+                        console.log('Save as Default');
+                    },
+                    menu: new Ext.menu.Menu({
+                        items: [{
+                            text: 'Save as Image',
+                            handler: function(){
+                                console.log('Save as Image');
+                            }
+                        }, {
+                            text: 'Save as PDF',
+                            handler: function(){
+                                console.log('Save as PDF');
+                            }
+                        }, {
+                            text: 'Save as Word Document',
+                            handler: function(){
+                                console.log('Save as Word Document');
+                            }
+                        }]
+                    })
+                });
+                
+                
+                /**
+                 * Step - 3 - Create a Panel with a Toolbar and add the SplitButton to it
+                 */
+                var panel = Ext.create('Ext.panel.Panel', {
+                    renderTo: Ext.getBody(),
+                    height: 300,
+                    width: 400,
+                    html: 'Panel Contents',
+                    dockedItems: [{
+                        xtype: 'toolbar',
+                        dock: 'top',
+                        items: [splitButton]
+                    }]
+                });
+                
+                /**
+                 * There's More... - show the Split Button's menu when clicking the main button
+                 */
+                splitButton.on({
+                    click: function(){
+                        splitButton.showMenu();
+                    },
+                    scope: this
+                });
+                
+                /**
+                 * There's More... - Create a Cycle Button to toggle through the options
+                 */
+                var cycleButton = Ext.create('Ext.button.Cycle', {
+                    showText: true,
+                    prependText: 'Save as ',
+                    menu: {
+                        items: [{
+                            text: 'Image'
+                        }, {
+                            text: 'PDF',
+                            checked: true
+                        }, {
+                            text: 'Word Document'
+                        }]
+                    }
+                });                
+                panel.getDockedItems()[0].add(cycleButton);
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

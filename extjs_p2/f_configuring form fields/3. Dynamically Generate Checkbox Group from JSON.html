@@ -1,0 +1,362 @@
+<html>
+    <head>
+        <title>Dynamically Generate Checkbox Group from JSON</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+            
+                /**
+                 * Step 1 - Create a simple Form Panel with no items and a Send button
+                 */
+            /*    Ext.define('Ext.ux.MessagePanel', {
+                
+                    extend: 'Ext.form.Panel',
+                    
+                    initComponent: function(){
+                        Ext.apply(this, {
+                            renderTo: Ext.getBody(),
+                            title: 'Message',
+                            
+                            tbar: [{
+                                text: 'Send',
+                                handler: function(){
+                                    console.log(this.getValues());
+                                },
+                                scope: this
+                            }],
+                            
+                            items: []
+                        });
+                        
+                        this.callParent(arguments);
+                    }
+                });
+                
+                var messagePanel = new Ext.ux.MessagePanel();
+                
+                
+                *//**
+                 * Step 3 - Create an AJAX request to load the checkbox data
+                 *//*
+                Ext.define('Ext.ux.MessagePanel', {
+                
+                    extend: 'Ext.form.Panel',
+                    
+                    initComponent: function(){
+                        Ext.apply(this, {
+                            renderTo: Ext.getBody(),
+                            title: 'Message',
+                            
+                            tbar: [{
+                                text: 'Send',
+                                handler: function(){
+                                    console.log(this.getValues());
+                                },
+                                scope: this
+                            }],
+                            
+                            items: []
+                        });
+                        
+                        this.callParent(arguments);
+                        
+                        this.loadCheckboxes();
+                    },
+                    
+                    loadCheckboxes: function(){
+                    
+                        Ext.Ajax.request({
+                            url: 'recipients.json',
+                            success: function(response){
+                                console.log(response);
+                            },
+                            scope: this
+                        });
+                    }
+                });
+                
+                var messagePanel = new Ext.ux.MessagePanel();
+                
+				*//**
+                 * Step 4 - Create method to process the result of AJAX call
+                 *//*
+                Ext.define('Ext.ux.MessagePanel', {
+                
+                    extend: 'Ext.form.Panel',
+                    
+                    initComponent: function(){
+                        Ext.apply(this, {
+                            renderTo: Ext.getBody(),
+                            title: 'Message',
+                            
+                            tbar: [{
+                                text: 'Send',
+                                handler: function(){
+                                    console.log(this.getValues());
+                                },
+                                scope: this
+                            }],
+                            
+                            items: []
+                        });
+                        
+                        this.callParent(arguments);
+                        
+                        this.loadCheckboxes();
+                        
+                        
+                    },
+                    
+                    loadCheckboxes: function(){
+                    
+                        Ext.Ajax.request({
+                            url: 'recipients.json',
+                            success: this.onLoad,
+                            scope: this
+                        });
+                        
+                    },
+                    
+                    onLoad: function(response){
+                        var jsonResponse = Ext.decode(response.responseText);
+                        
+                        if (jsonResponse.success) {
+                            // succcess
+                        }
+                    }
+                });
+                
+                var messagePanel = new Ext.ux.MessagePanel();
+                
+                *//**
+                 * Step 5 - Implement the code to create a checkbox group within the AJAX request's success handler
+                 *//*
+                Ext.define('Ext.ux.MessagePanel', {
+                
+                    extend: 'Ext.form.Panel',
+                    
+                    initComponent: function(){
+                        Ext.apply(this, {
+                            renderTo: Ext.getBody(),
+                            title: 'Message',
+                            
+                            tbar: [{
+                                text: 'Send',
+                                handler: function(){
+                                    console.log(this.getValues());
+                                },
+                                scope: this
+                            }],
+                            
+                            items: []
+                        });
+                        
+                        this.callParent(arguments);
+                        
+                        this.loadCheckboxes();
+                        
+                        
+                    },
+                    
+                    loadCheckboxes: function(){
+                    
+                        Ext.Ajax.request({
+                            url: 'recipients.json',
+                            success: this.onLoad,
+                            scope: this
+                        });
+                        
+                    },
+                    
+                    onLoad: function(response){
+                        var jsonResponse = Ext.decode(response.responseText);
+                        
+                        if (jsonResponse.success) {
+                            var checkboxGroup = {
+                                xtype: 'checkboxgroup',
+                                columns: 2,
+                                fieldLabel: 'Recipients',
+                                name: 'recipients',
+                                style: {
+                                    padding: '10px'
+                                },
+                                items: []
+                            };
+                            
+                            this.add(checkboxGroup);
+                        }
+                    }
+                });
+                
+                var messagePanel = new Ext.ux.MessagePanel();
+                
+                
+                *//**
+                 * Step 6 - Complete the checkbox group method to build Checkboxes from AJAX response
+                 *//*
+                Ext.define('Ext.ux.MessagePanel', {
+                
+                    extend: 'Ext.form.Panel',
+                    width: 500,
+                    margin: 50,
+
+                    initComponent: function(){
+                        Ext.apply(this, {
+                            renderTo: Ext.getBody(),
+                            title: 'Message',
+                            
+                            tbar: [{
+                                text: 'Send',
+                                handler: function(){
+                                    console.log(this.getValues());
+                                },
+                                scope: this
+                            }],
+                            
+                            items: []
+                        });
+                        
+                        this.callParent(arguments);
+                        
+                        this.loadCheckboxes();
+                    },
+                    
+                    loadCheckboxes: function(){
+                    
+                        Ext.Ajax.request({
+                            url: 'recipients.json',
+                            success: this.onLoad,
+                            scope: this
+                        });
+                    },
+                    
+                    onLoad: function(response){
+                        var jsonResponse = Ext.decode(response.responseText);
+                        
+                        if (jsonResponse.success) {
+                            var checkboxGroup = {
+                                xtype: 'checkboxgroup',
+                                columns: 2,
+                                fieldLabel: 'Recipients',
+                                name: 'recipients',
+                                style: {
+                                    padding: '5px 10px 5px 10px'
+                                },
+                                items: []
+                            };
+                            
+                            var i, len = jsonResponse.recipients.length, option;
+                            for (i = 0; i < len; i++) {
+                                recipient = jsonResponse.recipients[i];
+                                
+                                checkboxGroup.items.push({
+                                    xtype: 'checkbox',
+                                    boxLabel: recipient.fullName,
+                                    name: 'recipients',
+                                    inputValue: recipient.userID,
+                                    checked: recipient.selected
+                                });
+                            }
+                            
+                            this.add(checkboxGroup);
+                        }
+                    }
+                });
+                
+                var messagePanel = new Ext.ux.MessagePanel();*/
+                
+                
+                
+                /**
+                 * There's More... - Add Check All/Uncheck All button
+                 */
+                Ext.define('Ext.ux.MessagePanel', {
+                
+                    extend: 'Ext.form.Panel',
+
+                    width: 500,
+                    margin: 50,
+                    
+                    initComponent: function(){
+                        Ext.apply(this, {
+                            renderTo: Ext.getBody(),
+                            title: 'Message',
+                            
+                            tbar: [{
+                                text: 'Send',
+                                handler: function(){
+                                    console.log(this.getValues());
+                                },
+                                scope: this
+                                }, {
+                                    text: 'Check/Uncheck All',
+                                    enableToggle: true,
+                                    toggleHandler: function(button, pressed){
+                                        this.items.get(0).items.each(function(checkbox){
+                                            checkbox.setValue(pressed);
+                                        }, this);
+                                    },
+                                    scope: this
+                                }],
+                            
+                            items: []
+                        });
+                        
+                        this.callParent(arguments);
+                        
+                        this.loadCheckboxes();
+                    },
+                    
+                    loadCheckboxes: function(){
+                    
+                        Ext.Ajax.request({
+                            url: 'recipients.json',
+                            success: this.onLoad,
+                            scope: this
+                        });
+                    },
+                    
+                    onLoad: function(response){
+                        var jsonResponse = Ext.decode(response.responseText);
+                        
+                        if (jsonResponse.success) {
+                            var checkboxGroup = {
+                                xtype: 'checkboxgroup',
+                                columns: 2,
+                                fieldLabel: 'Recipients',
+                                name: 'recipients',
+                                style: {
+                                    padding: '5px 10px 5px 10px'
+                                },
+                                items: []
+                            };
+                            
+                            var i, len = jsonResponse.recipients.length, option;
+                            for (i = 0; i < len; i++) {
+                                recipient = jsonResponse.recipients[i];
+                                
+                                checkboxGroup.items.push({
+                                    xtype: 'checkbox',
+                                    boxLabel: recipient.fullName,
+                                    name: 'recipients',
+                                    inputValue: recipient.userID,
+                                    checked: recipient.selected
+                                });
+                            }
+                            
+                            this.add(checkboxGroup);
+                        }
+                    }
+                });
+                
+                var messagePanel = new Ext.ux.MessagePanel();
+
+            });
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

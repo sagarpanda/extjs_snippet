@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>8. Custom Animations</title>
+        <!-- Library Files -->
+        <link rel="stylesheet" type="text/css" href="extjs4.1/resources/css/ext-all.css">
+        <script type="text/javascript" src="extjs4.1/ext-all-debug.js">
+        </script>
+        <style type="text/css">
+            #ball {
+                border-radius: 50px;
+                width: 100px;
+                height: 100px;
+                background-color: red;
+                position: absolute;
+                top: 50px;
+                left: 100px;
+            }
+        </style>
+        <script type="text/javascript">
+            Ext.onReady(function(){
+                Ext.create('Ext.fx.Animator', {
+                    target: 'ball',
+                    duration: 5000,
+                    keyframes: {
+                        0: {
+                            y: 50
+                        },
+                        20: {
+                            y: 300
+                        },
+                        40: {
+                            y: 175,
+                            backgroundColor: '#0000FF'
+                        },
+                        60: {
+                            y: 300
+                        },
+                        80: {
+                            y: 275,
+                            backgroundColor: '#00FF00'
+                        },
+                        100: {
+                            y: 300
+                        }
+                    },
+                    listeners: {
+                        keyframe: function(anim, keyframe, options){
+                            console.log(keyframe);
+                        }
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="ball">
+        </div>
+    </body>
+</html>
