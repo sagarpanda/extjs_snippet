@@ -1,5 +1,6 @@
-var userStore = Ext.create('Ext.data.Store', {
+Ext.define('App.store.User', {
 
+    extend  : 'Ext.data.Store',
     alias   : 'store.user',
     model   : 'App.model.User',
 

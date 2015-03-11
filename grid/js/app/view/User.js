@@ -7,18 +7,23 @@ Ext.define('App.view.User', {
     height	    : 300,
     //width		: 400,
     //store       : { type: 'user' },
-    store       : userStore,
+
+    initComponent: function() {
+        var me = this;
+        this.store = Ext.create('App.store.User');
+        this.bbar  = {
+            xtype : 'pagingtoolbar',
+            store : me.store,
+            displayInfo : true
+        };
+        this.callParent(arguments);
+    },
 
     columns : [
         { text: 'ID',  dataIndex: 'id' },
         { text: 'Name',  dataIndex: 'name' },
         { text: 'Email', dataIndex: 'email', flex: 1 },
         { text: 'Phone', dataIndex: 'phone' }
-    ],
-
-    bbar: new Ext.PagingToolbar({
-		store 		: userStore,
-		displayInfo : true
-	})
+    ]
 
 });
