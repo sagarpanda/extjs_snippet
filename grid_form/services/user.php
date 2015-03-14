@@ -1,43 +1,80 @@
 <?php
-	header('Access-Control-Allow-Origin: *');
-	header('Access-Control-Allow-Methods: GET, POST, PUT');
-	header('Access-Control-Allow-Credentials: true');
-	header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT');
+header('Access-Control-Allow-Credentials: true');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
-	// Receive json post in php
-	/*$data = json_decode(file_get_contents('php://input'), true);
-	print_r($data);
-	echo $data["operacion"];*/
+include "connect.php";
 
-	function generateRandomString($length = 10) {
+// Get values
+$page   = isset($_GET['page']) ? $_GET['page'] : 1;
+$start  = isset($_GET['start']) ? $_GET['start'] : 0;
+$limit  = isset($_GET['limit']) ? $_GET['limit'] : 10;
+$action = isset($_GET['act']) ? $_GET['act'] : 'read';
 
-	    $characters = 'abcdefghijklmnopqrstuvwxyz';
-	    $charactersLength = strlen($characters);
-	    $randomString = '';
-	    for ($i = 0; $i < $length; $i++) {
-	        $randomString .= $characters[rand(0, $charactersLength - 1)];
-	    }
-	    return $randomString;
-	}
+if ($action == 'read') {
+
+	$sql 	= "SELECT SQL_CALC_FOUND_ROWS * FROM user LIMIT $start, $limit";
+	$sql2 	= "SELECT FOUND_ROWS()";
+
+	$result 	= $conn->query($sql);
+	$result2	= $conn->query($sql2);
+	$total 		= $result2->fetch_row()[0];
 
 	$data = array();
-
-	$page  = isset($_GET['page']) ? $_GET['page'] : 1;
-	$start = isset($_GET['start']) ? $_GET['start'] : 0;
-	$limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
-
-	for ($i=0; $i < $limit; $i++) { 
-		$str = generateRandomString(6);
-		$data[] = array('id' => ($i+1), 'name' => ucfirst($str), 'email' => $str.'@gmail.com', 'phone' => '555-111-1224');
+	if ($result->num_rows > 0) {
+	    while($row = $result->fetch_assoc()) {
+	    	$data[] = $row;
+	    }
 	}
 
-	$output = array(
-		'total' => 30,
-		'results' => $limit,
-		'success'=> true,
-		'items' => $data
-	);
+} elseif ($action == 'create') {
+	$data = json_decode(file_get_contents('php://input'), true);
 
+	$total 	= 1;
+	$name 	= $data['name'];
+	$email 	= $data['email'];
+	$phone 	= $data['phone'];
+
+	$sql 	= "insert into user set name='$name', email='$email', phone='$phone'";
+	$result = $conn->query($sql);
+
+	$data['id']	= $conn->insert_id;
+
+} elseif ($action == 'update') {
+	$data = json_decode(file_get_contents('php://input'), true);
+
+	$total 	= 1;
+	$name 	= $data['name'];
+	$email 	= $data['email'];
+	$phone 	= $data['phone'];
+	$id 	= $data['id'];
+
+	$sql 	= "update user set name='$name', email='$email', phone='$phone' where id=$id";
+	$result = $conn->query($sql);
+
+} elseif ($action == 'delete') {
+	$data = json_decode(file_get_contents('php://input'), true);
 	
-	print json_encode($output);
+	$total  = 1;
+	$name 	= $data['name'];
+	$email 	= $data['email'];
+	$phone 	= $data['phone'];
+	$id 	= $data['id'];
+
+	$sql 	= "delete from user where id=$id";
+	$result = $conn->query($sql);
+
+}
+$conn->close();
+
+$output = array(
+	'total' 	=> $total,
+	'results' 	=> $limit,
+	'success'	=> true,
+	'action'	=> $action,
+	'items' 	=> $data
+);
+
+print json_encode($output);
 ?>

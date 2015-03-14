@@ -24,16 +24,31 @@ Ext.define('App.store.User', {
             type: 'json',
             root: 'items'
         }
-    }*/
+    }
 
-    proxy   : {
+    validations  : [
+        { type: 'presence', field: 'name' },
+        { type: 'email', field: 'email' },
+        { type: 'presence', field: 'email' },
+        { type: 'presence', field: 'phone' }
+    ],*/
+
+    proxy: {
         type    : 'ajax',
-        url     : 'http://sagarpanda.com/services/user.php',
+        //url : 'http://sagarpanda.com/services/user.php',
+        api     : {
+            create  : 'http://sagarpanda.com/services/user.php?act=create',
+            read    : 'http://sagarpanda.com/services/user.php?act=read',
+            update  : 'http://sagarpanda.com/services/user.php?act=update',
+            destroy : 'http://sagarpanda.com/services/user.php?act=delete',
+        },
         reader  : {
-            type    : 'json',
-            root    : 'items',
-            totalProperty : 'total'
-        } 
+            type: 'json',
+            root: 'items'
+        },
+        write   : {
+            type: 'json'
+        }
     }
 
 });

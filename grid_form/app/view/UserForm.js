@@ -21,7 +21,8 @@ Ext.define('App.view.UserForm', {
 		}, {
 			name 		: 'email',
 			fieldLabel 	: 'E-mail',
-			padding 	: 5
+			padding 	: 5,
+        	allowBlank 	: false
 		}, {
 			name 		: 'phone',
 			fieldLabel 	: 'Phone',
@@ -38,6 +39,10 @@ Ext.define('App.view.UserForm', {
 		{
 			text 	: 'Add',
 			action 	: 'add',
+		}, {
+			text 	: 'Delete',
+			action 	: 'delete',
+			hidden 	: true
 		}, {
 			text 	: 'Cancel',
 			action 	: 'cancel',

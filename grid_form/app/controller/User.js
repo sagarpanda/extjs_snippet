@@ -20,6 +20,9 @@ Ext.define('App.controller.User', {
 		}, {
 			ref 	: 'formCancelBtn',
 			selector: 'userForm button[action=cancel]'
+		}, {
+			ref 	: 'formDeleteBtn',
+			selector: 'userForm button[action=delete]'
 		}
 	],
 
@@ -46,8 +49,12 @@ Ext.define('App.controller.User', {
 
 					console.log(form.getValues());
 
-					this.getUserStore().create(iValues);
-					form.getForm().reset();
+					if (form.getForm().isValid()) {
+						//this.getUserStore().create(iValues);
+						this.getUserStore().add(iValues);
+						this.getUserStore().sync();
+						form.getForm().reset();
+					};
 				}
 			},
 
@@ -74,6 +81,19 @@ Ext.define('App.controller.User', {
 					this.getUserGrid().getSelectionModel().deselectAll(true);
 					this.showAddBtn();
 				}
+			},
+
+			'userForm button[action=delete]':{
+				click: function(btn, evt){
+					var form 	= this.getUserFrm();
+					var iRecord = form.getRecord();
+
+					this.getUserGrid().getSelectionModel().deselectAll(true);
+					this.getUserStore().remove(iRecord);
+					this.getUserStore().sync();
+					this.getUserFrm().getForm().reset();
+					this.showAddBtn();
+				}
 			}
 		});
 	},
@@ -82,6 +102,7 @@ Ext.define('App.controller.User', {
 		this.getFormAddBtn().show();
 		this.getFormSaveBtn().hide();
 		this.getFormCancelBtn().hide();
+		this.getFormDeleteBtn().hide();
 	},
 
 	showSaveBtn: function() {
@@ -89,5 +110,6 @@ Ext.define('App.controller.User', {
 		this.getFormAddBtn().hide();
 		this.getFormSaveBtn().show();
 		this.getFormCancelBtn().show();
+		this.getFormDeleteBtn().show();
 	}
 });
