@@ -28,7 +28,7 @@ Ext.define('App.store.User', {
 
     proxy   : {
         type    : 'ajax',
-        url     : 'http://sagarpanda.com/services/user.php',
+        url     : 'services/user.php',
         reader  : {
             type    : 'json',
             root    : 'items',
